@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script>
+
+    function microfone(){
+        var context = new (window.AudioContext || window.webkitAudioContext)();
+        var sineWave = context.createOscillator();
+        /*
+         sine
+         square
+         sawtooth
+         triangle
+         custom
+         */
+        sineWave.type = "sine"; // 0 is sineWave
+
+        // Declare gain node
+        var gainNode = context.createGain(); // createGainNode is deprecated
+
+        // Connect sine wave to gain node
+
+        sineWave.connect(gainNode);
+
+        // Connect gain node to speakers
+
+        gainNode.connect(context.destination);
+
+        // Play sine wave
+
+        sineWave.start(0); // noteOn is deprecated
+
+        gainNode.gain.value = 0.1;
+    }
+</script>
+<body onload="microfone()">
+
+</body>
+</html>

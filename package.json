@@ -1,0 +1,10 @@
+{
+  "name": "cotuto_api",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mysql": "^2.10.2",
+    "restify": "^4.0.4"
+  }
+}
