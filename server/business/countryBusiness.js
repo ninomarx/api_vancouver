@@ -1,22 +1,10 @@
-var factory     =    require("./../factory/dbfactory");
+var factory = require("./../factory/dbfactory");
 
-var MensagemBusiness = (function() {
+var CountryBusiness = (function() {
 
-    /**
-     *
-     * @constructor
-     */
-    var MensagemBusiness = function() {
+    var CountryBusiness = function() {};
 
-
-    };
-
-    /**
-     * Salvar Mensagem
-     * @param mensagemModel
-     * @param callback
-     */
-    MensagemBusiness.prototype.salvar = function(mensagemModel, callback) {
+    CountryBusiness.prototype.save = function(countryModel, callback) {
 
         var connection = factory.getConnection();
 
@@ -26,37 +14,27 @@ var MensagemBusiness = (function() {
         sql = sql + " INSERT INTO Country (cou_description, cou_code) ";
         sql = sql + " VALUES ";
         sql = sql + " (";
-        sql = sql + "'" + mensagemModel.cou_description + "', ";
-        sql = sql + "'" + mensagemModel.cou_code + "' ";
+        sql = sql + "'" + countryModel.cou_description + "', ";
+        sql = sql + "'" + countryModel.cou_code + "' ";
         sql = sql + "); ";
 
         connection.query(sql,function(err,info){
             connection.end();
-            //pool.end();
             if(!err) {
-
-                var result = mensagemModel.cou_description;
+                var result = countryModel.cou_description;
                 callback(result);
             }
         });
 
         connection.on('error', function(err) {
             connection.end();
-            //pool.end();
-            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+            callback({"code" : 100, "status" : "Error to connect database"});
         });
 
 
     };
 
-
-    /**
-     * Consultar
-     *
-     * @param mensagemModel
-     * @param callback
-     */
-    MensagemBusiness.prototype.consultar = function(mensagemModel, callback) {
+   /* MensagemBusiness.prototype.select = function(countryModel, callback) {
 
         var connection = factory.getConnection();
         connection.connect();
@@ -70,7 +48,7 @@ var MensagemBusiness = (function() {
             connection.end();
             if(!err) {
 
-                var collectionMensagem = mensagens;
+                var countryModel = mensagens;
 
                 callback(collectionMensagem);
             }
@@ -84,14 +62,7 @@ var MensagemBusiness = (function() {
 
     };
 
-
-    /**
-     * Deletar
-     *
-     * @param mensagemModel
-     * @param callback
-     */
-    MensagemBusiness.prototype.deletar = function(mensagemModel, callback) {
+    MensagemBusiness.prototype.delete = function(mensagemModel, callback) {
 
         var  pool = factory.getPool();
         pool.getConnection(function(err,connection){
@@ -125,9 +96,9 @@ var MensagemBusiness = (function() {
             });
         });
 
-    };
+    };*/
 
-    return new MensagemBusiness();
+    return new CountryBusiness();
 })();
 
-module.exports = MensagemBusiness;
+module.exports = CountryBusiness;
