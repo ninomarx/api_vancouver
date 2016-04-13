@@ -5,7 +5,6 @@ var server = restify.createServer({
     version: '1.0.0'
 });
 
-/*
 function corsHandler(req, res, next) {
 
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -21,31 +20,30 @@ function optionsRoute(req, res, next) {
 
     res.send(200);
     return next();
-}*/
+}
 
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
-/*server.use(restify.CORS({
+server.use(restify.CORS({
     origins: ['http://localhost:8080', 'http://localhost:63342', 'https://cotutoweb.herokuapp.com', 'http://cotutoweb.herokuapp.com','http://cotutoweb.herokuapp.com/Cotuto_Web'],   // defaults to ['*']
     credentials: true,                 // defaults to false
     headers: ['x-foo'],                 // sets expose-headers
     methods: ['GET','PUT','DELETE','POST','OPTIONS']
-}));*/
+}));
 
-
+/*
 server.use(restify.CORS());
-server.opts(/.*/, function (req,res,next) {
+server.opts(/.*!/, function (req,res,next) {
                 res.header("Access-Control-Allow-Origin", "*");
                 res.header("Access-Control-Allow-Methods",
                 req.header("Access-Control-Request-Method"));
                 res.header("Access-Control-Allow-Headers",
                 req.header("Access-Control-Request-Headers"));
-                res.send(200); return next();
-});
+                res.send(200); return next(); });
 
-server.opts('/\.*/', corsHandler, optionsRoute);
+server.opts('/\.*!/', corsHandler, optionsRoute);*/
 
 var countryResource  = require("./server/resource/countryResource");
 var categoryResource = require("./server/resource/categoryResource");
