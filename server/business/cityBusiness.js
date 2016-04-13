@@ -36,6 +36,36 @@ var CityBusiness = (function() {
 
     };
 
+    CityBusiness.prototype.selectbyProvince = function(cityModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " SELECT * ";
+        sql = sql + " FROM city ";
+        sql = sql + " WHERE";
+        sql = sql + " pro_id = " + cityModel.pro_id + ";";
+
+
+        connection.query(sql,function(err,city){
+            connection.end();
+            if(!err) {
+
+                var collectionCity = city;
+
+                callback(collectionCity);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
+
+
+    };
+
     return new CityBusiness();
 })();
 

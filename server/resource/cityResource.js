@@ -22,6 +22,21 @@ var CityResource = (function() {
 
     }
 
+
+    CityResource.prototype.selectbyProvince = function(req,res){
+
+        var cityModel = new Object();
+
+        if (req){
+            cityModel = req.body;
+        }
+
+        cityBusiness.selectbyProvince(cityModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
     return new CityResource();
 })();
 

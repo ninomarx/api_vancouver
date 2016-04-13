@@ -36,6 +36,20 @@ var LoginResource = (function() {
 
     }
 
+    LoginResource.prototype.recoverPassword = function(req,res){
+
+        var loginModel = new Object();
+
+        if (req){
+            loginModel = req.body;
+        }
+
+        loginBusiness.recoverPassword(loginModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
     return new LoginResource();
 })();
 

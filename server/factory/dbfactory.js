@@ -34,7 +34,8 @@ var DbFactory = (function() {
             host     : 'us-cdbr-iron-east-03.cleardb.net',
             user     : 'bcb66f67dd09b7',
             password : '481935e4',
-            database : 'heroku_461cbb34ac72c8b'
+            database : 'heroku_461cbb34ac72c8b',
+            multipleStatements: true
         });
     }
 
@@ -49,7 +50,7 @@ HEROKU
  host     : 'us-cdbr-iron-east-03.cleardb.net',
  user     : 'bcb66f67dd09b7',
  password : '481935e4',
- database : 'heroku_461cbb34ac72c8b'
+ database : 'heroku_461cbb34ac72c8b',
 
  LOCAL
  host     : 'localhost',
