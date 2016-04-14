@@ -19,7 +19,8 @@ var CourseBusiness = (function() {
         sql = sql + "   WHEN cla_min_size <= students AND cla_allow_lateRegistration = 'N' THEN 'B' ";
         sql = sql + "   ELSE 'C' ";
         sql = sql + "   END AS priority, ";
-        sql = sql + "   ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) AS distance ";
+        //sql = sql + "   ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) AS distance ";
+        sql = sql + " " + courseModel.latitude + " AS distance ";
         sql = sql + " FROM ";
         sql = sql + " ( ";
         sql = sql + " SELECT  COU.cor_image, COU.cor_name, COU.cor_description,  CL.cla_id, CL.cla_cost, ";
