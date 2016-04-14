@@ -140,8 +140,7 @@ var CourseBusiness = (function() {
             });
         }
         catch(err){
-            var collectionCourseError = [];
-            callback(collectionCourseError);
+            callback(err);
         }
 
 
