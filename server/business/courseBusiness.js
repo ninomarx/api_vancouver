@@ -76,66 +76,73 @@ var CourseBusiness = (function() {
 
     CourseBusiness.prototype.selectNearby = function(courseModel, callback) {
 
-        var connection = factory.getConnection();
-        connection.connect();
+        try {
 
-        var sql = "";
+            var connection = factory.getConnection();
+            connection.connect();
 
-        sql = sql + " SELECT *, ";
-        sql = sql + "   CASE ";
-        sql = sql + "   WHEN cla_min_size > students AND cla_deadline > 0 THEN 'A' ";
-        sql = sql + "   WHEN cla_min_size <= students AND cla_allow_lateRegistration = 'N' THEN 'B' ";
-        sql = sql + "   ELSE 'C' ";
-        sql = sql + "   END AS priority, ";
-        sql = sql + "   ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) AS distance ";
-        sql = sql + " FROM ";
-        sql = sql + " ( ";
-        sql = sql + " SELECT  COU.cor_image, COU.cor_name, COU.cor_description,  CL.cla_id, CL.cla_cost, ";
-        sql = sql + "   DATE_FORMAT(CT.clt_date, \"%b. %d\") as clt_date,CT.clt_date AS clt_dateFilter, ";
-        sql = sql + "   DATE_FORMAT(CT.clt_start_time,\"%l:%i%p\")AS clt_start_time,  DAYNAME(CT.clt_date) AS week_day, ";
-        sql = sql + "   CI.cit_description, PR.pro_code, AG.age_description,  COL.col_description,CL.cla_min_size, ";
-        sql = sql + "   CL.cla_max_size,  TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline, ";
-        sql = sql + "   CL.cla_deadline AS cla_deadlineFilter, CONCAT(US.use_first_name,' ',US.use_last_name ) as use_name, ";
-        sql = sql + "   US.use_image,(CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
-        sql = sql + "   CL.cla_allow_lateRegistration,COALESCE(WS.wis_status,'N') AS wis_status, COALESCE(SUM(CR.use_id),0) AS students, ";
-        sql = sql + "   CL.cla_latitude, CL.cla_longitude ";
-        sql = sql + " FROM course COU ";
-        sql = sql + "   INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
-        sql = sql + "   INNER JOIN class_time CT ON CL.cla_id = CT.cla_id ";
-        sql = sql + "   INNER JOIN city CI ON CL.cit_id = CI.cit_id ";
-        sql = sql + "   INNER JOIN province PR ON CI.pro_id = PR.pro_id ";
-        sql = sql + "   INNER JOIN user US ON US.use_id = COU.use_id ";
-        sql = sql + "   INNER JOIN age AG ON CL.age_id = AG.age_id ";
-        sql = sql + "   INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
-        sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
-        sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id ";
-        sql = sql + " WHERE ";
-        sql = sql + "       COU.cor_status = 'A' ";
-        sql = sql + "   AND CL.cla_status = 'A' ";
-        sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
-        sql = sql + " ) AS AUX ";
-        sql = sql + " WHERE spot_left > 0 AND (ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) BETWEEN 0 AND 2.5)  ";
-   /*     sql = sql + " AND ( ";
-        sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
-        sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
-        sql = sql + " ) ";*/
-        sql = sql + " ORDER BY priority, distance, cla_deadline,spot_left DESC, cor_name; ";
+            var sql = "";
+
+            sql = sql + " SELECT *, ";
+            sql = sql + "   CASE ";
+            sql = sql + "   WHEN cla_min_size > students AND cla_deadline > 0 THEN 'A' ";
+            sql = sql + "   WHEN cla_min_size <= students AND cla_allow_lateRegistration = 'N' THEN 'B' ";
+            sql = sql + "   ELSE 'C' ";
+            sql = sql + "   END AS priority, ";
+            sql = sql + "   ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) AS distance ";
+            sql = sql + " FROM ";
+            sql = sql + " ( ";
+            sql = sql + " SELECT  COU.cor_image, COU.cor_name, COU.cor_description,  CL.cla_id, CL.cla_cost, ";
+            sql = sql + "   DATE_FORMAT(CT.clt_date, \"%b. %d\") as clt_date,CT.clt_date AS clt_dateFilter, ";
+            sql = sql + "   DATE_FORMAT(CT.clt_start_time,\"%l:%i%p\")AS clt_start_time,  DAYNAME(CT.clt_date) AS week_day, ";
+            sql = sql + "   CI.cit_description, PR.pro_code, AG.age_description,  COL.col_description,CL.cla_min_size, ";
+            sql = sql + "   CL.cla_max_size,  TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline, ";
+            sql = sql + "   CL.cla_deadline AS cla_deadlineFilter, CONCAT(US.use_first_name,' ',US.use_last_name ) as use_name, ";
+            sql = sql + "   US.use_image,(CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
+            sql = sql + "   CL.cla_allow_lateRegistration,COALESCE(WS.wis_status,'N') AS wis_status, COALESCE(SUM(CR.use_id),0) AS students, ";
+            sql = sql + "   CL.cla_latitude, CL.cla_longitude ";
+            sql = sql + " FROM course COU ";
+            sql = sql + "   INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
+            sql = sql + "   INNER JOIN class_time CT ON CL.cla_id = CT.cla_id ";
+            sql = sql + "   INNER JOIN city CI ON CL.cit_id = CI.cit_id ";
+            sql = sql + "   INNER JOIN province PR ON CI.pro_id = PR.pro_id ";
+            sql = sql + "   INNER JOIN user US ON US.use_id = COU.use_id ";
+            sql = sql + "   INNER JOIN age AG ON CL.age_id = AG.age_id ";
+            sql = sql + "   INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
+            sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
+            sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id ";
+            sql = sql + " WHERE ";
+            sql = sql + "       COU.cor_status = 'A' ";
+            sql = sql + "   AND CL.cla_status = 'A' ";
+            sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
+            sql = sql + " ) AS AUX ";
+            sql = sql + " WHERE spot_left > 0 AND (ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) BETWEEN 0 AND 2.5)  ";
+            /*     sql = sql + " AND ( ";
+             sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
+             sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
+             sql = sql + " ) ";*/
+            sql = sql + " ORDER BY priority, distance, cla_deadline,spot_left DESC, cor_name; ";
 
 
-        connection.query(sql,function(err,courses){
-            connection.end();
-            if(!err) {
+            connection.query(sql, function (err, courses) {
+                connection.end();
+                if (!err) {
 
-                var collectionCourse = courses;
+                    var collectionCourse = courses;
 
-                callback(collectionCourse);
-            }
-        });
+                    callback(collectionCourse);
+                }
+            });
 
-        connection.on('error', function(err) {
-            connection.end();
-            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
-        });
+            connection.on('error', function (err) {
+                connection.end();
+                callback({"code": 100, "status": "Erro ao conectar com banco de dados"});
+            });
+        }
+        catch(err){
+            var collectionCourseError = [];
+            callback(collectionCourseError);
+        }
 
 
     };
