@@ -11,14 +11,14 @@ var EmailBusiness = (function() {
 
     EmailBusiness.prototype.sendEmailConfirmation = function(email_to, name) {
 
-        email_to = "ninomarques.info@gmail.com";
+        //email_to = "ninomarques.info@gmail.com";
 
         var mailOptions = {
             from: '"Cotuto Info" <info@cotuto.com>', // sender address
             to: email_to, // list of receivers
             subject: 'Hello', // Subject line
             text: 'Hello world?', // plaintext body
-            html: '<b>Hello world'+ name + '</b>' // html body
+            html: '<b>Hello '+ name + ', welcome to Cotuto!</b>' // html body
         };
 
         transporter.sendMail(mailOptions, function(error, info){
@@ -32,7 +32,7 @@ var EmailBusiness = (function() {
 
     EmailBusiness.prototype.sendPasswordRecovery = function(email_to, name, newPassword) {
 
-        email_to = "ninomarques.info@gmail.com";
+        //email_to = "ninomarques.info@gmail.com";
 
         var mailOptions = {
             from: '"Cotuto Info" <info@cotuto.com>', // sender address

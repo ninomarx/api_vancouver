@@ -111,9 +111,10 @@ var ClassBusiness = (function() {
                 connection.query(sql,function(err,classObj1){
                     if(!err) {
 
+                        sql = "";
+
                         classModel.class_time_data.forEach(function (item) {
 
-                            sql = "";
                             sql = sql + " INSERT INTO class_time (clt_date,clt_start_time,cla_id,clt_address,clt_firstClass) ";
                             sql = sql + " VALUES ('" + item.clt_date + "', ";
                             sql = sql + " '" + item.clt_start_time + "', ";

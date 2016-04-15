@@ -1,4 +1,5 @@
 var factory = require("./../factory/dbfactory");
+var utilBusiness = require("./../business/utilBusiness");
 
 var CourseBusiness = (function() {
 
@@ -20,7 +21,7 @@ var CourseBusiness = (function() {
         sql = sql + "   ELSE 'C' ";
         sql = sql + "   END AS priority, ";
         //sql = sql + "   ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) AS distance ";
-        sql = sql + " " + courseModel.latitude + " AS distance ";
+        sql = sql + "   0 AS distance ";
         sql = sql + " FROM ";
         sql = sql + " ( ";
         sql = sql + " SELECT  COU.cor_image, COU.cor_name, COU.cor_description,  CL.cla_id, CL.cla_cost, ";
@@ -30,8 +31,10 @@ var CourseBusiness = (function() {
         sql = sql + "   CL.cla_max_size,  TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline, ";
         sql = sql + "   CL.cla_deadline AS cla_deadlineFilter, CONCAT(US.use_first_name,' ',US.use_last_name ) as use_name, ";
         sql = sql + "   US.use_image,(CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
-        sql = sql + "   CL.cla_allow_lateRegistration,COALESCE(WS.wis_status,'N') AS wis_status, COALESCE(SUM(CR.use_id),0) AS students, ";
+        sql = sql + "   CL.cla_allow_lateRegistration, COALESCE(SUM(CR.use_id),0) AS students, ";
         sql = sql + "   CL.cla_latitude, CL.cla_longitude ";
+        if(courseModel.use_id != "")
+            sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status"
         sql = sql + " FROM course COU ";
         sql = sql + "   INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
         sql = sql + "   INNER JOIN class_time CT ON CL.cla_id = CT.cla_id ";
@@ -41,7 +44,8 @@ var CourseBusiness = (function() {
         sql = sql + "   INNER JOIN age AG ON CL.age_id = AG.age_id ";
         sql = sql + "   INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
         sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
-        sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id ";
+        if(courseModel.use_id != "")
+            sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
         sql = sql + " WHERE CI.cit_id =  " + courseModel.cit_id + " ";
         sql = sql + "   AND COU.cor_status = 'A' ";
         sql = sql + "   AND CL.cla_status = 'A' ";
@@ -61,6 +65,23 @@ var CourseBusiness = (function() {
 
                 var collectionCourse = courses;
 
+                collectionCourse.forEach(function(item){
+
+                    utilBusiness.getDistanceFromLatLonInKm(courseModel.latitude,courseModel.longitude,item.cla_latitude, item.cla_longitude, function(obj){
+                        item.distance = obj;
+                    });
+                })
+
+                collectionCourse = collectionCourse.sort(utilBusiness.sort_by('priority', {
+                                                                                name: 'cla_deadline',
+                                                                                primer: parseInt,
+                                                                                reverse: false
+                                                                            },{
+                                                                                name: 'spot_left',
+                                                                                primer: parseInt,
+                                                                                reverse: true
+                                                                            }));
+
                 callback(collectionCourse);
             }
         });
@@ -76,72 +97,92 @@ var CourseBusiness = (function() {
 
     CourseBusiness.prototype.selectNearby = function(courseModel, callback) {
 
-        try {
+        var connection = factory.getConnection();
+        connection.connect();
 
-            var connection = factory.getConnection();
-            connection.connect();
+        var sql = "";
 
-            var sql = "";
+        sql = sql + " SELECT *, ";
+        sql = sql + "   CASE ";
+        sql = sql + "   WHEN cla_min_size > students AND cla_deadline > 0 THEN 'A' ";
+        sql = sql + "   WHEN cla_min_size <= students AND cla_allow_lateRegistration = 'N' THEN 'B' ";
+        sql = sql + "   ELSE 'C' ";
+        sql = sql + "   END AS priority, 0 AS distance ";
+        //sql = sql + "   ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) AS distance ";
+        sql = sql + " FROM ";
+        sql = sql + " ( ";
+        sql = sql + " SELECT  COU.cor_image, COU.cor_name, COU.cor_description,  CL.cla_id, CL.cla_cost, ";
+        sql = sql + "   DATE_FORMAT(CT.clt_date, \"%b. %d\") as clt_date,CT.clt_date AS clt_dateFilter, ";
+        sql = sql + "   DATE_FORMAT(CT.clt_start_time,\"%l:%i%p\")AS clt_start_time,  DAYNAME(CT.clt_date) AS week_day, ";
+        sql = sql + "   CI.cit_description, PR.pro_code, AG.age_description,  COL.col_description,CL.cla_min_size, ";
+        sql = sql + "   CL.cla_max_size,  TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline, ";
+        sql = sql + "   CL.cla_deadline AS cla_deadlineFilter, CONCAT(US.use_first_name,' ',US.use_last_name ) as use_name, ";
+        sql = sql + "   US.use_image,(CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
+        sql = sql + "   CL.cla_allow_lateRegistration, COALESCE(SUM(CR.use_id),0) AS students, ";
+        sql = sql + "   CL.cla_latitude, CL.cla_longitude ";
+        if(courseModel.use_id != "")
+            sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status"
+        sql = sql + " FROM course COU ";
+        sql = sql + "   INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
+        sql = sql + "   INNER JOIN class_time CT ON CL.cla_id = CT.cla_id ";
+        sql = sql + "   INNER JOIN city CI ON CL.cit_id = CI.cit_id ";
+        sql = sql + "   INNER JOIN province PR ON CI.pro_id = PR.pro_id ";
+        sql = sql + "   INNER JOIN user US ON US.use_id = COU.use_id ";
+        sql = sql + "   INNER JOIN age AG ON CL.age_id = AG.age_id ";
+        sql = sql + "   INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
+        sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
+        if(courseModel.use_id != "")
+            sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
+        sql = sql + " WHERE ";
+        sql = sql + "       COU.cor_status = 'A' ";
+        sql = sql + "   AND CL.cla_status = 'A' ";
+        sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
+        sql = sql + " ) AS AUX ";
+        sql = sql + " WHERE spot_left > 0";
+   /*     sql = sql + " AND ( ";
+        sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
+        sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
+        sql = sql + " ) ";*/
+        sql = sql + " ORDER BY priority, distance, cla_deadline,spot_left DESC, cor_name; ";
 
-            sql = sql + " SELECT *, ";
-            sql = sql + "   CASE ";
-            sql = sql + "   WHEN cla_min_size > students AND cla_deadline > 0 THEN 'A' ";
-            sql = sql + "   WHEN cla_min_size <= students AND cla_allow_lateRegistration = 'N' THEN 'B' ";
-            sql = sql + "   ELSE 'C' ";
-            sql = sql + "   END AS priority, ";
-            sql = sql + "   ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) AS distance ";
-            sql = sql + " FROM ";
-            sql = sql + " ( ";
-            sql = sql + " SELECT  COU.cor_image, COU.cor_name, COU.cor_description,  CL.cla_id, CL.cla_cost, ";
-            sql = sql + "   DATE_FORMAT(CT.clt_date, \"%b. %d\") as clt_date,CT.clt_date AS clt_dateFilter, ";
-            sql = sql + "   DATE_FORMAT(CT.clt_start_time,\"%l:%i%p\")AS clt_start_time,  DAYNAME(CT.clt_date) AS week_day, ";
-            sql = sql + "   CI.cit_description, PR.pro_code, AG.age_description,  COL.col_description,CL.cla_min_size, ";
-            sql = sql + "   CL.cla_max_size,  TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline, ";
-            sql = sql + "   CL.cla_deadline AS cla_deadlineFilter, CONCAT(US.use_first_name,' ',US.use_last_name ) as use_name, ";
-            sql = sql + "   US.use_image,(CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
-            sql = sql + "   CL.cla_allow_lateRegistration,COALESCE(WS.wis_status,'N') AS wis_status, COALESCE(SUM(CR.use_id),0) AS students, ";
-            sql = sql + "   CL.cla_latitude, CL.cla_longitude ";
-            sql = sql + " FROM course COU ";
-            sql = sql + "   INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
-            sql = sql + "   INNER JOIN class_time CT ON CL.cla_id = CT.cla_id ";
-            sql = sql + "   INNER JOIN city CI ON CL.cit_id = CI.cit_id ";
-            sql = sql + "   INNER JOIN province PR ON CI.pro_id = PR.pro_id ";
-            sql = sql + "   INNER JOIN user US ON US.use_id = COU.use_id ";
-            sql = sql + "   INNER JOIN age AG ON CL.age_id = AG.age_id ";
-            sql = sql + "   INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
-            sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
-            sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id ";
-            sql = sql + " WHERE ";
-            sql = sql + "       COU.cor_status = 'A' ";
-            sql = sql + "   AND CL.cla_status = 'A' ";
-            sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
-            sql = sql + " ) AS AUX ";
-            sql = sql + " WHERE spot_left > 0 AND (ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) BETWEEN 0 AND 2.5)  ";
-            /*     sql = sql + " AND ( ";
-             sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
-             sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
-             sql = sql + " ) ";*/
-            sql = sql + " ORDER BY priority, distance, cla_deadline,spot_left DESC, cor_name; ";
 
+        connection.query(sql,function(err,courses){
+            connection.end();
+            if(!err) {
 
-            connection.query(sql, function (err, courses) {
-                connection.end();
-                if (!err) {
+                var collectionCourse = courses;
+                var collectionCourseRet = [];
 
-                    var collectionCourse = courses;
+                collectionCourse.forEach(function(item){
 
-                    callback(collectionCourse);
-                }
-            });
+                    utilBusiness.getDistanceFromLatLonInKm(courseModel.latitude,courseModel.longitude,item.cla_latitude, item.cla_longitude, function(obj){
+                        item.distance = obj;
+                    });
 
-            connection.on('error', function (err) {
-                connection.end();
-                callback({"code": 100, "status": "Erro ao conectar com banco de dados"});
-            });
-        }
-        catch(err){
-            callback(err);
-        }
+                    if(item.distance <= 5){
+                        collectionCourseRet.push(item);
+                    }
+
+                })
+
+                collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('priority', {
+                    name: 'distance',
+                    primer: parseInt,
+                    reverse: false
+                },{
+                    name: 'cla_deadline',
+                    primer: false,
+                    reverse: true
+                }));
+
+                callback(collectionCourseRet);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
 
 
     };
@@ -158,8 +199,8 @@ var CourseBusiness = (function() {
         sql = sql + "   WHEN cla_min_size > students AND cla_deadline > 0 THEN 'A' ";
         sql = sql + "   WHEN cla_min_size <= students AND cla_allow_lateRegistration = 'N' THEN 'B' ";
         sql = sql + "   ELSE 'C' ";
-        sql = sql + "   END AS priority, ";
-        sql = sql + "   ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) AS distance ";
+        sql = sql + "   END AS priority, 0 AS distance";
+        //sql = sql + "   ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) AS distance ";
         sql = sql + " FROM ";
         sql = sql + " ( ";
         sql = sql + " SELECT  COU.cor_image, COU.cor_name, COU.cor_description,  CL.cla_id, CL.cla_cost, ";
@@ -169,8 +210,10 @@ var CourseBusiness = (function() {
         sql = sql + "   CL.cla_max_size,  TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline, ";
         sql = sql + "   CL.cla_deadline AS cla_deadlineFilter, CONCAT(US.use_first_name,' ',US.use_last_name ) as use_name, ";
         sql = sql + "   US.use_image,(CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
-        sql = sql + "   CL.cla_allow_lateRegistration,COALESCE(WS.wis_status,'N') AS wis_status, COALESCE(SUM(CR.use_id),0) AS students, ";
+        sql = sql + "   CL.cla_allow_lateRegistration, COALESCE(SUM(CR.use_id),0) AS students, ";
         sql = sql + "   CL.cla_latitude, CL.cla_longitude ";
+        if(courseModel.use_id != "")
+            sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status"
         sql = sql + " FROM course COU ";
         sql = sql + "   INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
         sql = sql + "   INNER JOIN class_time CT ON CL.cla_id = CT.cla_id ";
@@ -180,16 +223,18 @@ var CourseBusiness = (function() {
         sql = sql + "   INNER JOIN age AG ON CL.age_id = AG.age_id ";
         sql = sql + "   INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
         sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
-        sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id ";
-        sql = sql + "   INNER JOIN course_subcategory COS ON COU.cor_id = COS.cor_id ";
-        sql = sql + "   INNER JOIN user_interests UI ON UI.cat_id = COS.cat_id ";
+        if(courseModel.use_id != "") {
+            sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
+            sql = sql + "   INNER JOIN course_subcategory COS ON COU.cor_id = COS.cor_id ";
+            sql = sql + "   INNER JOIN user_interests UI ON UI.cat_id = COS.cat_id  and UI.use_id = " + courseModel.use_id + " ";
+        }
         sql = sql + " WHERE ";
         sql = sql + "       COU.cor_status = 'A' ";
         sql = sql + "   AND CL.cla_status = 'A' ";
         sql = sql + "   AND UI.use_id = 5 ";
         sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
         sql = sql + " ) AS AUX ";
-        sql = sql + " WHERE spot_left > 0 AND (ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) BETWEEN 0 AND 2.5)  ";
+        sql = sql + " WHERE spot_left > 0 ";
 /*        sql = sql + " AND ( ";
         sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
         sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
@@ -202,6 +247,23 @@ var CourseBusiness = (function() {
             if(!err) {
 
                 var collectionCourse = courses;
+
+                collectionCourse.forEach(function(item){
+
+                    utilBusiness.getDistanceFromLatLonInKm(courseModel.latitude,courseModel.longitude,item.cla_latitude, item.cla_longitude, function(obj){
+                        item.distance = obj;
+                    });
+                })
+
+                collectionCourse = collectionCourse.sort(utilBusiness.sort_by('priority', {
+                    name: 'distance',
+                    primer: parseInt,
+                    reverse: false
+                },{
+                    name: 'cla_deadline',
+                    primer: false,
+                    reverse: true
+                }));
 
                 callback(collectionCourse);
             }
@@ -603,32 +665,32 @@ var CourseBusiness = (function() {
             sql = sql + " cor_learn,cor_bring,cor_aware_before,cor_structure,cor_image,cor_added_date, ";
             sql = sql + " cor_status,use_id,cor_who_isfor,cor_expertise,cor_why_love,cor_style,cor_why_take) ";
             sql = sql + " VALUES ( ";
-            sql = sql + " '" + courseModel.cor_name + "', '" + courseModel.cor_description + "', '" + courseModel.cor_accreditation + "', ";
-            sql = sql + " '" + courseModel.cor_accreditation_description + "', '" + courseModel.cor_learn + "', '" + courseModel.cor_bring + "', ";
-            sql = sql + " '" + courseModel.cor_aware_before + "', '" + courseModel.cor_structure + "', '" + courseModel.cor_image + "', ";
+            sql = sql + " '" + courseModel.cor_name.replace(/'/g, "\\'") + "', '" + courseModel.cor_description.replace(/'/g, "\\'") + "', '" + courseModel.cor_accreditation.replace(/'/g, "\\'") + "', ";
+            sql = sql + " '" + courseModel.cor_accreditation_description.replace(/'/g, "\\'") + "', '" + courseModel.cor_learn.replace(/'/g, "\\'") + "', '" + courseModel.cor_bring.replace(/'/g, "\\'") + "', ";
+            sql = sql + " '" + courseModel.cor_aware_before.replace(/'/g, "\\'") + "', '" + courseModel.cor_structure.replace(/'/g, "\\'") + "', '" + courseModel.cor_image + "', ";
             sql = sql + " '" + courseModel.cor_added_date + "', '" + courseModel.cor_status + "', " + courseModel.use_id + ", ";
-            sql = sql + " '" + courseModel.cor_who_isfor + "', '" + courseModel.cor_expertise + "', '" + courseModel.cor_why_love + "', ";
-            sql = sql + " '" + courseModel.cor_style + "', '" + courseModel.cor_why_take + "' ";
+            sql = sql + " '" + courseModel.cor_who_isfor.replace(/'/g, "\\'") + "', '" + courseModel.cor_expertise.replace(/'/g, "\\'") + "', '" + courseModel.cor_why_love.replace(/'/g, "\\'") + "', ";
+            sql = sql + " '" + courseModel.cor_style.replace(/'/g, "\\'") + "', '" + courseModel.cor_why_take.replace(/'/g, "\\'") + "' ";
             sql = sql + " ); ";
 
         }
         else {
             sql = sql + " UPDATE course SET ";
-            sql = sql + " cor_name = '" + courseModel.cor_name + "',";
-            sql = sql + " cor_description = '" + courseModel.cor_description + "',";
-            sql = sql + " cor_accreditation = '" + courseModel.cor_accreditation + "',";
-            sql = sql + " cor_accreditation_description = '" + courseModel.cor_accreditation_description + "',";
-            sql = sql + " cor_learn = '" + courseModel.cor_learn + "',";
-            sql = sql + " cor_bring = '" + courseModel.cor_bring + "',";
-            sql = sql + " cor_aware_before = '" + courseModel.cor_aware_before + "',";
-            sql = sql + " cor_structure = '" + courseModel.cor_structure + "',";
+            sql = sql + " cor_name = '" + courseModel.cor_name.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_description = '" + courseModel.cor_description.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_accreditation = '" + courseModel.cor_accreditation.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_accreditation_description = '" + courseModel.cor_accreditation_description.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_learn = '" + courseModel.cor_learn.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_bring = '" + courseModel.cor_bring.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_aware_before = '" + courseModel.cor_aware_before.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_structure = '" + courseModel.cor_structure.replace(/'/g, "\\'") + "',";
             sql = sql + " cor_image = '" + courseModel.cor_image + "',";
             sql = sql + " cor_status = '" + courseModel.cor_status + "',";
-            sql = sql + " cor_who_isfor = '" + courseModel.cor_who_isfor + "',";
-            sql = sql + " cor_expertise = '" + courseModel.cor_expertise + "',";
-            sql = sql + " cor_why_love = '" + courseModel.cor_why_love + "',";
-            sql = sql + " cor_style = '" + courseModel.cor_style + "',";
-            sql = sql + " cor_why_take = '" + courseModel.cor_why_take + "'";
+            sql = sql + " cor_who_isfor = '" + courseModel.cor_who_isfor.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_expertise = '" + courseModel.cor_expertise.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_why_love = '" + courseModel.cor_why_love.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_style = '" + courseModel.cor_style.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_why_take = '" + courseModel.cor_why_take.replace(/'/g, "\\'") + "'";
             sql = sql + " WHERE ";
             sql = sql + " cor_id = " + courseModel.cor_id + ";";
         }
@@ -695,8 +757,8 @@ var CourseBusiness = (function() {
         sql = sql + "   WHEN cla_min_size > students AND cla_deadline > 0 THEN 'A' ";
         sql = sql + "   WHEN cla_min_size <= students AND cla_allow_lateRegistration = 'N' THEN 'B' ";
         sql = sql + "   ELSE 'C' ";
-        sql = sql + "   END AS priority, ";
-        sql = sql + "   ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) AS distance ";
+        sql = sql + "   END AS priority,0 AS distance";
+        //sql = sql + "   ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) AS distance ";
         sql = sql + " FROM ";
         sql = sql + " ( ";
         sql = sql + " SELECT  COU.cor_image, COU.cor_name, COU.cor_description,  CL.cla_id, CL.cla_cost, ";
@@ -706,8 +768,10 @@ var CourseBusiness = (function() {
         sql = sql + "   CL.cla_max_size,  TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline, ";
         sql = sql + "   CL.cla_deadline AS cla_deadlineFilter, CONCAT(US.use_first_name,' ',US.use_last_name ) as use_name, ";
         sql = sql + "   US.use_image,(CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
-        sql = sql + "   CL.cla_allow_lateRegistration,COALESCE(WS.wis_status,'N') AS wis_status, COALESCE(SUM(CR.use_id),0) AS students, ";
+        sql = sql + "   CL.cla_allow_lateRegistration, COALESCE(SUM(CR.use_id),0) AS students, ";
         sql = sql + "   CL.cla_latitude, CL.cla_longitude ";
+        if(courseModel.use_id != "")
+            sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status"
         sql = sql + " FROM course COU ";
         sql = sql + "   INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
         sql = sql + "   INNER JOIN class_time CT ON CL.cla_id = CT.cla_id ";
@@ -718,7 +782,8 @@ var CourseBusiness = (function() {
         sql = sql + "   INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
         sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
         sql = sql + " LEFT JOIN course_subcategory CSU ON COU.cor_id = CSU.cor_id ";
-        sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id ";
+        if(courseModel.use_id != "")
+            sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
         sql = sql + " WHERE ";
         sql = sql + "      COU.cor_status = 'A' AND ";
         sql = sql + "      CL.cla_status = 'A'  ";
@@ -760,13 +825,13 @@ var CourseBusiness = (function() {
 
                     if (aux == 1) {
                         if (item == "M")
-                            sql = sql + "  CT.clt_start_time < '12:00PM' ";
+                            sql = sql + "  CT.clt_start_time <= '12:00PM' ";
 
                         if (item == "N")
                             sql = sql + "  CT.clt_start_time BETWEEN '12:00PM' AND '6:00PM' ";
 
                         if (item == "E")
-                            sql = sql + "  CT.clt_start_time > '6:00PM' ";
+                            sql = sql + "  CT.clt_start_time >= '6:00PM' ";
                     }
                     else {
 
@@ -776,7 +841,7 @@ var CourseBusiness = (function() {
                             sql = sql + " OR ";
 
                         if (item == "M") {
-                            sql = sql + "  CT.clt_start_time < '12:00PM' ";
+                            sql = sql + "  CT.clt_start_time <= '12:00PM' ";
                             aux2++;
                         }
 
@@ -786,7 +851,7 @@ var CourseBusiness = (function() {
                         }
 
                         if (item == "E") {
-                            sql = sql + "  CT.clt_start_time > '6:00PM' ";
+                            sql = sql + "  CT.clt_start_time >= '6:00PM' ";
                             aux2++;
                         }
 
@@ -846,11 +911,6 @@ var CourseBusiness = (function() {
             sql = sql + " (CL.cla_cost BETWEEN " + courseModel.filter.price_1 + " AND " + courseModel.filter.price_2 + ") ";
         }
 
-        if(courseModel.filter.distance != ""){
-            sql = sql + " AND ";
-            sql = sql + " (ROUND(calc_distance(cla_latitude,cla_longitude," + courseModel.latitude + "," + courseModel.longitude + "), 2) <= "  + courseModel.filter.distance + " ) ";
-        }
-
         sql = sql + " GROUP BY COU.cor_id,CL.cla_id  ";
         sql = sql + " ) AS AUX ";
         sql = sql + " WHERE spot_left > 0  ";
@@ -868,9 +928,6 @@ var CourseBusiness = (function() {
         else if(courseModel.filter.sort == "P") {
             sql = sql + " ORDER BY cla_cost, priority, cla_deadline,spot_left DESC, distance, cor_name; ";
         }
-        else if(courseModel.filter.sort == "D") {
-            sql = sql + " ORDER BY distance,priority, cla_deadline,spot_left DESC, cor_name; ";
-        }
         else
         {
             sql = sql + " ORDER BY priority, cla_deadline,spot_left DESC, distance, cor_name; ";
@@ -882,8 +939,65 @@ var CourseBusiness = (function() {
             if(!err) {
 
                 var collectionCourse = courses;
+                var collectionCourseRet = courses;
 
-                callback(collectionCourse);
+                if(courseModel.filter.distance != "" && courseModel.filter.sort != "D") {
+
+                    var dist = courseModel.filter.distance;
+                    collectionCourseRet = [];
+
+                    collectionCourse.forEach(function (item) {
+
+                        utilBusiness.getDistanceFromLatLonInKm(courseModel.latitude, courseModel.longitude, item.cla_latitude, item.cla_longitude, function (obj) {
+                            item.distance = obj;
+                        });
+
+                        if(item.distance <= dist){
+                            collectionCourseRet.push(item);
+                        }
+                    })
+                }
+                else if(courseModel.filter.distance == "" && courseModel.filter.sort == "D") {
+
+                    collectionCourseRet.forEach(function (item) {
+
+                        utilBusiness.getDistanceFromLatLonInKm(courseModel.latitude, courseModel.longitude, item.cla_latitude, item.cla_longitude, function (obj) {
+                            item.distance = obj;
+                        });
+
+                    })
+
+                    collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('distance', {
+                        name: 'priority',
+                        primer: false,
+                        reverse: false
+                    }));
+                }
+                else if(courseModel.filter.distance != "" && courseModel.filter.sort == "D")
+                {
+                    var dist = courseModel.filter.distance;
+                    collectionCourseRet = [];
+
+                    collectionCourse.forEach(function (item) {
+
+                        utilBusiness.getDistanceFromLatLonInKm(courseModel.latitude, courseModel.longitude, item.cla_latitude, item.cla_longitude, function (obj) {
+                            item.distance = obj;
+                        });
+
+                        if(item.distance <= dist){
+                            collectionCourseRet.push(item);
+                        }
+                    })
+
+                    collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('distance', {
+                        name: 'priority',
+                        primer: false,
+                        reverse: false
+                    }));
+
+                }
+
+                callback(collectionCourseRet);
             }
         });
 

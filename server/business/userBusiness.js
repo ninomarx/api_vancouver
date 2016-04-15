@@ -1,4 +1,5 @@
 var factory = require("./../factory/dbfactory");
+var utilBusiness = require("./../business/utilBusiness");
 
 var UserBusiness = (function() {
 
@@ -7,6 +8,10 @@ var UserBusiness = (function() {
     };
 
     UserBusiness.prototype.saveStudent = function(userModel, callback) {
+
+        utilBusiness.processData(userModel, function(obj){
+            userModel = obj;
+        });
 
         var connection = factory.getConnection();
         connection.connect();
@@ -38,6 +43,10 @@ var UserBusiness = (function() {
     };
 
     UserBusiness.prototype.saveInstructor = function(userModel, callback) {
+
+        utilBusiness.processData(userModel, function(obj){
+            userModel = obj;
+        });
 
         var connection = factory.getConnection();
         connection.connect();

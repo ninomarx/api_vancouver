@@ -56,6 +56,6 @@ HEROKU
  host     : 'localhost',
  user     : 'root',
  password : '123',
- database : 'cotuto_db'
+ database : 'cotuto_db',
 
  */

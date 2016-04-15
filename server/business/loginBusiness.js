@@ -13,63 +13,61 @@ var LoginBusiness = (function() {
         connection.connect();
 
         var ObjReturn = "";
-        var sql = "";
         var collectionLogin = [];
 
+        var sql = "";
         sql = sql + " SELECT * ";
         sql = sql + " FROM user ";
         sql = sql + " WHERE ";
-        sql = sql + " use_login = '" + loginModel.use_login + "'";
+        sql = sql + " use_login = '" + loginModel.use_login + "'; ";
 
         connection.query(sql,function(err,login){
-            connection.end();
             if(!err) {
 
                 collectionLogin = login;
 
-                if (collectionLogin.length > 0) {
+                if (collectionLogin.length > 0)
+                {
                     ObjReturn = "COD001";
                     callback(ObjReturn);
                 }
-                else{
-
-                    var connection2 = factory.getConnection();
-                    connection2.connect();
-
-
+                else
+                {
                     sql = "";
                     sql = sql + " INSERT INTO user (use_login,use_first_name, use_password,use_email,use_image, use_status, use_type, use_registration_date,cit_id, use_facebook) ";
                     sql = sql + " VALUES ";
                     sql = sql + " ('" + loginModel.use_login + "','" + loginModel.use_first_name + "','" + loginModel.use_password + "','" + loginModel.use_login + "','noimage_user.png','A','1',now()," + loginModel.cit_id + ",'" + loginModel.use_facebook + "'); ";
 
-                    connection2.query(sql, function (err, login) {
-                        connection2.end();
+                    connection.query(sql, function (err, login2) {
                         if (!err) {
 
-                            var connection3 = factory.getConnection();
-                            connection3.connect();
-
                             sql = "";
-                            sql = sql + " SELECT * ";
-                            sql = sql + " FROM user U";
-                            sql = sql + " LEFT JOIN  user_instructor UI ON U.use_id = UI.use_id  ";
-                            sql = sql + " WHERE ";
-                            sql = sql + " use_login = '" + loginModel.use_login + "';";
+                            sql = sql + " INSERT INTO user_instructor (usi_about,usi_expertise,usi_credential,usi_image,usi_coached_before,usi_coached_experience,usi_speaking_groups, usi_speaking_experience, usi_course_name, usi_course_experience,use_id, com_id) ";
+                            sql = sql + " VALUES ";
+                            sql = sql + " ('','','','noimage_user.png','','','','','','','" + login2.insertId + "', ''); ";
 
-                            connection3.query(sql, function (err, login) {
-                                connection3.end();
-                                if (!err) {
-                                    emailBusiness.sendEmailConfirmation(loginModel.use_login,loginModel.use_first_name);
-                                    ObjReturn = login;
-                                    callback(ObjReturn);
+
+                            connection.query(sql, function (err, login3) {
+                                if (!err)
+                                {
+                                    sql = "";
+                                    sql = sql + " SELECT * ";
+                                    sql = sql + " FROM user U";
+                                    sql = sql + " LEFT JOIN  user_instructor UI ON U.use_id = UI.use_id  ";
+                                    sql = sql + " WHERE ";
+                                    sql = sql + " use_login = '" + loginModel.use_login + "';";
+
+                                    connection.query(sql, function (err, login4) {
+                                        connection.end();
+                                        if (!err) {
+                                            emailBusiness.sendEmailConfirmation(loginModel.use_login,loginModel.use_first_name);
+                                            ObjReturn = login4;
+                                            callback(ObjReturn);
+                                        }
+                                    });
                                 }
                             });
                         }
-                    });
-
-                    connection2.on('error', function(err) {
-                        connection.end();
-                        callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
                     });
 
                 }
@@ -79,7 +77,7 @@ var LoginBusiness = (function() {
 
         connection.on('error', function(err) {
             connection.end();
-            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+            callback({"code" : 100, "status" : "Error to connect database"});
         });
 
     };
