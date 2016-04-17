@@ -25,8 +25,10 @@ var UtilBusiness = (function() {
     UtilBusiness.prototype.processData = function(collection,callback){
 
         for(var obj in collection) {
-            if(collection[obj].toString().indexOf("[object") == -1) {
-                collection[obj] = collection[obj].toString().replace(/'/g, "\\'");
+            if(collection[obj] != null) {
+                if (collection[obj].toString().indexOf("[object") == -1) {
+                    collection[obj] = collection[obj].toString().replace(/'/g, "\\'");
+                }
             }
         }
 
