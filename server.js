@@ -48,6 +48,8 @@ var ageResource      = require("./server/resource/ageResource");
 var levelResource    = require("./server/resource/levelResource");
 var classResource    = require("./server/resource/classResource");
 var wishlistResource = require("./server/resource/wishlistResource");
+var registerResource = require("./server/resource/registerResource");
+var messageResource = require("./server/resource/messageResource");
 
 
 /**
@@ -247,6 +249,35 @@ server.post('/api/class/postClass', function (req, res, next) {
     return next();
 });
 
+server.post('/api/class/getClass', function (req, res, next) {
+    classResource.getClass(req,res);
+    return next();
+});
+
+server.post('/api/class/getClassComments', function (req, res, next) {
+    classResource.getClassComments(req,res);
+    return next();
+});
+
+server.post('/api/class/getClassTime', function (req, res, next) {
+    classResource.getClassTime(req,res);
+    return next();
+});
+
+server.post('/api/class/otherClassTime', function (req, res, next) {
+    classResource.otherClassTime(req,res);
+    return next();
+});
+
+server.post('/api/class/getClassesAttending', function (req, res, next) {
+    classResource.getClassesAttending(req,res);
+    return next();
+});
+
+server.post('/api/class/getClassesTeaching', function (req, res, next) {
+    classResource.getClassesTeaching(req,res);
+    return next();
+});
 
 
 /**
@@ -255,6 +286,51 @@ server.post('/api/class/postClass', function (req, res, next) {
 
 server.post('/api/wishlist/save', function (req, res, next) {
     wishlistResource.save(req,res);
+    return next();
+});
+
+
+/**
+ * Class Register
+ */
+
+server.post('/api/register/save', function (req, res, next) {
+    registerResource.save(req,res);
+    return next();
+});
+
+
+/**
+ * Message
+ */
+
+server.post('/api/message/getMessages', function (req, res, next) {
+    messageResource.getMessages(req,res);
+    return next();
+});
+
+server.post('/api/message/getMessagesTop', function (req, res, next) {
+    messageResource.getMessagesTop(req,res);
+    return next();
+});
+
+server.post('/api/message/getMessagesAmout', function (req, res, next) {
+    messageResource.getMessagesAmout(req,res);
+    return next();
+});
+
+server.post('/api/message/getMessagePages', function (req, res, next) {
+    messageResource.getMessagePages(req,res);
+    return next();
+});
+
+server.post('/api/message/starMessage', function (req, res, next) {
+    messageResource.starMessage(req,res);
+    return next();
+});
+
+server.post('/api/message/archiveMessage', function (req, res, next) {
+    messageResource.archiveMessage(req,res);
     return next();
 });
 
