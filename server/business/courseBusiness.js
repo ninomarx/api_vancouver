@@ -51,10 +51,10 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE CI.cit_id =  " + courseModel.cit_id + " ";
         sql = sql + "   AND COU.cor_status = 'A' ";
         sql = sql + "   AND CL.cla_status = 'A' ";
+        sql = sql + "   AND ct.clt_date >= CURDATE() ";
         sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
         sql = sql + " ) AS AUX ";
         sql = sql + " WHERE spot_left > 0  ";
-        sql = sql + "       AND ct.clt_date >= CURDATE() ";
   /*      sql = sql + " AND ( ";
         sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
         sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
