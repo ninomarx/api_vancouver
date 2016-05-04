@@ -54,6 +54,7 @@ var CourseBusiness = (function() {
         sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
         sql = sql + " ) AS AUX ";
         sql = sql + " WHERE spot_left > 0  ";
+        sql = sql + "       AND ct.clt_date >= CURDATE() ";
   /*      sql = sql + " AND ( ";
         sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
         sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
@@ -139,7 +140,8 @@ var CourseBusiness = (function() {
             sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
         sql = sql + " WHERE ";
         sql = sql + "       COU.cor_status = 'A' ";
-        sql = sql + "   AND CL.cla_status = 'A' ";
+        sql = sql + "       AND CL.cla_status = 'A' ";
+        sql = sql + "       AND ct.clt_date >= CURDATE() ";
         sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
         sql = sql + " ) AS AUX ";
         sql = sql + " WHERE spot_left > 0";
@@ -237,7 +239,8 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE ";
         sql = sql + "       COU.cor_status = 'A' ";
         sql = sql + "   AND CL.cla_status = 'A' ";
-        sql = sql + "   AND UI.use_id = 5 ";
+        sql = sql + "   AND UI.use_id = " + courseModel.use_id  + " ";
+        sql = sql + "   AND ct.clt_date >= CURDATE() ";
         sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
         sql = sql + " ) AS AUX ";
         sql = sql + " WHERE spot_left > 0 ";
@@ -792,7 +795,8 @@ var CourseBusiness = (function() {
             sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
         sql = sql + " WHERE ";
         sql = sql + "      COU.cor_status = 'A' AND ";
-        sql = sql + "      CL.cla_status = 'A'  ";
+        sql = sql + "      CL.cla_status = 'A'  AND";
+        sql = sql + "      ct.clt_date >= CURDATE() ";
 
         if(courseModel.cit_id) {
             sql = sql + " AND ";
