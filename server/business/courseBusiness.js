@@ -51,7 +51,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE CI.cit_id =  " + courseModel.cit_id + " ";
         sql = sql + "   AND COU.cor_status = 'A' ";
         sql = sql + "   AND CL.cla_status = 'A' ";
-        sql = sql + "   AND ct.clt_date >= CURDATE() ";
+        //sql = sql + "   AND ct.clt_date >= CURDATE() ";
         sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
         sql = sql + " ) AS AUX ";
         sql = sql + " WHERE spot_left > 0  ";
@@ -141,7 +141,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE ";
         sql = sql + "       COU.cor_status = 'A' ";
         sql = sql + "       AND CL.cla_status = 'A' ";
-        sql = sql + "       AND ct.clt_date >= CURDATE() ";
+        //sql = sql + "       AND ct.clt_date >= CURDATE() ";
         sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
         sql = sql + " ) AS AUX ";
         sql = sql + " WHERE spot_left > 0";
@@ -240,7 +240,7 @@ var CourseBusiness = (function() {
         sql = sql + "       COU.cor_status = 'A' ";
         sql = sql + "   AND CL.cla_status = 'A' ";
         sql = sql + "   AND UI.use_id = " + courseModel.use_id  + " ";
-        sql = sql + "   AND ct.clt_date >= CURDATE() ";
+        //sql = sql + "   AND ct.clt_date >= CURDATE() ";
         sql = sql + " GROUP BY COU.cor_id, CL.cla_id ";
         sql = sql + " ) AS AUX ";
         sql = sql + " WHERE spot_left > 0 ";
@@ -796,7 +796,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE ";
         sql = sql + "      COU.cor_status = 'A' AND ";
         sql = sql + "      CL.cla_status = 'A'  AND";
-        sql = sql + "      ct.clt_date >= CURDATE() ";
+        //sql = sql + "      ct.clt_date >= CURDATE() ";
 
         if(courseModel.cit_id) {
             sql = sql + " AND ";
