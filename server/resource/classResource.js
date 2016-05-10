@@ -116,6 +116,45 @@ var ClassResource = (function() {
         });
     }
 
+    ClassResource.prototype.getClassesAttended = function(req,res){
+
+        var classModel = new Object();
+
+        if (req){
+            classModel = req.body;
+        }
+
+        classBusiness.getClassesAttended(classModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    ClassResource.prototype.getAllClassesAttended = function(req,res){
+
+        var classModel = new Object();
+
+        if (req){
+            classModel = req.body;
+        }
+
+        classBusiness.getAllClassesAttended(classModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    ClassResource.prototype.getClassesCancelled = function(req,res){
+
+        var classModel = new Object();
+
+        if (req){
+            classModel = req.body;
+        }
+
+        classBusiness.getClassesCancelled(classModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     ClassResource.prototype.getClassesTeaching = function(req,res){
 
         var classModel = new Object();
@@ -125,6 +164,19 @@ var ClassResource = (function() {
         }
 
         classBusiness.getClassesTeaching(classModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    ClassResource.prototype.getClassesTaught = function(req,res){
+
+        var classModel = new Object();
+
+        if (req){
+            classModel = req.body;
+        }
+
+        classBusiness.getClassesTaught(classModel, function(obj){
             res.json(obj);
         });
     }

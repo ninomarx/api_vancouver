@@ -92,6 +92,20 @@ var CourseResource = (function() {
 
     }
 
+    CourseResource.prototype.selectBySearch = function(req,res){
+
+        var courseModel = new Object();
+
+        if (req){
+            courseModel = req.body;
+        }
+
+        courseBusiness.selectBySearch(courseModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
 
 
     return new CourseResource();

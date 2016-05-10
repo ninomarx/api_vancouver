@@ -44,6 +44,60 @@ var RegisterBusiness = (function() {
 
     };
 
+    RegisterBusiness.prototype.cancel = function(registerModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+
+        sql = sql + " update class_register ";
+        sql = sql + " set clr_transaction_status = 'C', clr_status = 'I' ";
+        sql = sql + " where cla_id = " + registerModel.cla_id  + " and use_id = " + registerModel.use_id  + " ";
+
+        connection.query(sql,function(err,registerObj){
+            if(!err) {
+                callback(registerObj);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "database error"});
+        });
+    };
+
+    RegisterBusiness.prototype.cancelVerify = function(registerModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select case ";
+        sql = sql + " when cla_allow_lateWithdraw = 'N' and now() <= cla_deadline then 'Y' ";
+        sql = sql + " when cla_allow_lateWithdraw = 'N' and now() > cla_deadline then 'N' ";
+        sql = sql + " when cla_allow_lateWithdraw = 'Y' and now() <= cla_lateWithdraw_date then 'Y' ";
+        sql = sql + " when cla_allow_lateWithdraw = 'Y' and now() > cla_lateWithdraw_date then 'N' ";
+        sql = sql + " else 'N' ";
+        sql = sql + " end as cancel_allow, co.cor_name, date_format(clt_date,\"%Y-%m-%d\") date_class, c.cla_id ";
+        sql = sql + " from class c ";
+        sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id and ct.clt_firstClass = 'Y' ";
+        sql = sql + " inner join course co on c.cor_id = co.cor_id ";
+        sql = sql + " where c.cla_id = " + registerModel.cla_id  + "; ";
+
+
+        connection.query(sql,function(err,registerObj){
+            if(!err) {
+                callback(registerObj);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "database error"});
+        });
+    };
+
     return new RegisterBusiness();
 })();
 

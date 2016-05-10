@@ -50,6 +50,7 @@ var classResource    = require("./server/resource/classResource");
 var wishlistResource = require("./server/resource/wishlistResource");
 var registerResource = require("./server/resource/registerResource");
 var messageResource = require("./server/resource/messageResource");
+var paymentResource = require("./server/resource/paymentResource");
 
 
 /**
@@ -137,6 +138,11 @@ server.post('/api/course/selectByFilter', function (req, res, next) {
     return next();
 });
 
+server.post('/api/course/selectBySearch', function (req, res, next) {
+    courseResource.selectBySearch(req,res);
+    return next();
+});
+
 /**
  * Province
  */
@@ -195,6 +201,15 @@ server.post('/api/user/saveInstructor', function (req, res, next) {
     return next();
 });
 
+server.post('/api/user/saveEmail', function (req, res, next) {
+    userResource.saveEmail(req,res);
+    return next();
+});
+
+server.post('/api/user/savePassword', function (req, res, next) {
+    userResource.savePassword(req,res);
+    return next();
+});
 
 /**
  * Upload
@@ -274,11 +289,30 @@ server.post('/api/class/getClassesAttending', function (req, res, next) {
     return next();
 });
 
+server.post('/api/class/getClassesAttended', function (req, res, next) {
+    classResource.getClassesAttended(req,res);
+    return next();
+});
+
+server.post('/api/class/getClassesCancelled', function (req, res, next) {
+    classResource.getClassesCancelled(req,res);
+    return next();
+});
+
+server.post('/api/class/getAllClassesAttended', function (req, res, next) {
+    classResource.getAllClassesAttended(req,res);
+    return next();
+});
+
 server.post('/api/class/getClassesTeaching', function (req, res, next) {
     classResource.getClassesTeaching(req,res);
     return next();
 });
 
+server.post('/api/class/getClassesTaught', function (req, res, next) {
+    classResource.getClassesTaught(req,res);
+    return next();
+});
 
 /**
  * Wishlist
@@ -299,6 +333,15 @@ server.post('/api/register/save', function (req, res, next) {
     return next();
 });
 
+server.post('/api/register/cancel', function (req, res, next) {
+    registerResource.cancel(req,res);
+    return next();
+});
+
+server.post('/api/register/cancelVerify', function (req, res, next) {
+    registerResource.cancelVerify(req,res);
+    return next();
+});
 
 /**
  * Message
@@ -331,6 +374,40 @@ server.post('/api/message/starMessage', function (req, res, next) {
 
 server.post('/api/message/archiveMessage', function (req, res, next) {
     messageResource.archiveMessage(req,res);
+    return next();
+});
+
+server.post('/api/message/getMessageDetails', function (req, res, next) {
+    messageResource.getMessageDetails(req,res);
+    return next();
+});
+
+server.post('/api/message/postMessage', function (req, res, next) {
+    messageResource.postMessage(req,res);
+    return next();
+});
+
+server.post('/api/message/postMessageStudent', function (req, res, next) {
+    messageResource.postMessageStudent(req,res);
+    return next();
+});
+
+/**
+ * Payment
+ */
+
+server.post('/api/payment/createToken', function (req, res, next) {
+    paymentResource.createToken(req,res);
+    return next();
+});
+
+server.post('/api/payment/charge', function (req, res, next) {
+    paymentResource.charge(req,res);
+    return next();
+});
+
+server.post('/api/payment/createAccount', function (req, res, next) {
+    paymentResource.createAccount(req,res);
     return next();
 });
 

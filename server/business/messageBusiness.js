@@ -1,4 +1,5 @@
 var factory = require("./../factory/dbfactory");
+var utilBusiness = require("./../business/utilBusiness");
 
 var MessageBusiness = (function() {
 
@@ -12,17 +13,31 @@ var MessageBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " select mes_id, ";
-        sql = sql + " mes_transmitter_type, ";
+        sql = sql + " (select mes_id, ";
+        sql = sql + " mes_transmitter_type,mes_star,cla_id, ";
         sql = sql + " case when mes_transmitter_type = 1 then use_image else usi_image end as image, ";
         sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as use_name, ";
-        sql = sql + "  (select case when length(mec_message) > 55 then  CONCAT(SUBSTRING(mec_message,1,55), '', '...') else mec_message end  from message_conversation where mes_id = m.mes_id and use_id <> 2 order by mec_date desc limit 1) mec_message, ";
+        sql = sql + "  (select case when length(mec_message) > 55 then  CONCAT(SUBSTRING(mec_message,1,55), '', '...') else mec_message end  from message_conversation where mes_id = m.mes_id and use_id <>  " + messageModel.use_id + " order by mec_date desc limit 1) mec_message, ";
         sql = sql + " (select case when TIMESTAMPDIFF(day, mec_date, CURDATE()) > 0 then  CONCAT(TIMESTAMPDIFF(day, mec_date, CURDATE()), '', ' days ago') else 'today' end from message_conversation where mes_id = m.mes_id  and use_id <>  " + messageModel.use_id + "   order by mec_date desc limit 1) mec_date, ";
         sql = sql + " mes_text,  DATE_FORMAT(mes_date, \"%b. %d %Y\") mes_date ";
         sql = sql + " from message m ";
         sql = sql + " inner join user u on m.use_id_transmitter = u.use_id ";
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
-        sql = sql + " where use_id_receiver = " + messageModel.use_id + " AND mes_status = 'A' ";
+        sql = sql + " where use_id_receiver = " + messageModel.use_id + " AND mes_status = 'A') ";
+
+        sql = sql + " union all ";
+
+        sql = sql + " (select mes_id, ";
+        sql = sql + " mes_transmitter_type,mes_star,cla_id, ";
+        sql = sql + " case when mes_transmitter_type = 1 then use_image else usi_image end as image, ";
+        sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as use_name, ";
+        sql = sql + "  (select case when length(mec_message) > 55 then  CONCAT(SUBSTRING(mec_message,1,55), '', '...') else mec_message end  from message_conversation where mes_id = m.mes_id and use_id <>  " + messageModel.use_id + " order by mec_date desc limit 1) mec_message, ";
+        sql = sql + " (select case when TIMESTAMPDIFF(day, mec_date, CURDATE()) > 0 then  CONCAT(TIMESTAMPDIFF(day, mec_date, CURDATE()), '', ' days ago') else 'today' end from message_conversation where mes_id = m.mes_id  and use_id <>  " + messageModel.use_id + "   order by mec_date desc limit 1) mec_date, ";
+        sql = sql + " mes_text,  DATE_FORMAT(mes_date, \"%b. %d %Y\") mes_date ";
+        sql = sql + " from message m ";
+        sql = sql + " inner join user u on m.use_id_receiver = u.use_id ";
+        sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
+        sql = sql + " where use_id_receiver <> " + messageModel.use_id + " AND mes_status = 'A') ";
 
         // filter: 1-All, 2-Starred, 3-Unread, 4-From Students, 5-From Instructor
         if(messageModel.filter == 2)
@@ -33,6 +48,10 @@ var MessageBusiness = (function() {
             sql = sql + " AND mes_transmitter_type = 1 ";
         else if (messageModel.filter == 5)
             sql = sql + " AND mes_transmitter_type = 2 ";
+
+        messageModel.page = (messageModel.page - 1) * messageModel.pages;
+
+        sql = sql + " LIMIT  " + messageModel.page + "," + messageModel.pages + ";";
 
         connection.query(sql,function(err,message){
             connection.end();
@@ -58,10 +77,10 @@ var MessageBusiness = (function() {
         var sql = "";
 
         sql = sql + " select mes_id, ";
-        sql = sql + " mes_transmitter_type, ";
+        sql = sql + " mes_transmitter_type,cla_id, ";
         sql = sql + " case when mes_transmitter_type = 1 then use_image else usi_image end as image, ";
         sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as use_name, ";
-        sql = sql + "  (select case when length(mec_message) > 55 then  CONCAT(SUBSTRING(mec_message,1,55), '', '...') else mec_message end  from message_conversation where mes_id = m.mes_id and use_id <> 2 order by mec_date desc limit 1) mec_message, ";
+        sql = sql + "  (select case when length(mec_message) > 55 then  CONCAT(SUBSTRING(mec_message,1,55), '', '...') else mec_message end  from message_conversation where mes_id = m.mes_id and use_id <>  " + messageModel.use_id + "  order by mec_date desc limit 1) mec_message, ";
         sql = sql + " (select case when TIMESTAMPDIFF(day, mec_date, CURDATE()) > 0 then  CONCAT(TIMESTAMPDIFF(day, mec_date, CURDATE()), '', ' days ago') else 'today' end from message_conversation where mes_id = m.mes_id  and use_id <>  " + messageModel.use_id + "   order by mec_date desc limit 1) mec_date, ";
         sql = sql + " mes_text,  DATE_FORMAT(mes_date, \"%b. %d %Y\") mes_date ";
         sql = sql + " from message m ";
@@ -142,7 +161,7 @@ var MessageBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " select count(*)/ " + messageModel.pages;
+        sql = sql + " select CEILING(count(*)/ " + messageModel.pages + ") as pages";
         sql = sql + " from message ";
         sql = sql + " where use_id_receiver = " + messageModel.use_id + " ";
         sql = sql + " AND mes_status = 'A' ";
@@ -209,6 +228,131 @@ var MessageBusiness = (function() {
             if(!err) {
 
                 var collectionMessage = message;
+
+                callback(collectionMessage);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+    };
+
+    MessageBusiness.prototype.getMessageDetails = function(messageModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select mec_id, mec_message, u.use_first_name, DATE_FORMAT(mec_date,\"%M %d %Y at %l:%i%p\") as mec_date, ";
+        sql = sql + " case when u.use_id = " + messageModel.use_id + " then 'S' else 'I' end as type, ";
+        sql = sql + " case when u.use_id = " + messageModel.use_id + " then u.use_image else  ui.usi_image end as image ";
+        sql = sql + " from message_conversation mc ";
+        sql = sql + " inner join user u on mc.use_id = u.use_id ";
+        sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
+        sql = sql + " where mes_id = " + messageModel.mes_id + " ";
+        sql = sql + " order by mec_date desc, mec_id desc; ";
+
+        connection.query(sql,function(err,message){
+            connection.end();
+            if(!err) {
+
+                var collectionMessage = message;
+
+                callback(collectionMessage);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+    };
+
+    MessageBusiness.prototype.postMessage = function(messageModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+
+        sql = sql + " insert into message_conversation (mec_message, mec_date, use_id, mes_id) ";
+        sql = sql + " values (  ";
+        sql = sql + " '" + messageModel.message + "',  ";
+        sql = sql + " now(),  ";
+        sql = sql + " " + messageModel.use_id + ",  ";
+        sql = sql + " " + messageModel.mes_id + "  ";
+        sql = sql + " ); ";
+
+        connection.query(sql,function(err,message){
+            connection.end();
+            if(!err) {
+
+                var collectionMessage = message;
+
+                callback(collectionMessage);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+    };
+
+    MessageBusiness.prototype.postMessageStudent = function(messageModel, callback) {
+
+        utilBusiness.processData(messageModel, function(obj){
+            messageModel = obj;
+        });
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+
+        sql = sql + " insert into message (mes_text, mes_date, mes_group, mes_status, use_id_transmitter, use_id_receiver, mes_star, ";
+        sql = sql + "                     mes_read, mes_transmitter_type, cla_id) ";
+        sql = sql + "  values ( ";
+        sql = sql + " '" + messageModel.mes_text + "',  ";
+        sql = sql + " now(),  ";
+        sql = sql + " 'N',  ";
+        sql = sql + " 'A',  ";
+        sql = sql + " " + messageModel.use_id_transmitter + ",  ";
+        sql = sql + " " + messageModel.use_id_receiver + ",  ";
+        sql = sql + " 'N',  ";
+        sql = sql + " 'N',  ";
+        sql = sql + " 1,  ";
+        sql = sql + " " + messageModel.cla_id + "  ";
+        sql = sql + "  );";
+
+
+        connection.query(sql,function(err,message){
+            if(!err) {
+
+                var collectionMessage = message;
+
+                var sql = "";
+
+                sql = sql + " insert into message_conversation (mec_message, mec_date, use_id, mes_id) ";
+                sql = sql + " values (  ";
+                sql = sql + " '" + messageModel.message + "',  ";
+                sql = sql + " now(),  ";
+                sql = sql + " " + messageModel.use_id_transmitter + ",  ";
+                sql = sql + " " + message.insertId + "  ";
+                sql = sql + " ); ";
+
+
+                connection.query(sql,function(err,message1){
+                    connection.end();
+                    if(!err) {
+
+                        var collectionMessageReturn = message1;
+                        callback(collectionMessageReturn);
+                    }
+                });
+
 
                 callback(collectionMessage);
             }

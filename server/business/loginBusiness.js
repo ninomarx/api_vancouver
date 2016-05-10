@@ -9,6 +9,10 @@ var LoginBusiness = (function() {
 
     LoginBusiness.prototype.signup = function(loginModel, callback) {
 
+        LoginBusiness.prototype.criptPassword(loginModel.use_password, function(obj){
+            loginModel.use_password = obj;
+        });
+
         var connection = factory.getConnection();
         connection.connect();
 
@@ -83,6 +87,10 @@ var LoginBusiness = (function() {
     };
 
     LoginBusiness.prototype.signin = function(loginModel, callback) {
+
+        LoginBusiness.prototype.criptPassword(loginModel.use_password, function(obj){
+            loginModel.use_password = obj;
+        });
 
         var connection = factory.getConnection();
         connection.connect();
@@ -174,6 +182,28 @@ var LoginBusiness = (function() {
 
 
     };
+
+    LoginBusiness.prototype.criptPassword = function(password, callback) {
+        var mensx = "";
+        var l;
+        var i;
+        var j=0;
+        var ch;
+        ch = "assbdFbdpdPdpfPdAAdpeoseslsQQEcDDldiVVkadiedkdkLLnm";
+
+        for (i=0;i<password.length; i++){
+            j++;
+            l=((password.substr(i,1))+((ch.substr(j,1))));
+            if (j==50){
+                j=1;
+            }
+            if (l>255){
+                l-=256;
+            }
+            mensx+=((l));
+        }
+        callback(mensx);
+    }
 
     return new LoginBusiness();
 })();

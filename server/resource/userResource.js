@@ -36,6 +36,32 @@ var UserResource = (function() {
 
     }
 
+    UserResource.prototype.saveEmail = function(req,res){
+
+        var userModel = new Object();
+
+        if (req){
+            userModel = req.body;
+        }
+
+        userBusiness.saveEmail(userModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    UserResource.prototype.savePassword = function(req,res){
+
+        var userModel = new Object();
+
+        if (req){
+            userModel = req.body;
+        }
+
+        userBusiness.savePassword(userModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new UserResource();
 })();
 

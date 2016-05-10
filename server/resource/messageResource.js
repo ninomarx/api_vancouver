@@ -90,6 +90,45 @@ var MessageResource = (function() {
         });
     }
 
+    MessageResource.prototype.getMessageDetails = function(req,res){
+
+        var messageModel = new Object();
+
+        if (req){
+            messageModel = req.body;
+        }
+
+        messageBusiness.getMessageDetails(messageModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    MessageResource.prototype.postMessage = function(req,res){
+
+        var messageModel = new Object();
+
+        if (req){
+            messageModel = req.body;
+        }
+
+        messageBusiness.postMessage(messageModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    MessageResource.prototype.postMessageStudent = function(req,res){
+
+        var messageModel = new Object();
+
+        if (req){
+            messageModel = req.body;
+        }
+
+        messageBusiness.postMessageStudent(messageModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new MessageResource();
 })();
 
