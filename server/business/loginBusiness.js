@@ -46,9 +46,9 @@ var LoginBusiness = (function() {
                         if (!err) {
 
                             sql = "";
-                            sql = sql + " INSERT INTO user_instructor (usi_about,usi_expertise,usi_credential,usi_image,usi_coached_before,usi_coached_experience,usi_speaking_groups, usi_speaking_experience, usi_course_name, usi_course_experience,use_id, com_id) ";
+                            sql = sql + " INSERT INTO user_instructor (usi_about,usi_expertise,usi_credential,usi_image,usi_coached_before,usi_coached_experience,usi_speaking_groups, usi_speaking_experience,use_id, com_id) ";
                             sql = sql + " VALUES ";
-                            sql = sql + " ('','','','noimage_user.png','','','','','','','" + login2.insertId + "', ''); ";
+                            sql = sql + " ('','','','noimage_user.png','','','','','" + login2.insertId + "', ''); ";
 
 
                             connection.query(sql, function (err, login3) {
