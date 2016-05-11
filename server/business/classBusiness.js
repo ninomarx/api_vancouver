@@ -76,7 +76,7 @@ var ClassBusiness = (function() {
             sql = sql + " INSERT INTO class (cla_session_type,cla_duration,cla_cost,cla_min_size, ";
             sql = sql + " cla_max_size,cla_address,cla_added_date,cla_status,cla_deadline, ";
             sql = sql + " cla_allow_lateRegistration,cla_allow_lateWithdraw,cla_lateWithdraw_date, ";
-            sql = sql + " age_id,col_id,cit_id,cor_id,use_id,nei_id,cla_latitude,cla_longitude) ";
+            sql = sql + " age_id,col_id,cit_id,cor_id,use_id,nei_id,cla_latitude,cla_longitude,cla_link) ";
             sql = sql + " VALUES (";
             sql = sql + " '" + classModel.cla_session_type + "',";
             sql = sql + " '" + classModel.cla_duration + "','"  + classModel.cla_cost + "',";
@@ -87,7 +87,7 @@ var ClassBusiness = (function() {
             sql = sql + " '" + classModel.cla_lateWithdraw_date + "','"  + classModel.age_id + "',";
             sql = sql + " '" + classModel.col_id + "','"  + classModel.cit_id + "',";
             sql = sql + " '" + classModel.cor_id + "','"  + classModel.use_id + "',";
-            sql = sql + " '" + classModel.nei_id + "','" + classModel.latitude + "','" +  classModel.longitude + "'";
+            sql = sql + " '" + classModel.nei_id + "','" + classModel.latitude + "','" +  classModel.longitude + "',''";
             sql = sql + " );";
         }
 
@@ -104,6 +104,11 @@ var ClassBusiness = (function() {
                     sql = sql + " DELETE  FROM class_time ";
                     sql = sql + " WHERE ";
                     sql = sql + " cla_id = " + classObj.insertId + ";";
+
+                    var newCode = Math.random().toString(36).slice(-12);
+                    classModel.cla_link = classModel.cla_link + classObj.insertId + "/" + newCode;
+
+                    sql = sql + " UPDATE class set cla_link = '" + classModel.cla_link + "', cla_codSource = '" + newCode + "'  WHERE cla_id = " + classObj.insertId + "; ";
 
                     classModel.cla_id =  classObj.insertId;
                 }
@@ -193,7 +198,7 @@ var ClassBusiness = (function() {
         if(classModel.use_id != "")
             sql = sql + "      ,COALESCE(WL.wis_status,'N') AS wis_status ";
         sql = sql + " from class CL ";
-        sql = sql + "   INNER JOIN class_time CT ON CL.cla_id = CT.cla_id ";
+        sql = sql + "   INNER JOIN class_time CT ON CL.cla_id = CT.cla_id  ";
         sql = sql + "   INNER JOIN course CO ON CL.cor_id = CO.cor_id ";
         sql = sql + "   INNER JOIN user US ON CO.use_id = US.use_id ";
         sql = sql + "   INNER JOIN user_instructor UI ON US.use_id = UI.use_id ";
@@ -202,7 +207,7 @@ var ClassBusiness = (function() {
         sql = sql + "   INNER JOIN city CY ON CL.cit_id = CY.cit_id ";
         sql = sql + "   INNER JOIN province PR ON CY.pro_id = PR.pro_id ";
         sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
-        sql = sql + "   LEFT JOIN class_review CV ON CL.cla_id = CV.cla_id ";
+        sql = sql + "   LEFT JOIN class_review CV ON CL.cor_id = CV.cor_id ";
         if(classModel.use_id != "")
             sql = sql + "   LEFT JOIN wishlist WL ON CL.cla_id = WL.cla_id and WL.use_id = " + classModel.use_id  + " ";
         sql = sql + " where CL.cla_id = " + classModel.cla_id + " AND CT.clt_firstClass = 'Y' ";
@@ -236,7 +241,7 @@ var ClassBusiness = (function() {
         sql = sql + " CONCAT(US.use_first_name,' ',US.use_last_name ) AS use_name ";
         sql = sql + " FROM class_review CR ";
         sql = sql + " INNER JOIN user US ON CR.use_id = US.use_id ";
-        sql = sql + " where cla_id = " + classModel.cla_id + " and cre_status = 'A' ; ";
+        sql = sql + " where cor_id = " + classModel.cor_id + " and cre_status = 'A' ; ";
 
 
         connection.query(sql,function(err,classObj){
@@ -350,7 +355,7 @@ var ClassBusiness = (function() {
         sql = sql + " select *, ";
         sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else CONCAT(FLOOR(cla_duration/60),'h',MOD(cla_duration,60),'m')  end as sessions ";
         sql = sql + " from ( ";
-        sql = sql + " select c.cla_id,co.cor_image, co.cor_name, ";
+        sql = sql + " select c.cla_id,co.cor_image, co.cor_name,co.cor_id, ";
         sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as instructor_name,usi_image, ";
         sql = sql + " c.cla_cost, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
@@ -365,7 +370,7 @@ var ClassBusiness = (function() {
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
         sql = sql + " inner join class_register cr on c.cla_id = cr.cla_id ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id ";
-        sql = sql + " LEFT JOIN class_review cre ON c.cla_id = cre.cla_id AND cre.use_id = " + classModel.use_id + " "
+        sql = sql + " LEFT JOIN class_review cre ON c.cor_id = cre.cor_id AND cre.use_id = " + classModel.use_id + " "
         sql = sql + " where cr.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and clr_status = 'A' and clr_transaction_status <> 'C' ";
@@ -392,7 +397,7 @@ var ClassBusiness = (function() {
         sql = sql + " select *, ";
         sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else CONCAT(FLOOR(cla_duration/60),'h',MOD(cla_duration,60),'m')  end as sessions ";
         sql = sql + " from ( ";
-        sql = sql + " select c.cla_id,co.cor_image, co.cor_name, ";
+        sql = sql + " select c.cla_id,co.cor_image, co.cor_name, co.cor_id, ";
         sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as instructor_name,usi_image, ";
         sql = sql + " c.cla_cost, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
@@ -401,7 +406,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i%p\") AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Start in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Start today' end  as day_until, ";
-        sql = sql + " c.cla_address, cre.cre_id,";
+        sql = sql + " c.cla_address, coalesce(cre.cre_id,0) as cre_id,";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
         sql = sql + " from class c ";
         sql = sql + " inner join course co on c.cor_id = co.cor_id ";
@@ -409,7 +414,7 @@ var ClassBusiness = (function() {
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
         sql = sql + " inner join class_register cr on c.cla_id = cr.cla_id ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id ";
-        sql = sql + " LEFT JOIN class_review cre ON c.cla_id = cre.cla_id AND cre.use_id = " + classModel.use_id + " "
+        sql = sql + " LEFT JOIN class_review cre ON c.cla_id = cre.cla_id AND cre.cor_id = " + classModel.use_id + " "
         sql = sql + " where cr.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and clr_status = 'A' and clr_transaction_status <> 'C' ";

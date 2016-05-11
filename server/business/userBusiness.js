@@ -137,6 +137,43 @@ var UserBusiness = (function() {
         });
     };
 
+    UserBusiness.prototype.saveInstructorSignUp = function(userModel, callback) {
+
+        utilBusiness.processData(userModel, function(obj){
+            userModel = obj;
+        });
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " UPDATE user_instructor SET ";
+        sql = sql + " usi_about = '" + userModel.usi_about + "',";
+        sql = sql + " usi_coached_before = '" + userModel.usi_coached_before + "',";
+        sql = sql + " usi_coached_experience = '" + userModel.usi_coached_experience + "',";
+        sql = sql + " usi_speaking_groups = '" + userModel.usi_speaking_groups + "',";
+        sql = sql + " usi_speaking_groups = '" + userModel.usi_speaking_experience + "'";
+        sql = sql + " WHERE ";
+        sql = sql + " use_id = " + userModel.use_id + "; ";
+
+        sql = sql + " UPDATE user SET ";
+        sql = sql + " use_type = 3";
+        sql = sql + " WHERE ";
+        sql = sql + " use_id = " + userModel.use_id + "; ";
+
+        connection.query(sql,function(err,user){
+            connection.end();
+            if(!err) {
+                callback(user);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+    };
+
     UserBusiness.prototype.criptPassword = function(password, callback) {
         var mensx = "";
         var l;

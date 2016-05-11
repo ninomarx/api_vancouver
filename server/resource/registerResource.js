@@ -50,6 +50,20 @@ var RegisterResource = (function() {
 
     }
 
+    RegisterResource.prototype.saveVerify = function(req,res){
+
+        var registerModel = new Object();
+
+        if (req){
+            registerModel = req.body;
+        }
+
+        registerBusiness.saveVerify(registerModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
     return new RegisterResource();
 })();
 

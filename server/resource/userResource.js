@@ -62,6 +62,20 @@ var UserResource = (function() {
         });
     }
 
+
+    UserResource.prototype.saveInstructorSignUp = function(req,res){
+
+        var userModel = new Object();
+
+        if (req){
+            userModel = req.body;
+        }
+
+        userBusiness.saveInstructorSignUp(userModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new UserResource();
 })();
 

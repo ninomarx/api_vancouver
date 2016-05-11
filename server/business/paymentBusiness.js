@@ -7,7 +7,7 @@ var PaymentBusiness = (function() {
 
     };
 
-    PaymentBusiness.prototype.createToken = function(paymentModel) {
+    PaymentBusiness.prototype.createToken = function(paymentModel,callback) {
 
         stripe.tokens.create({
             card: {
@@ -17,7 +17,10 @@ var PaymentBusiness = (function() {
                 "cvc": paymentModel.cvc
             }
         }, function(err, token) {
-            PaymentBusiness.prototype.costumerCreate(token,paymentModel);
+            if(!err) {
+                PaymentBusiness.prototype.costumerCreate(token, paymentModel);
+                callback(token);
+            }
         });
 
     };
@@ -28,11 +31,11 @@ var PaymentBusiness = (function() {
             description: paymentModel.description,
             source: token.id
         }, function(err, customer) {
-            PaymentBusiness.prototype.saveStripeCostumer(customer.id,paymentModel.use_id);
+            PaymentBusiness.prototype.saveStripeCostumer(customer.id,paymentModel.use_id,paymentModel.use_card);
         });
     };
 
-    PaymentBusiness.prototype.saveStripeCostumer = function(costumerIdStripe,use_id) {
+    PaymentBusiness.prototype.saveStripeCostumer = function(costumerIdStripe,use_id,use_card) {
 
         var connection = factory.getConnection();
         connection.connect();
@@ -41,6 +44,7 @@ var PaymentBusiness = (function() {
         sql = sql + " UPDATE";
         sql = sql + " user ";
         sql = sql + " set costumerIdStripe = '" + costumerIdStripe + "' ";
+        sql = sql + " ,use_card = '" + use_card + "' ";
         sql = sql + " WHERE use_id = " + use_id;
 
         connection.query(sql,function(err,user){

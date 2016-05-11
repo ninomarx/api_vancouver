@@ -49,8 +49,9 @@ var levelResource    = require("./server/resource/levelResource");
 var classResource    = require("./server/resource/classResource");
 var wishlistResource = require("./server/resource/wishlistResource");
 var registerResource = require("./server/resource/registerResource");
-var messageResource = require("./server/resource/messageResource");
-var paymentResource = require("./server/resource/paymentResource");
+var messageResource  = require("./server/resource/messageResource");
+var paymentResource  = require("./server/resource/paymentResource");
+var reviewResource   = require("./server/resource/reviewResource");
 
 
 /**
@@ -211,6 +212,11 @@ server.post('/api/user/savePassword', function (req, res, next) {
     return next();
 });
 
+server.post('/api/user/saveInstructorSignUp', function (req, res, next) {
+    userResource.saveInstructorSignUp(req,res);
+    return next();
+});
+
 /**
  * Upload
  */
@@ -343,6 +349,11 @@ server.post('/api/register/cancelVerify', function (req, res, next) {
     return next();
 });
 
+server.post('/api/register/saveVerify', function (req, res, next) {
+    registerResource.saveVerify(req,res);
+    return next();
+});
+
 /**
  * Message
  */
@@ -408,6 +419,15 @@ server.post('/api/payment/charge', function (req, res, next) {
 
 server.post('/api/payment/createAccount', function (req, res, next) {
     paymentResource.createAccount(req,res);
+    return next();
+});
+
+
+/**
+ * Review
+ */
+server.post('/api/review/save', function (req, res, next) {
+    reviewResource.save(req,res);
     return next();
 });
 
