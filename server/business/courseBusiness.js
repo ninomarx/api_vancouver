@@ -121,7 +121,7 @@ var CourseBusiness = (function() {
         sql = sql + "   CI.cit_description, PR.pro_code, AG.age_description,  COL.col_description,CL.cla_min_size, ";
         sql = sql + "   CL.cla_max_size,  TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline, ";
         sql = sql + "   CL.cla_deadline AS cla_deadlineFilter, CONCAT(US.use_first_name,' ',US.use_last_name ) as use_name, ";
-        sql = sql + "   US.use_image,(CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
+        sql = sql + "   US.use_image,USI.usi_image, (CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
         sql = sql + "   CL.cla_allow_lateRegistration, COALESCE(SUM(CR.use_id),0) AS students, ";
         sql = sql + "   CL.cla_latitude, CL.cla_longitude, ";
         sql = sql + "   COUNT(CV.cre_id) AS number_reviews,(SUM(cre_stars)/COUNT(CV.cre_id)) star_general";
@@ -133,6 +133,7 @@ var CourseBusiness = (function() {
         sql = sql + "   INNER JOIN city CI ON CL.cit_id = CI.cit_id ";
         sql = sql + "   INNER JOIN province PR ON CI.pro_id = PR.pro_id ";
         sql = sql + "   INNER JOIN user US ON US.use_id = COU.use_id ";
+        sql = sql + "   INNER JOIN user_instructor USI ON US.use_id = USI.use_id ";
         sql = sql + "   INNER JOIN age AG ON CL.age_id = AG.age_id ";
         sql = sql + "   INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
         sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
@@ -216,7 +217,7 @@ var CourseBusiness = (function() {
         sql = sql + "   CI.cit_description, PR.pro_code, AG.age_description,  COL.col_description,CL.cla_min_size, ";
         sql = sql + "   CL.cla_max_size,  TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline, ";
         sql = sql + "   CL.cla_deadline AS cla_deadlineFilter, CONCAT(US.use_first_name,' ',US.use_last_name ) as use_name, ";
-        sql = sql + "   US.use_image,(CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
+        sql = sql + "   US.use_image,USI.usi_image,(CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
         sql = sql + "   CL.cla_allow_lateRegistration, COALESCE(SUM(CR.use_id),0) AS students, ";
         sql = sql + "   CL.cla_latitude, CL.cla_longitude, ";
         sql = sql + "   COUNT(CV.cre_id) AS number_reviews,(SUM(cre_stars)/COUNT(CV.cre_id)) star_general";
@@ -228,6 +229,7 @@ var CourseBusiness = (function() {
         sql = sql + "   INNER JOIN city CI ON CL.cit_id = CI.cit_id ";
         sql = sql + "   INNER JOIN province PR ON CI.pro_id = PR.pro_id ";
         sql = sql + "   INNER JOIN user US ON US.use_id = COU.use_id ";
+        sql = sql + "   INNER JOIN user_instructor USI ON US.use_id = USI.use_id ";
         sql = sql + "   INNER JOIN age AG ON CL.age_id = AG.age_id ";
         sql = sql + "   INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
         sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
