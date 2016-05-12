@@ -739,13 +739,22 @@ var CourseBusiness = (function() {
                     )
                 }
 
-                connection.query(sql,function(err,result){
-                    if(!err) {
-                        connection.end();
-                        var return_var = "OK";
-                        callback(return_var);
-                    }
-                });
+                var return_var = "";
+                if(sql == "")
+                {
+                    connection.end();
+                    return_var = "OK";
+                    callback(return_var);
+                }
+                else {
+                    connection.query(sql, function (err, result) {
+                        if (!err) {
+                            connection.end();
+                            return_var = "OK";
+                            callback(return_var);
+                        }
+                    });
+                }
             }
         });
 
