@@ -24,7 +24,7 @@ var CourseBusiness = (function() {
         sql = sql + "   0 AS distance ";
         sql = sql + " FROM ";
         sql = sql + " ( ";
-        sql = sql + " SELECT  COU.cor_image, COU.cor_name, COU.cor_description,  CL.cla_id, CL.cla_cost, ";
+        sql = sql + " SELECT  COU.cor_image, COU.cor_name, COU.cor_description,  CL.cla_id, CL.cla_cost,USI.usi_image, ";
         sql = sql + "   DATE_FORMAT(CT.clt_date, \"%b. %d\") as clt_date,CT.clt_date AS clt_dateFilter, ";
         sql = sql + "   DATE_FORMAT(CT.clt_start_time,\"%l:%i%p\")AS clt_start_time,  DAYNAME(CT.clt_date) AS week_day, ";
         sql = sql + "   CI.cit_description, PR.pro_code, AG.age_description,  COL.col_description,CL.cla_min_size, ";
@@ -42,6 +42,7 @@ var CourseBusiness = (function() {
         sql = sql + "   INNER JOIN city CI ON CL.cit_id = CI.cit_id ";
         sql = sql + "   INNER JOIN province PR ON CI.pro_id = PR.pro_id ";
         sql = sql + "   INNER JOIN user US ON US.use_id = COU.use_id ";
+        sql = sql + "   INNER JOIN user_instructor USI ON US.use_id = USI.use_id ";
         sql = sql + "   INNER JOIN age AG ON CL.age_id = AG.age_id ";
         sql = sql + "   INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
         sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
