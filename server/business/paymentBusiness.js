@@ -125,7 +125,12 @@ var PaymentBusiness = (function() {
         sql = sql + " UPDATE";
         sql = sql + " user_instructor ";
         sql = sql + " set accountIdStripe = '" + accountIdStripe + "' ";
-        sql = sql + " WHERE use_id = " + paymentModel.use_id;
+        sql = sql + " WHERE use_id = " + paymentModel.use_id + "; ";
+
+        sql = sql + " UPDATE";
+        sql = sql + " user ";
+        sql = sql + " set use_type = 2 ";
+        sql = sql + " WHERE use_id = " + paymentModel.use_id + "; ";
 
         connection.query(sql,function(err,user){
             connection.end();
