@@ -55,7 +55,7 @@ var reviewResource   = require("./server/resource/reviewResource");
 
 
 var adminInstructorsResource = require("./server/resource/admin/instructorResource");
-
+var adminLoginResource = require("./server/resource/admin/loginResource");
 
 /**
  * Country
@@ -217,6 +217,11 @@ server.post('/api/user/savePassword', function (req, res, next) {
 
 server.post('/api/user/saveInstructorSignUp', function (req, res, next) {
     userResource.saveInstructorSignUp(req,res);
+    return next();
+});
+
+server.post('/api/user/saveSetting', function (req, res, next) {
+    userResource.saveSetting(req,res);
     return next();
 });
 
@@ -446,6 +451,15 @@ server.post('/api/admin/instructor/allowInstructor', function (req, res, next) {
     adminInstructorsResource.allowInstructor(req,res);
     return next();
 });
+
+/**
+ * ADMIN - LOGIN
+ */
+server.post('/api/admin/login/signin', function (req, res, next) {
+    adminLoginResource.signin(req,res);
+    return next();
+});
+
 
 
 /**

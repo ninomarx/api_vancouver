@@ -76,6 +76,19 @@ var UserResource = (function() {
         });
     }
 
+    UserResource.prototype.saveSetting = function(req,res){
+
+        var userModel = new Object();
+
+        if (req){
+            userModel = req.body;
+        }
+
+        userBusiness.saveSetting(userModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new UserResource();
 })();
 

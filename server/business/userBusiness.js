@@ -196,6 +196,45 @@ var UserBusiness = (function() {
         callback(mensx);
     }
 
+    UserBusiness.prototype.saveSetting = function(userModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select use_id from user where";
+        sql = sql + " use_confirm_email_code = '" + userModel.use_id + "';";
+
+        connection.query(sql,function(err,user){
+            if(!err) {
+
+                sql = "";
+                sql = sql + " UPDATE user SET ";
+                sql = sql + " use_update_category = '" + userModel.updateCategory + "', ";
+                sql = sql + " use_confirm_email = 'Y' ";
+                sql = sql + " WHERE ";
+                sql = sql + " use_confirm_email_code = '" + userModel.use_id + "';";
+
+                userModel.category.forEach(function(item) {
+                        sql = sql + " INSERT INTO user_interests (cat_id, use_id) VALUES (" + item + "," + user[0].use_id + " ); ";
+                    }
+                )
+
+                connection.query(sql,function(err,user){
+                    connection.end();
+                    if(!err) {
+                        callback(user);
+                    }
+                });
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+    };
+
     return new UserBusiness();
 })();
 
