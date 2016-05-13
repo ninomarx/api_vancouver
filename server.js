@@ -54,6 +54,9 @@ var paymentResource  = require("./server/resource/paymentResource");
 var reviewResource   = require("./server/resource/reviewResource");
 
 
+var adminInstructorsResource = require("./server/resource/admin/instructorResource");
+
+
 /**
  * Country
  */
@@ -428,6 +431,19 @@ server.post('/api/payment/createAccount', function (req, res, next) {
  */
 server.post('/api/review/save', function (req, res, next) {
     reviewResource.save(req,res);
+    return next();
+});
+
+/**
+ * ADMIN - INSTRUCTORS
+ */
+server.get('/api/admin/instructor/select', function (req, res, next) {
+    adminInstructorsResource.select(req,res);
+    return next();
+});
+
+server.post('/api/admin/instructor/allowInstructor', function (req, res, next) {
+    adminInstructorsResource.allowInstructor(req,res);
     return next();
 });
 

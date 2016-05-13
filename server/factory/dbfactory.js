@@ -2,16 +2,8 @@ var mysql     =    require("mysql");
 
 var DbFactory = (function() {
 
-    /**
-     *
-     * @constructor
-     */
     var DbFactory = function() {};
 
-    /**
-     * Get Pool Connection
-     * @returns {*}
-     */
     DbFactory.prototype.getPool = function(){
 
         return mysql.createPool({
@@ -24,10 +16,6 @@ var DbFactory = (function() {
         });
     }
 
-    /**
-     * Get Pool Connection
-     * @returns {*}
-     */
     DbFactory.prototype.getConnection = function(){
 
         return mysql.createConnection({
