@@ -22,6 +22,20 @@ var WishlistResource = (function() {
 
     }
 
+    WishlistResource.prototype.getWishList = function(req,res){
+
+        var courseModel = new Object();
+
+        if (req){
+            courseModel = req.body;
+        }
+
+        wishlistBusiness.getWishList(courseModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
 
     return new WishlistResource();
 })();

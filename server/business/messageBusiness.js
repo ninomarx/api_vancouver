@@ -279,7 +279,7 @@ var MessageBusiness = (function() {
 
         sql = sql + " insert into message_conversation (mec_message, mec_date, use_id, mes_id) ";
         sql = sql + " values (  ";
-        sql = sql + " '" + messageModel.message + "',  ";
+        sql = sql + " '" + messageModel.message.replace(/'/g, "\\'") + "',  ";
         sql = sql + " now(),  ";
         sql = sql + " " + messageModel.use_id + ",  ";
         sql = sql + " " + messageModel.mes_id + "  ";
@@ -315,7 +315,7 @@ var MessageBusiness = (function() {
         sql = sql + " insert into message (mes_text, mes_date, mes_group, mes_status, use_id_transmitter, use_id_receiver, mes_star, ";
         sql = sql + "                     mes_read, mes_transmitter_type, cla_id) ";
         sql = sql + "  values ( ";
-        sql = sql + " '" + messageModel.mes_text + "',  ";
+        sql = sql + " '" + messageModel.mes_text.replace(/'/g, "\\'") + "',  ";
         sql = sql + " now(),  ";
         sql = sql + " 'N',  ";
         sql = sql + " 'A',  ";
@@ -337,7 +337,7 @@ var MessageBusiness = (function() {
 
                 sql = sql + " insert into message_conversation (mec_message, mec_date, use_id, mes_id) ";
                 sql = sql + " values (  ";
-                sql = sql + " '" + messageModel.message + "',  ";
+                sql = sql + " '" + messageModel.message.replace(/'/g, "\\'") + "',  ";
                 sql = sql + " now(),  ";
                 sql = sql + " " + messageModel.use_id_transmitter + ",  ";
                 sql = sql + " " + message.insertId + "  ";

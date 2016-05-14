@@ -337,6 +337,12 @@ server.post('/api/wishlist/save', function (req, res, next) {
     return next();
 });
 
+server.post('/api/wishlist/getWishList', function (req, res, next) {
+    wishlistResource.getWishList(req,res);
+    return next();
+});
+
+
 
 /**
  * Class Register
