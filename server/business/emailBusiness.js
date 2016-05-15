@@ -11,7 +11,7 @@ var EmailBusiness = (function() {
 
     EmailBusiness.prototype.sendEmailConfirmation = function(email_to, name, link) {
 
-        email_to = "ninomarques.info@gmail.com";
+        //email_to = "ninomarques.info@gmail.com";
 
         var mailOptions = {
             from: '"Cotuto Info" <info@cotuto.com>', // sender address
@@ -32,7 +32,7 @@ var EmailBusiness = (function() {
 
     EmailBusiness.prototype.sendPasswordRecovery = function(email_to, name, newPassword) {
 
-        email_to = "ninomarques.info@gmail.com";
+        //email_to = "ninomarques.info@gmail.com";
 
         var mailOptions = {
             from: '"Cotuto Info" <info@cotuto.com>', // sender address
