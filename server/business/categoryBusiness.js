@@ -14,6 +14,7 @@ var CategoryBusiness = (function() {
         var sql = "";
         sql = sql + " select * ";
         sql = sql + " from Category ";
+        sql = sql + " where cat_id IN (select distinct cat_id from course_subcategory) ";
 
 
         connection.query(sql,function(err,categories){
@@ -74,6 +75,7 @@ var CategoryBusiness = (function() {
         sql = sql + " select * ";
         sql = sql + " from subcategory ";
         sql = sql + " where  cat_id = " + categoryModel.cat_id;
+        sql = sql + "        and sca_id IN (select distinct sca_id from course_subcategory where sca_id is not null) ";
 
 
 
