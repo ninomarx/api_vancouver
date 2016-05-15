@@ -572,6 +572,32 @@ var ClassBusiness = (function() {
         });
     };
 
+    ClassBusiness.prototype.cancelClass = function(classModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " UPDATE class SET cla_status = 'I' WHERE cla_id = " + classModel.cla_id + ";";
+
+        connection.query(sql,function(err,classObj){
+            connection.end();
+            if(!err) {
+
+                var collectionClass = classObj;
+
+                callback(collectionClass);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "database error"});
+        });
+
+
+    };
+
 
     Date.prototype.yyyymmdd = function() {
         var yyyy = this.getFullYear().toString();

@@ -181,6 +181,19 @@ var ClassResource = (function() {
         });
     }
 
+    ClassResource.prototype.cancelClass = function(req,res){
+
+        var classModel = new Object();
+
+        if (req){
+            classModel = req.body;
+        }
+
+        classBusiness.cancelClass(classModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new ClassResource();
 })();
 

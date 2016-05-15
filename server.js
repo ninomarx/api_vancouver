@@ -328,6 +328,12 @@ server.post('/api/class/getClassesTaught', function (req, res, next) {
     return next();
 });
 
+server.post('/api/class/cancelClass', function (req, res, next) {
+    classResource.cancelClass(req,res);
+    return next();
+});
+
+
 /**
  * Wishlist
  */

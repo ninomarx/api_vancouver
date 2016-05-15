@@ -150,6 +150,11 @@ var LoginBusiness = (function() {
                 var collectionUser = login;
                 var returnUser = "OK";
                 var newPassword = Math.random().toString(36).slice(-8);
+                var newPasswordSend = newPassword;
+
+                LoginBusiness.prototype.criptPassword(newPassword, function(obj){
+                    newPassword = obj;
+                });
 
                 if(collectionUser != undefined && collectionUser.length > 0){
 
@@ -165,7 +170,7 @@ var LoginBusiness = (function() {
                         if(!err) {
 
                             returnUser = "OK";
-                            emailBusiness.sendPasswordRecovery(loginModel.use_login,collectionUser[0].use_first_name,newPassword);
+                            emailBusiness.sendPasswordRecovery(loginModel.use_login,collectionUser[0].use_first_name,newPasswordSend);
 
                         }
                     });
