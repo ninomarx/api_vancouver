@@ -93,6 +93,11 @@ server.get('/api/category/select', function (req, res, next) {
     return next();
 });
 
+server.get('/api/category/selectFilter', function (req, res, next) {
+    categoryResource.selectFilter(req,res);
+    return next();
+});
+
 server.post('/api/category/selectById', function (req, res, next) {
     categoryResource.selectById(req,res);
     return next();
@@ -100,6 +105,11 @@ server.post('/api/category/selectById', function (req, res, next) {
 
 server.post('/api/category/selectSubcategory', function (req, res, next) {
     categoryResource.selectSubcategory(req,res);
+    return next();
+});
+
+server.post('/api/category/selectSubcategoryFilter', function (req, res, next) {
+    categoryResource.selectSubcategoryFilter(req,res);
     return next();
 });
 

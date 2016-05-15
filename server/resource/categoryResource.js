@@ -22,6 +22,20 @@ var CategoryResource = (function() {
 
     }
 
+    CategoryResource.prototype.selectFilter = function(req,res){
+
+        var categoryModel = new Object();
+
+        if (req){
+            categoryModel = req.query;
+        }
+
+        categoryBusiness.selectFilter(categoryModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
     CategoryResource.prototype.selectById = function(req,res){
 
         var categoryModel = new Object();
@@ -46,6 +60,20 @@ var CategoryResource = (function() {
         }
 
         categoryBusiness.selectSubcategory(categoryModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
+    CategoryResource.prototype.selectSubcategoryFilter = function(req,res){
+
+        var categoryModel = new Object();
+
+        if (req){
+            categoryModel = req.body;
+        }
+
+        categoryBusiness.selectSubcategoryFilter(categoryModel, function(obj){
             res.json(obj);
         });
 
