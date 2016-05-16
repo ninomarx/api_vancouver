@@ -1,5 +1,6 @@
 var factory = require("./../factory/dbfactory");
-var stripe = require("stripe")("sk_test_460XHEvqOdYJFTRiy4zP88ha");
+//var stripe = require("stripe")("sk_test_460XHEvqOdYJFTRiy4zP88ha");
+var stripe = require("stripe")("sk_live_KsGnJ5V6z1BJKdCuhdq47Zhz");
 
 var PaymentBusiness = (function() {
 
