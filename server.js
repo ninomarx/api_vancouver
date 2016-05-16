@@ -27,9 +27,9 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
 server.use(restify.CORS({
-    origins: ['http://localhost:8080', 'http://localhost:63342', 'https://cotutoweb.herokuapp.com', 'http://cotutoweb.herokuapp.com','http://www.cotuto.com/'],   // defaults to ['*']
-    credentials: true,                 // defaults to false
-    headers: ['x-foo'],                 // sets expose-headers
+    origins: ['http://localhost:8080', 'http://localhost:63342', 'https://cotutoweb.herokuapp.com', 'http://cotutoweb.herokuapp.com','http://www.cotuto.com/','http://cotuto-web-live.herokuapp.com'],   // defaults to ['*']
+    credentials: true,
+    headers: ['x-foo'],
     methods: ['GET','PUT','DELETE','POST','OPTIONS']
 }));
 
