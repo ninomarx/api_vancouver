@@ -8,7 +8,7 @@ var  server = restify.createServer({
 function corsHandler(req, res, next) {
 
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, X-Response-Time, X-PINGOTHER, X-CSRF-Token,Authorization');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Expose-Headers', 'X-Api-Version, X-Request-Id, X-Response-Time');
     res.setHeader('Access-Control-Max-Age', '1000');
@@ -27,7 +27,7 @@ server.use(restify.queryParser());
 server.use(restify.bodyParser());
 
 server.use(restify.CORS({
-    origins: ['http://localhost:8080', 'http://localhost:63342', 'https://cotutoweb.herokuapp.com', 'http://cotutoweb.herokuapp.com','http://www.cotuto.com/','http://cotuto-web-live.herokuapp.com','https://www.cotuto.com/','https://cotuto-web-live.herokuapp.com'],   // defaults to ['*']
+    origins: ['http://localhost:8080', 'http://localhost:63342', 'https://cotutoweb.herokuapp.com', 'http://cotutoweb.herokuapp.com','http://cotuto.com/','http://cotuto-web-live.herokuapp.com','https://cotuto.com/','https://cotuto-web-live.herokuapp.com'],   // defaults to ['*']
     credentials: true,
     headers: ['x-foo'],
     methods: ['GET','PUT','DELETE','POST','OPTIONS']
