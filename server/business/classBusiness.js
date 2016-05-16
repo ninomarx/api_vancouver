@@ -181,20 +181,29 @@ var ClassBusiness = (function() {
         connection.connect();
 
         var sql = "";
+        sql = sql + " SELECT *, ";
+        sql = sql + " case ";
+        sql = sql + " when number_session > 1 then Concat(number_session, ' Sessions') ";
+        sql = sql + " else Concat(SUBSTRING(SEC_TO_TIME(cla_duration * 60),1,5), 'hr') ";
+        sql = sql + " end AS number_session,(cla_max_size - students) AS spot_left ";
+        sql = sql + " FROM   ( ";
+
         sql = sql + " select CL.use_id as use_id_instructor, CL.cla_id,Cl.cor_id, cla_session_type, cla_duration, cla_cost, cla_min_size, cla_max_size, cla_address, ";
-        sql = sql + "   cla_status, cla_deadline, cla_allow_lateRegistration, cla_allow_lateWithdraw, cla_lateWithdraw_date, ";
+        sql = sql + "   cla_status, cla_allow_lateRegistration, cla_allow_lateWithdraw, cla_lateWithdraw_date, ";
         sql = sql + "   cla_latitude, cla_longitude, clt_date, clt_start_time, clt_address, clt_firstClass, cor_name, cor_description, ";
         sql = sql + "   cor_accreditation, cor_accreditation_description, cor_learn, cor_bring, cor_aware_before, ";
         sql = sql + "   cor_structure, cor_image, cor_added_date, cor_who_isfor, cor_expertise, cor_why_love, ";
         sql = sql + "   cor_style, cor_why_take, CONCAT(US.use_first_name,' ',US.use_last_name ) AS use_name, ";
         sql = sql + "   use_description, use_email, usi_about, usi_expertise, usi_credential, usi_image, ";
         sql = sql + "   usi_coached_before, usi_coached_experience, usi_speaking_groups, usi_speaking_experience, ";
-        sql = sql + "   COALESCE(SUM(CR.use_id),0) AS students,DATE_FORMAT(CT.clt_date, \"%b. %d\") as dateShow, ";
-        sql = sql + "   DATE_FORMAT(CT.clt_start_time,\"%l:%i%p\") AS timeShow, DAYNAME(CT.clt_date) AS dayName, ";
+        sql = sql + "   DATE_FORMAT(CT.clt_date, \"%b %d\") as dateShow,  DATE_FORMAT(CT.clt_date, \"%b %d, %Y\") as dateShowC,  ";
+        sql = sql + "   cit_description, pro_code, age_description,col_description, ";
+        sql = sql + "   DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(CT.clt_date) AS dayName, ";
         sql = sql + "   TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline, ";
-        sql = sql + "   (CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left, ";
-        sql = sql + "   COUNT(CT.clt_id) AS number_session,cit_description,pro_code, age_description, col_description,";
-        sql = sql + "   COUNT(CV.cre_id) AS number_reviews,(SUM(cre_stars)/COUNT(CV.cre_id)) star_general";
+        sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
+        sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = cl.cor_id) star_general, ";
+        sql = sql + " (select coalesce(count(clr_id),0) from class_register where cla_id = cl.cla_id and clr_status = 'A') as students, ";
+        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session ";
         if(classModel.use_id != "")
             sql = sql + "      ,COALESCE(WL.wis_status,'N') AS wis_status ";
         sql = sql + " from class CL ";
@@ -206,12 +215,10 @@ var ClassBusiness = (function() {
         sql = sql + "   INNER JOIN course_level LV ON CL.col_id = LV.col_id ";
         sql = sql + "   INNER JOIN city CY ON CL.cit_id = CY.cit_id ";
         sql = sql + "   INNER JOIN province PR ON CY.pro_id = PR.pro_id ";
-        sql = sql + "   LEFT JOIN class_register CR ON CL.cla_id = CR.cla_id ";
-        sql = sql + "   LEFT JOIN class_review CV ON CL.cor_id = CV.cor_id ";
         if(classModel.use_id != "")
             sql = sql + "   LEFT JOIN wishlist WL ON CL.cla_id = WL.cla_id and WL.use_id = " + classModel.use_id  + " ";
         sql = sql + " where CL.cla_id = " + classModel.cla_id + " AND CT.clt_firstClass = 'Y' ";
-        sql = sql + " GROUP BY CO.cor_id, CL.cla_id; ";
+        sql = sql + " GROUP BY CO.cor_id, CL.cla_id ) AS AUX; ";
 
 
         connection.query(sql,function(err,classObj){
@@ -266,7 +273,7 @@ var ClassBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " SELECT DATE_FORMAT(clt_date, \"%b. %d\") as dateShow,DATE_FORMAT(clt_start_time,\"%l:%i%p\") AS timeShow, DAYNAME(clt_date) AS dayName ";
+        sql = sql + " SELECT DATE_FORMAT(clt_date, \"%b. %d\") as dateShow,DATE_FORMAT(clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(clt_date) AS dayName ";
         sql = sql + " FROM class_time ";
         sql = sql + " where cla_id = " + classModel.cla_id + " ; ";
 
@@ -288,7 +295,7 @@ var ClassBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " SELECT distinct CT.cla_id, DATE_FORMAT(clt_date, \"%b. %d\") as dateShow,DATE_FORMAT(clt_start_time,\"%l:%i%p\") AS timeShow, DAYNAME(clt_date) AS dayName ";
+        sql = sql + " SELECT distinct CT.cla_id, DATE_FORMAT(clt_date, \"%b. %d\") as dateShow,DATE_FORMAT(clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(clt_date) AS dayName ";
         sql = sql + " FROM class CT ";
         sql = sql + " INNER JOIN class_time C ON CT.cla_id = C.cla_id ";
         sql = sql + " where CT.cor_id = " + classModel.cor_id + "  and clt_firstClass = 'Y' AND CT.cla_status = 'A' and C.clt_date > now() and CT.cla_id <> " +  classModel.cla_id + ";";
@@ -313,14 +320,14 @@ var ClassBusiness = (function() {
         sql = sql + " select *, ";
         sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else CONCAT(FLOOR(cla_duration/60),'h',MOD(cla_duration,60),'m')  end as sessions ";
         sql = sql + " from ( ";
-        sql = sql + " select c.cla_id,co.cor_image, co.cor_name, ";
+        sql = sql + " select c.cla_id,co.cor_image, co.cor_name,city.cit_description, prov.pro_code, ";
         sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as instructor_name,usi_image, ";
         sql = sql + " c.cla_cost, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
-        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i%p\") start_time, ";
+        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
         sql = sql + " DATE_FORMAT(clr_added_date, \"%Y-%m-%d\") purchase_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i%p\") AS final_time, ";
+        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address, ";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
@@ -330,6 +337,8 @@ var ClassBusiness = (function() {
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
         sql = sql + " inner join class_register cr on c.cla_id = cr.cla_id ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id ";
+        sql = sql + " inner join city city on c.cit_id = city.cit_id ";
+        sql = sql + " inner join province prov on city.pro_id = prov.pro_id ";
         sql = sql + " where cr.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and clr_status = 'A' and clr_transaction_status <> 'C' ";
@@ -357,10 +366,10 @@ var ClassBusiness = (function() {
         sql = sql + " from ( ";
         sql = sql + " select c.cla_id,co.cor_image, co.cor_name,co.cor_id, ";
         sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as instructor_name,usi_image, ";
-        sql = sql + " c.cla_cost, ";
+        sql = sql + " c.cla_cost,city.cit_description, prov.pro_code, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
-        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i%p\") start_time, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i%p\") AS final_time, ";
+        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
+        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address, cre.cre_id,";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
@@ -370,6 +379,8 @@ var ClassBusiness = (function() {
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
         sql = sql + " inner join class_register cr on c.cla_id = cr.cla_id ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id ";
+        sql = sql + " inner join city city on c.cit_id = city.cit_id ";
+        sql = sql + " inner join province prov on city.pro_id = prov.pro_id ";
         sql = sql + " LEFT JOIN class_review cre ON c.cor_id = cre.cor_id AND cre.use_id = " + classModel.use_id + " "
         sql = sql + " where cr.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
@@ -401,10 +412,10 @@ var ClassBusiness = (function() {
         sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as instructor_name,usi_image, ";
         sql = sql + " c.cla_cost, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
-        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i%p\") start_time, ";
+        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
         sql = sql + " DATE_FORMAT(clr_added_date, \"%Y-%m-%d\") purchase_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i%p\") AS final_time, ";
+        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address, coalesce(cre.cre_id,0) as cre_id,";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
@@ -444,11 +455,11 @@ var ClassBusiness = (function() {
         sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as instructor_name,usi_image, ";
         sql = sql + " c.cla_cost, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
-        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i%p\") start_time, ";
+        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
         sql = sql + " DATE_FORMAT(clr_added_date, \"%Y-%m-%d\") purchase_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " DATE_FORMAT(clr_cancel_date, \"%Y-%m-%d\") clr_cancel_date, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i%p\") AS final_time, ";
+        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address, cre.cre_id,";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
@@ -494,8 +505,8 @@ var ClassBusiness = (function() {
         sql = sql + " c.cla_cost, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
-        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i%p\") start_time, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i%p\") AS final_time, ";
+        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
+        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end as day_until, ";
         sql = sql + " c.cla_address, ";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration, ";
@@ -542,8 +553,8 @@ var ClassBusiness = (function() {
         sql = sql + " c.cla_cost, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
-        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i%p\") start_time, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i%p\") AS final_time, ";
+        sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
+        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end as day_until, ";
         sql = sql + " c.cla_address, ";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration, ";

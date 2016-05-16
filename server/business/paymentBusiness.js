@@ -19,7 +19,10 @@ var PaymentBusiness = (function() {
         }, function(err, token) {
             if(!err) {
                 PaymentBusiness.prototype.costumerCreate(token, paymentModel);
-                callback(token);
+                callback("OK");
+            }
+            else{
+                callback(err.message);
             }
         });
 

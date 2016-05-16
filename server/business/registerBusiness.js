@@ -114,6 +114,7 @@ var RegisterBusiness = (function() {
         sql = sql + "    when use_id = " + registerModel.use_id  + "  then 'COD007' ";
         sql = sql + "    when validDate <>'Y' then 'COD008' ";
         sql = sql + "    when codStripe is null then 'COD009' ";
+        sql = sql + "    when clr_id is not null then 'COD010' ";
         sql = sql + "    else 'COD001' ";
         sql = sql + " end as ret";
         sql = sql + " from ( ";
@@ -124,7 +125,8 @@ var RegisterBusiness = (function() {
         sql = sql + "    when cla_allow_lateRegistration = 'S' and now()> ct.clt_date then'N' ";
         sql = sql + "    when cla_allow_lateRegistration = 'S' and now()<= ct.clt_date then'Y' ";
         sql = sql + " end as validDate, ";
-        sql = sql + " (select costumerIdStripe from user where use_id = " + registerModel.use_id  + ") as codStripe ";
+        sql = sql + " (select costumerIdStripe from user where use_id = " + registerModel.use_id  + ") as codStripe, ";
+        sql = sql + " (select clr_id from class_register where cla_id = " + registerModel.cla_id  + " and use_id = " + registerModel.use_id  + " limit 1) as clr_id ";
         sql = sql + " from class c ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id and clt_firstClass = 'Y' ";
         sql = sql + " inner join course cou on c.cor_id = cou.cor_id ";

@@ -732,6 +732,11 @@ var CourseBusiness = (function() {
             sql = sql + " cor_id = " + courseModel.cor_id + ";";
         }
 
+         sql = sql + " UPDATE user SET ";
+         sql = sql + " use_type = 3";
+         sql = sql + " WHERE ";
+         sql = sql + " use_id = " + courseModel.use_id + " AND use_type = 1; ";
+
         connection.query(sql,function(err,course){
             if(!err) {
 

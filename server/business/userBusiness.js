@@ -156,10 +156,10 @@ var UserBusiness = (function() {
         sql = sql + " WHERE ";
         sql = sql + " use_id = " + userModel.use_id + "; ";
 
-        sql = sql + " UPDATE user SET ";
+        /*sql = sql + " UPDATE user SET ";
         sql = sql + " use_type = 3";
         sql = sql + " WHERE ";
-        sql = sql + " use_id = " + userModel.use_id + "; ";
+        sql = sql + " use_id = " + userModel.use_id + "; ";*/
 
         connection.query(sql,function(err,user){
             connection.end();
