@@ -33,6 +33,8 @@ server.use(restify.CORS({
     methods: ['GET','PUT','DELETE','POST','OPTIONS']
 }));
 
+// origins: ['http://localhost:8080', 'http://localhost:63342', 'https://cotutoweb.herokuapp.com', 'http://cotutoweb.herokuapp.com','http://cotuto.com/','http://cotuto-web-live.herokuapp.com','https://cotuto.com/','https://cotuto-web-live.herokuapp.com'],   // defaults to ['*']
+
 server.opts('/\.*/', corsHandler, optionsRoute);
 
 var countryResource  = require("./server/resource/countryResource");

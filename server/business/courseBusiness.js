@@ -745,12 +745,12 @@ var CourseBusiness = (function() {
                     sql = "";
 
                     courseModel.cat_id.forEach(function(item) {
-                            sql = sql + " INSERT INTO course_subcategory VALUES (" + course.insertId + "," + item.cat_id + "," + item.subCategory + " ); ";
+                            sql = sql + " INSERT INTO course_subcategory VALUES (" + course[0].insertId + "," + item.cat_id + "," + item.subCategory + " ); ";
                         }
                     )
 
                     courseModel.tags.forEach(function(item) {
-                            sql = sql + " INSERT INTO course_tags VALUES (" + course.insertId + ",'" + item + "' ); ";
+                            sql = sql + " INSERT INTO course_tags VALUES (" + course[0].insertId + ",'" + item + "' ); ";
                         }
                     )
                 }
