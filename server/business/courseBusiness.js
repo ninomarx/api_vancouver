@@ -36,7 +36,7 @@ var CourseBusiness = (function() {
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size, ";
         sql = sql + " Timestampdiff(day, Curdate(), CL.cla_deadline) AS cla_deadline2, ";
         sql = sql + " Date_format(CL.cla_deadline, \"%b %d, %Y\") AS cla_deadline, ";
-        sql = sql + " CL.cla_deadline AS cla_deadlineFilter, Concat(US.use_first_name, ' ', US.use_last_name)  AS use_name, ";
+        sql = sql + " CL.cla_deadline AS cla_deadlineFilter, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') )  AS use_name, ";
         sql = sql + " US.use_image, CL.cla_allow_lateregistration, ";
         sql = sql + " CL.cla_latitude, CL.cla_longitude, CL.cla_duration, ";
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
@@ -135,7 +135,7 @@ var CourseBusiness = (function() {
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size, ";
         sql = sql + " Timestampdiff(day, Curdate(), CL.cla_deadline) AS cla_deadline2, ";
         sql = sql + " Date_format(CL.cla_deadline, \"%b %d, %Y\") AS cla_deadline, ";
-        sql = sql + " CL.cla_deadline AS cla_deadlineFilter, Concat(US.use_first_name, ' ', US.use_last_name)  AS use_name, ";
+        sql = sql + " CL.cla_deadline AS cla_deadlineFilter, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') )  AS use_name, ";
         sql = sql + " US.use_image, CL.cla_allow_lateregistration, ";
         sql = sql + " CL.cla_latitude, CL.cla_longitude, CL.cla_duration, ";
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
@@ -239,7 +239,7 @@ var CourseBusiness = (function() {
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size, ";
         sql = sql + " Timestampdiff(day, Curdate(), CL.cla_deadline) AS cla_deadline2, ";
         sql = sql + " Date_format(CL.cla_deadline, \"%b %d, %Y\") AS cla_deadline, ";
-        sql = sql + " CL.cla_deadline AS cla_deadlineFilter, Concat(US.use_first_name, ' ', US.use_last_name)  AS use_name, ";
+        sql = sql + " CL.cla_deadline AS cla_deadlineFilter, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') )  AS use_name, ";
         sql = sql + " US.use_image, CL.cla_allow_lateregistration, ";
         sql = sql + " CL.cla_latitude, CL.cla_longitude, CL.cla_duration, ";
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
@@ -826,7 +826,7 @@ var CourseBusiness = (function() {
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size, ";
         sql = sql + " Timestampdiff(day, Curdate(), CL.cla_deadline) AS cla_deadline2, ";
         sql = sql + " Date_format(CL.cla_deadline, \"%b %d, %Y\") AS cla_deadline, ";
-        sql = sql + " CL.cla_deadline AS cla_deadlineFilter, Concat(US.use_first_name, ' ', US.use_last_name)  AS use_name, ";
+        sql = sql + " CL.cla_deadline AS cla_deadlineFilter, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') )  AS use_name, ";
         sql = sql + " US.use_image, CL.cla_allow_lateregistration, ";
         sql = sql + " CL.cla_latitude, CL.cla_longitude, CL.cla_duration, ";
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
@@ -1093,7 +1093,7 @@ var CourseBusiness = (function() {
         sql = sql + "   DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\")AS clt_start_time,  DAYNAME(CT.clt_date) AS week_day, ";
         sql = sql + "   CI.cit_description, PR.pro_code, AG.age_description,  COL.col_description,CL.cla_min_size, ";
         sql = sql + "   CL.cla_max_size,  TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline2, DATE_FORMAT(CL.cla_deadline, \"%b %d, %Y\") as cla_deadline, ";
-        sql = sql + "   CL.cla_deadline AS cla_deadlineFilter, CONCAT(US.use_first_name,' ',US.use_last_name ) as use_name, ";
+        sql = sql + "   CL.cla_deadline AS cla_deadlineFilter, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') ) as use_name, ";
         sql = sql + "   US.use_image,USI.usi_image,(CL.cla_max_size - COALESCE(SUM(CR.use_id),0)) AS spot_left,  COUNT(CT.clt_id) AS number_session, ";
         sql = sql + "   CL.cla_allow_lateRegistration, COALESCE(SUM(CR.use_id),0) AS students, ";
         sql = sql + "   CL.cla_latitude, CL.cla_longitude, ";
