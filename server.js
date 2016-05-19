@@ -249,10 +249,10 @@ server.post('/api/upload', function (req, res, next) {
 /**
  * Image
  */
-server.get("/api/image/:imageURL", function (req, res, next) {
-    imageResource.getImage(req,res);
-    return next();
-});
+//server.get("/api/image/:imageURL", function (req, res, next) {
+//    imageResource.getImage(req,res);
+//    return next();
+//});
 
 /**
  * Age

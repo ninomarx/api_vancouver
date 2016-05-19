@@ -122,7 +122,7 @@ var ClassBusiness = (function() {
 
                             sql = sql + " INSERT INTO class_time (clt_date,clt_start_time,cla_id,clt_address,clt_firstClass) ";
                             sql = sql + " VALUES ('" + item.clt_date + "', ";
-                            sql = sql + " '" + item.clt_start_time + "', ";
+                            sql = sql + " TIME( STR_TO_DATE( '" + item.clt_start_time + "', '%h:%i %p' ) ), ";
                             sql = sql + " " + classModel.cla_id + ", ";
                             sql = sql + " " + item.clt_address + " ,";
                             sql = sql + " '" + item.clt_firstClass + "' ";
@@ -327,7 +327,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
         sql = sql + " DATE_FORMAT(clr_added_date, \"%Y-%m-%d\") purchase_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
+        sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p') AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address, ";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
@@ -369,7 +369,7 @@ var ClassBusiness = (function() {
         sql = sql + " c.cla_cost,city.cit_description, prov.pro_code, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
+        sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address, cre.cre_id,";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
@@ -415,7 +415,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
         sql = sql + " DATE_FORMAT(clr_added_date, \"%Y-%m-%d\") purchase_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
+        sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address, coalesce(cre.cre_id,0) as cre_id,";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
@@ -459,7 +459,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(clr_added_date, \"%Y-%m-%d\") purchase_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " DATE_FORMAT(clr_cancel_date, \"%Y-%m-%d\") clr_cancel_date, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
+        sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address, cre.cre_id,";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
@@ -506,7 +506,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
+        sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end as day_until, ";
         sql = sql + " c.cla_address, ";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration, ";
@@ -554,7 +554,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
-        sql = sql + " DATE_FORMAT(DATE_ADD( ct.clt_start_time, interval c.cla_duration DAY_MINUTE),\"%l:%i %p\") AS final_time, ";
+        sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end as day_until, ";
         sql = sql + " c.cla_address, ";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration, ";

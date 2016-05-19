@@ -56,7 +56,7 @@ var CourseBusiness = (function() {
         sql = sql + " INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
         if(courseModel.use_id != "")
             sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
-        sql = sql + " WHERE  CI.cit_id = " + courseModel.cit_id + " ";
+        sql = sql + " WHERE  CI.cit_id in (select cit_id from city where reg_id in (select reg_id from city where cit_id = " + courseModel.cit_id + ")) ";
         sql = sql + " AND COU.cor_status = 'A' ";
         sql = sql + " AND CL.cla_status = 'A' ";
         sql = sql + " AND ct.clt_date >= Curdate() ";
@@ -352,7 +352,7 @@ var CourseBusiness = (function() {
             /*  Class Posted Data */
             sql = "";
             sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b. %d,%Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
-            sql = sql + "DATE_FORMAT(DATE_ADD( CT.clt_start_time, interval C.cla_duration DAY_MINUTE),\"%l:%i%p\") AS final_time, ";
+            sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
             sql = sql + "C.cla_cost, C.cla_address, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
             sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
             sql = sql + "C.cla_allow_lateWithdraw, C.cla_lateWithdraw_date,C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link  ";
@@ -411,7 +411,7 @@ var CourseBusiness = (function() {
                 /* Class Planned Data */
                 sql = "";
                 sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b. %d,%Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
-                sql = sql + "DATE_FORMAT(DATE_ADD( CT.clt_start_time, interval C.cla_duration DAY_MINUTE),\"%l:%i%p\") AS final_time, ";
+                sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p') AS final_time, ";
                 sql = sql + "C.cla_cost, C.cla_address, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
                 sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
                 sql = sql + "C.cla_allow_lateWithdraw, C.cla_lateWithdraw_date,C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link  ";
@@ -854,7 +854,7 @@ var CourseBusiness = (function() {
 
         if(courseModel.cit_id) {
             sql = sql + " AND ";
-            sql = sql + " CI.cit_id = " + courseModel.cit_id + " ";
+            sql = sql + " CI.cit_id in (select cit_id from city where reg_id in (select reg_id from city where cit_id =  " + courseModel.cit_id + ")) ";
         }
 
         if(courseModel.cat_id) {
@@ -1121,7 +1121,7 @@ var CourseBusiness = (function() {
 
         if(courseModel.cit_id) {
             sql = sql + " AND ";
-            sql = sql + " CI.cit_id = " + courseModel.cit_id + " ";
+            sql = sql + " CI.cit_id in (select cit_id from city where reg_id in (select reg_id from city where cit_id = " + courseModel.cit_id + "))  ";
         }
 
         if(courseModel.search != "")
