@@ -2,8 +2,7 @@ var restify = require('restify');
 
 var  server = restify.createServer({
     name: 'cotuto_api',
-    version: '1.0.0',
-    requestCert: true
+    version: '1.0.0'
 });
 
 function corsHandler(req, res, next) {
