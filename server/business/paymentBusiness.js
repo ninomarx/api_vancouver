@@ -19,8 +19,9 @@ var PaymentBusiness = (function() {
             }
         }, function(err, token) {
             if(!err) {
-                PaymentBusiness.prototype.costumerCreate(token, paymentModel);
-                callback("OK");
+                PaymentBusiness.prototype.costumerCreate(token, paymentModel,function(msg){
+                    callback(msg);
+                });
             }
             else{
                 callback(err.message);
@@ -29,13 +30,19 @@ var PaymentBusiness = (function() {
 
     };
 
-    PaymentBusiness.prototype.costumerCreate = function(token,paymentModel) {
+    PaymentBusiness.prototype.costumerCreate = function(token,paymentModel,callback) {
 
         stripe.customers.create({
             description: paymentModel.description,
             source: token.id
         }, function(err, customer) {
-            PaymentBusiness.prototype.saveStripeCostumer(customer.id,paymentModel.use_id,paymentModel.use_card);
+            if(!err) {
+                PaymentBusiness.prototype.saveStripeCostumer(customer.id, paymentModel.use_id, paymentModel.use_card);
+                callback("OK");
+            }
+            else{
+                callback(err.message);
+            }
         });
     };
 
