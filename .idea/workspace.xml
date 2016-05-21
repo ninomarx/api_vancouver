@@ -21,31 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.64469916">
-              <caret line="451" column="37" selection-start-line="451" selection-start-column="37" selection-end-line="451" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="paymentBusiness.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dbfactory.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+              <caret line="446" column="19" selection-start-line="446" selection-start-column="19" selection-end-line="446" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -57,27 +37,47 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
               <folding>
-                <marker date="1463695989017" expanded="true" signature="777:824" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="889:901" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="921:940" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="952:983" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="1043:1077" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="1228:1263" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="1383:1399" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="1516:1532" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="1636:1652" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="1668:1715" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="2445:2492" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="2557:2569" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="2589:2608" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="2620:2651" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="2709:2771" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="2879:2914" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="3034:3050" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="3167:3183" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="3287:3303" placeholder="..." />
-                <marker date="1463695989017" expanded="true" signature="3319:3366" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="777:824" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="889:901" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="921:940" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="952:983" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="1043:1077" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="1228:1263" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="1383:1399" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="1516:1532" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="1636:1652" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="1668:1715" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="2445:2492" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="2557:2569" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="2589:2608" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="2620:2651" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="2709:2771" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="2879:2914" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="3034:3050" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="3167:3183" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="3287:3303" placeholder="..." />
+                <marker date="1463864106041" expanded="true" signature="3319:3366" placeholder="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dbfactory.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="13" column="48" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="paymentBusiness.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3207547">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -134,16 +134,16 @@
         <option value="$PROJECT_DIR$/server/resource/classResource.js" />
         <option value="$PROJECT_DIR$/server/business/categoryBusiness.js" />
         <option value="$PROJECT_DIR$/server/resource/categoryResource.js" />
-        <option value="$PROJECT_DIR$/server/business/userBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/wishlistBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/messageBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/registerBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/classBusiness.js" />
-        <option value="$PROJECT_DIR$/server/business/emailBusiness.js" />
         <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/server/business/courseBusiness.js" />
         <option value="timers.js" />
         <option value="$PROJECT_DIR$/server/business/paymentBusiness.js" />
+        <option value="$PROJECT_DIR$/server/business/courseBusiness.js" />
+        <option value="$PROJECT_DIR$/server/business/userBusiness.js" />
+        <option value="$PROJECT_DIR$/server/business/emailBusiness.js" />
         <option value="$PROJECT_DIR$/server/factory/dbfactory.js" />
       </list>
     </option>
@@ -412,18 +412,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1376" height="754" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17189835" sideWeight="0.48478702" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279743" sideWeight="0.4968652" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16398714" sideWeight="0.5209268" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15916398" sideWeight="0.47907326" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1881029" sideWeight="0.47907326" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39389068" sideWeight="0.4857571" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39389068" sideWeight="0.4857571" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15625" sideWeight="0.51521295" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3585209" sideWeight="0.77901787" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3585209" sideWeight="0.77901787" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -503,7 +503,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/business/courseBusiness.js</url>
-          <line>1273</line>
+          <line>1284</line>
           <option name="timeStamp" value="408" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -587,26 +587,6 @@
           <option name="timeStamp" value="461" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/business/userBusiness.js</url>
-          <line>200</line>
-          <option name="timeStamp" value="464" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/business/userBusiness.js</url>
-          <line>208</line>
-          <option name="timeStamp" value="466" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/business/userBusiness.js</url>
-          <line>222</line>
-          <option name="timeStamp" value="467" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/business/userBusiness.js</url>
-          <line>224</line>
-          <option name="timeStamp" value="468" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/business/messageBusiness.js</url>
           <line>150</line>
           <option name="timeStamp" value="491" />
@@ -622,16 +602,13 @@
           <option name="timeStamp" value="507" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="514" />
+      <option name="time" value="517" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="NodeJSConfigurationType">
+        <watch expression="userModel.tags" language="JavaScript" />
         <watch expression="sql" language="JavaScript" />
         <watch expression="err" language="JavaScript" />
-        <watch expression="courseModel.use_id " language="JavaScript" />
-        <watch expression="err.message" language="JavaScript" />
-        <watch expression="courseModel" language="JavaScript" />
-        <watch expression="course[0].insertId" language="JavaScript" />
       </configuration>
     </watches-manager>
   </component>
@@ -879,14 +856,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/userBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.344828">
-          <caret line="158" column="1" selection-start-line="158" selection-start-column="1" selection-end-line="161" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/business/wishlistBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.5172415">
@@ -953,14 +922,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="171" column="8" selection-start-line="171" selection-start-column="8" selection-end-line="171" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/business/registerBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -977,31 +938,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1066" column="43" selection-start-line="1066" selection-start-column="43" selection-end-line="1066" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="446" column="19" selection-start-line="446" selection-start-column="19" selection-end-line="446" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/userBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.056603774">
+          <caret line="229" column="20" selection-start-line="229" selection-start-column="20" selection-end-line="229" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/business/emailBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
           <folding>
-            <marker date="1463695989017" expanded="true" signature="777:824" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="889:901" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="921:940" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="952:983" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="1043:1077" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="1228:1263" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="1383:1399" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="1516:1532" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="1636:1652" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="1668:1715" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="2445:2492" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="2557:2569" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="2589:2608" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="2620:2651" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="2709:2771" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="2879:2914" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="3034:3050" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="3167:3183" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="3287:3303" placeholder="..." />
-            <marker date="1463695989017" expanded="true" signature="3319:3366" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="777:824" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="889:901" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="921:940" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="952:983" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="1043:1077" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="1228:1263" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="1383:1399" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="1516:1532" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="1636:1652" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="1668:1715" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="2445:2492" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="2557:2569" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="2589:2608" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="2620:2651" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="2709:2771" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="2879:2914" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="3034:3050" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="3167:3183" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="3287:3303" placeholder="..." />
+            <marker date="1463864106041" expanded="true" signature="3319:3366" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1009,23 +994,15 @@
     <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="48" selection-start-line="24" selection-start-column="48" selection-end-line="24" selection-end-column="48" />
+          <caret line="13" column="48" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64469916">
-          <caret line="451" column="37" selection-start-line="451" selection-start-column="37" selection-end-line="451" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.3207547">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>

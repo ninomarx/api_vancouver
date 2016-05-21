@@ -1061,6 +1061,17 @@ var CourseBusiness = (function() {
 
                 }
 
+
+                var aux = 0;
+                collectionCourseRet.forEach(function(item){
+                    if(item.distance <= 5){
+                        aux++;
+                    }
+                })
+
+                var classesNearby = {qtde: aux};
+                collectionCourseRet.push(classesNearby);
+
                 callback(collectionCourseRet);
             }
         });

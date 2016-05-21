@@ -220,6 +220,11 @@ var UserBusiness = (function() {
                     }
                 )
 
+                userModel.tags.forEach(function(item) {
+                        sql = sql + " INSERT INTO user_tags (use_id,uta_tag) VALUES (" + user[0].use_id + ",'" + item + "' ); ";
+                    }
+                )
+
                 connection.query(sql,function(err,user){
                     connection.end();
                     if(!err) {
