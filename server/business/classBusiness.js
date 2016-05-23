@@ -12,7 +12,7 @@ var ClassBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " SELECT clt_date AS date, clt_start_time AS time, clt_address AS address, clt_id AS index_ ";
+        sql = sql + " SELECT clt_date AS date,DATE_FORMAT(clt_start_time,\"%l:%i %p\") AS time, clt_address AS address, clt_id AS index_ ";
         sql = sql + " FROM class C";
         sql = sql + " INNER JOIN class_time CT ON C.cla_id = CT.cla_id ";
         sql = sql + " WHERE C.cla_id =  " + classModel.cla_id + " AND clt_firstClass = 'N'; ";
