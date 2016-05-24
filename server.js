@@ -202,6 +202,12 @@ server.post('/api/login/recoverPassword', function (req, res, next) {
     return next();
 });
 
+server.post('/api/login/signupAdmin', function (req, res, next) {
+    loginResource.signupAdmin(req,res);
+    return next();
+});
+
+
 
 /**
  * User

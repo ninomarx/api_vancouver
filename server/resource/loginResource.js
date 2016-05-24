@@ -50,6 +50,20 @@ var LoginResource = (function() {
 
     }
 
+    LoginResource.prototype.signupAdmin = function(req,res){
+
+        var loginModel = new Object();
+
+        if (req){
+            loginModel = req.body;
+        }
+
+        loginBusiness.signupAdmin(loginModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
     return new LoginResource();
 })();
 
