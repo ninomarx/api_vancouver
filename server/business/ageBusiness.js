@@ -13,7 +13,8 @@ var AgeBusiness = (function() {
 
         var sql = "";
         sql = sql + " SELECT * ";
-        sql = sql + " FROM age ;";
+        sql = sql + " FROM age ";
+        sql = sql + " ORDER BY age_order;";
 
         connection.query(sql,function(err,age){
             connection.end();
