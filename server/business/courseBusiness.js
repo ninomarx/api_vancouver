@@ -34,7 +34,7 @@ var CourseBusiness = (function() {
         sql = sql + " CT.clt_date AS clt_dateFilter, Date_format(CT.clt_start_time, \"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " Dayname(CT.clt_date) AS week_day, CI.cit_description, PR.pro_code, AG.age_description, ";
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size,CL.cla_address, ";
-        sql = sql + " Timestampdiff(day, Curdate(), CL.cla_deadline) AS cla_deadline2, ";
+        sql = sql + " Timestampdiff(day, Curdate(), Date_format(CL.cla_deadline, \"%y-%m-%d\")) AS cla_deadline2, ";
         sql = sql + " CASE WHEN Date_format(CL.cla_deadline,\"%Y-%m-%d\") = CURDATE() THEN 'Today' else Date_format(CL.cla_deadline, \"%b %d, %Y\") end AS cla_deadline, ";
         sql = sql + " CL.cla_deadline AS cla_deadlineFilter, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') )  AS use_name, ";
         sql = sql + " US.use_image, CL.cla_allow_lateregistration, ";
@@ -133,7 +133,7 @@ var CourseBusiness = (function() {
         sql = sql + " CT.clt_date AS clt_dateFilter, Date_format(CT.clt_start_time, \"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " Dayname(CT.clt_date) AS week_day, CI.cit_description, PR.pro_code, AG.age_description, ";
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size,CL.cla_address, ";
-        sql = sql + " Timestampdiff(day, Curdate(), CL.cla_deadline) AS cla_deadline2, ";
+        sql = sql + " Timestampdiff(day, Curdate(), Date_format(CL.cla_deadline, \"%y-%m-%d\")) AS cla_deadline2, ";
         sql = sql + " CASE WHEN Date_format(CL.cla_deadline,\"%Y-%m-%d\") = CURDATE() THEN 'Today' else Date_format(CL.cla_deadline, \"%b %d, %Y\") end AS cla_deadline, ";
         sql = sql + " CL.cla_deadline AS cla_deadlineFilter, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') )  AS use_name, ";
         sql = sql + " US.use_image, CL.cla_allow_lateregistration, ";
@@ -237,7 +237,7 @@ var CourseBusiness = (function() {
         sql = sql + " CT.clt_date AS clt_dateFilter, Date_format(CT.clt_start_time, \"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " Dayname(CT.clt_date) AS week_day, CI.cit_description, PR.pro_code, AG.age_description, ";
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size,CL.cla_address, ";
-        sql = sql + " Timestampdiff(day, Curdate(), CL.cla_deadline) AS cla_deadline2, ";
+        sql = sql + " Timestampdiff(day, Curdate(), Date_format(CL.cla_deadline, \"%y-%m-%d\")) AS cla_deadline2, ";
         sql = sql + " CASE WHEN Date_format(CL.cla_deadline,\"%Y-%m-%d\") = CURDATE() THEN 'Today' else Date_format(CL.cla_deadline, \"%b %d, %Y\") end AS cla_deadline, ";
         sql = sql + " CL.cla_deadline AS cla_deadlineFilter, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') )  AS use_name, ";
         sql = sql + " US.use_image, CL.cla_allow_lateregistration, ";
@@ -352,13 +352,14 @@ var CourseBusiness = (function() {
             /*  Class Posted Data */
             sql = "";
             sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
-            sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
+            sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time,CI.cit_description, PR.pro_code,  ";
             sql = sql + "C.cla_cost, C.cla_address, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
             sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
             sql = sql + "C.cla_allow_lateWithdraw, C.cla_lateWithdraw_date,C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link  ";
             sql = sql + "FROM Class C ";
             sql = sql + "INNER JOIN class_time CT ON C.cla_id = CT.cla_id ";
             sql = sql + "LEFT JOIN city CI ON C.cit_id = CI.cit_id ";
+            sql = sql + "LEFT JOIN province PR ON CI.pro_id = PR.pro_id ";
             sql = sql + "LEFT JOIN class_register CR ON C.cla_id = CR.cla_id ";
             sql = sql + "WHERE C.use_id = " + courseModel.use_id + " and cla_status = 'A' AND clt_firstClass = 'Y' ";
             sql = sql + "GROUP BY C.cla_id ";
@@ -411,13 +412,14 @@ var CourseBusiness = (function() {
                 /* Class Planned Data */
                 sql = "";
                 sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
-                sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p') AS final_time, ";
+                sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p') AS final_time,CI.cit_description, PR.pro_code, ";
                 sql = sql + "C.cla_cost, C.cla_address, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
                 sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
                 sql = sql + "C.cla_allow_lateWithdraw, C.cla_lateWithdraw_date,C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link  ";
                 sql = sql + "FROM Class C ";
                 sql = sql + "INNER JOIN class_time CT ON C.cla_id = CT.cla_id ";
                 sql = sql + "LEFT JOIN city CI ON C.cit_id = CI.cit_id ";
+                sql = sql + "LEFT JOIN province PR ON CI.pro_id = PR.pro_id ";
                 sql = sql + "LEFT JOIN class_register CR ON C.cla_id = CR.cla_id ";
                 sql = sql + "WHERE C.use_id = " + courseModel.use_id + " and cla_status = 'P' AND clt_firstClass = 'Y' ";
                 sql = sql + "GROUP BY C.cla_id ";
@@ -824,7 +826,7 @@ var CourseBusiness = (function() {
         sql = sql + " CT.clt_date AS clt_dateFilter, Date_format(CT.clt_start_time, \"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " Dayname(CT.clt_date) AS week_day, CI.cit_description, PR.pro_code, AG.age_description, ";
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size,CL.cla_address, ";
-        sql = sql + " Timestampdiff(day, Curdate(), CL.cla_deadline) AS cla_deadline2, ";
+        sql = sql + " Timestampdiff(day, Curdate(), Date_format(CL.cla_deadline, \"%y-%m-%d\")) AS cla_deadline2, ";
         sql = sql + " CASE WHEN Date_format(CL.cla_deadline,\"%Y-%m-%d\") = CURDATE() THEN 'Today' else Date_format(CL.cla_deadline, \"%b %d, %Y\") end AS cla_deadline, ";
         sql = sql + " CL.cla_deadline AS cla_deadlineFilter, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') )  AS use_name, ";
         sql = sql + " US.use_image, CL.cla_allow_lateregistration, ";
@@ -1110,7 +1112,7 @@ var CourseBusiness = (function() {
         sql = sql + " CT.clt_date AS clt_dateFilter, Date_format(CT.clt_start_time, \"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " Dayname(CT.clt_date) AS week_day, CI.cit_description, PR.pro_code, AG.age_description, ";
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size,CL.cla_address, ";
-        sql = sql + " Timestampdiff(day, Curdate(), CL.cla_deadline) AS cla_deadline2, ";
+        sql = sql + " Timestampdiff(day, Curdate(), Date_format(CL.cla_deadline, \"%y-%m-%d\")) AS cla_deadline2, ";
         sql = sql + " CASE WHEN Date_format(CL.cla_deadline,\"%Y-%m-%d\") = CURDATE() THEN 'Today' else Date_format(CL.cla_deadline, \"%b %d, %Y\") end AS cla_deadline, ";
         sql = sql + " CL.cla_deadline AS cla_deadlineFilter, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') )  AS use_name, ";
         sql = sql + " US.use_image, CL.cla_allow_lateregistration, ";

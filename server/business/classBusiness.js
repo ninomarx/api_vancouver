@@ -200,7 +200,7 @@ var ClassBusiness = (function() {
         sql = sql + "   DATE_FORMAT(CT.clt_date, \"%b %d\") as dateShow,  DATE_FORMAT(CT.clt_date, \"%b %d, %Y\") as dateShowC,  ";
         sql = sql + "   cit_description, pro_code, age_description,col_description, ";
         sql = sql + "   DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(CT.clt_date) AS dayName, ";
-        sql = sql + "   TIMESTAMPDIFF(day,CURDATE(),CL.cla_deadline) as cla_deadline2, ";
+        sql = sql + "   TIMESTAMPDIFF(day,CURDATE(),Date_format(CL.cla_deadline, \"%y-%m-%d\")) as cla_deadline2, ";
         sql = sql + "  CASE WHEN Date_format(CL.cla_deadline,\"%Y-%m-%d\") = CURDATE() THEN 'Today' else Date_format(CL.cla_deadline, \"%b %d, %Y\") end AS cla_deadline, ";
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
         sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = cl.cor_id) star_general, ";
