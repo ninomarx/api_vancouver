@@ -89,6 +89,45 @@ var UserResource = (function() {
         });
     }
 
+    UserResource.prototype.updateSetting = function(req,res){
+
+        var userModel = new Object();
+
+        if (req){
+            userModel = req.body;
+        }
+
+        userBusiness.updateSetting(userModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    UserResource.prototype.getCategorySetting = function(req,res){
+
+        var userModel = new Object();
+
+        if (req){
+            userModel = req.body;
+        }
+
+        userBusiness.getCategorySetting(userModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    UserResource.prototype.getTagsSetting = function(req,res){
+
+        var userModel = new Object();
+
+        if (req){
+            userModel = req.body;
+        }
+
+        userBusiness.getTagsSetting(userModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new UserResource();
 })();
 

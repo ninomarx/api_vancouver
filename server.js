@@ -243,6 +243,22 @@ server.post('/api/user/saveSetting', function (req, res, next) {
     return next();
 });
 
+server.post('/api/user/updateSetting', function (req, res, next) {
+    userResource.updateSetting(req,res);
+    return next();
+});
+
+server.post('/api/user/getCategorySetting', function (req, res, next) {
+    userResource.getCategorySetting(req,res);
+    return next();
+});
+
+server.post('/api/user/getTagsSetting', function (req, res, next) {
+    userResource.getTagsSetting(req,res);
+    return next();
+});
+
+
 /**
  * Upload
  */

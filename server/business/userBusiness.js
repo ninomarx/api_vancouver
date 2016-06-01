@@ -240,6 +240,92 @@ var UserBusiness = (function() {
         });
     };
 
+    UserBusiness.prototype.updateSetting = function(userModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+
+        sql = sql + " UPDATE user SET ";
+        sql = sql + " use_update_category = '" + userModel.updateCategory + "' ";
+        sql = sql + " WHERE ";
+        sql = sql + " use_id = '" + userModel.use_id + "';";
+
+        sql = sql + " DELETE FROM user_interests WHERE use_id = " + userModel.use_id + "; ";
+        sql = sql + " DELETE FROM user_tags WHERE use_id = " + userModel.use_id + "; ";
+
+        userModel.category.forEach(function(item) {
+                sql = sql + " INSERT INTO user_interests (cat_id, use_id) VALUES (" + item + "," + userModel.use_id + " ); ";
+            }
+        )
+
+        userModel.tags.forEach(function(item) {
+                sql = sql + " INSERT INTO user_tags (use_id,uta_tag) VALUES (" + userModel.use_id + ",'" + item + "' ); ";
+            }
+        )
+
+        connection.query(sql,function(err,user){
+            connection.end();
+            if(!err) {
+                callback(user);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+    };
+
+    UserBusiness.prototype.getCategorySetting = function(userModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+
+        sql = sql + " SELECT * FROM user_interests ";
+        sql = sql + " WHERE ";
+        sql = sql + " use_id = '" + userModel.use_id + "';";
+
+        connection.query(sql,function(err,user){
+            connection.end();
+            if(!err) {
+                callback(user);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+    };
+
+    UserBusiness.prototype.getTagsSetting = function(userModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+
+        sql = sql + " SELECT * FROM user_tags ";
+        sql = sql + " WHERE ";
+        sql = sql + " use_id = '" + userModel.use_id + "';";
+
+        connection.query(sql,function(err,user){
+            connection.end();
+            if(!err) {
+                callback(user);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+    };
+
     return new UserBusiness();
 })();
 
