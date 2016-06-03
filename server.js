@@ -54,6 +54,7 @@ var registerResource = require("./server/resource/registerResource");
 var messageResource  = require("./server/resource/messageResource");
 var paymentResource  = require("./server/resource/paymentResource");
 var reviewResource   = require("./server/resource/reviewResource");
+var utilResource   = require("./server/resource/utilResource");
 
 
 var adminInstructorsResource = require("./server/resource/admin/instructorResource");
@@ -484,6 +485,17 @@ server.post('/api/review/save', function (req, res, next) {
     reviewResource.save(req,res);
     return next();
 });
+
+/**
+ * Util
+ */
+server.get('/api/util/sendEmailReview', function (req, res, next) {
+    utilResource.sendEmailReview(req,res);
+    return next();
+});
+
+
+
 
 /**
  * ADMIN - INSTRUCTORS

@@ -18,7 +18,7 @@ var EmailBusiness = (function() {
             to: email_to, // list of receivers
             subject: 'Welcome to Cotuto', // Subject line
             text: 'Welcome to Cotuto', // plaintext body
-            html: '<div style="width: 100%;text-align: center;margin-top:30px;"><img src="https://s3.amazonaws.com/cotutoweb/logo2.png" style="height:40px;"></div><div style="text-align: center;"><p style="font-size: 25px;color: #00669B;">Thank you '+name+' for signing up for Cotuto</p><p style="font-size: 20px;">Click on link below to confirm your email:</p><a href="'+link+'" style="font-size: 30px;font-weight: bold;color: #00669B;">Click here</a><div style="text-align: center;margin-top:60px;"><a href="https://www.facebook.com/cotutoeducation/"><img src="https://s3.amazonaws.com/cotutoweb/facebook.png" style="max-height:25px;"></a><a href="https://www.instagram.com/cotuto/"><img src="https://s3.amazonaws.com/cotutoweb/instagram.png" style="max-height:25px;"></a><a href="https://blog.cotuto.com/"><img src="https://s3.amazonaws.com/cotutoweb/blog2.png" style="max-height:25px;"></a><p style="font-size: 14px;margin-top: 4px;color: #6C6B6B;">Never Stop Learning</p></div></div>'
+            html: '<div style="width: 100%;text-align: center;margin-top:30px;"><img src="https://s3.amazonaws.com/cotutoweb/CotutoLogo1.png" style="height:90px;"></div><div style="text-align: center;"><p style="font-size: 25px;color: #00669B;">Thank you '+name+' for signing up for Cotuto</p><p style="font-size: 20px;">Click on link below to confirm your email:</p><a href="'+link+'" style="font-size: 30px;font-weight: bold;color: #00669B;">Click here</a><div style="text-align: center;margin-top:60px;"><a href="https://www.facebook.com/cotutoeducation/"><img src="https://s3.amazonaws.com/cotutoweb/facebook.png" style="max-height:25px;"></a><a href="https://www.instagram.com/cotuto/"><img src="https://s3.amazonaws.com/cotutoweb/instagram.png" style="max-height:25px;"></a><a href="https://blog.cotuto.com/"><img src="https://s3.amazonaws.com/cotutoweb/blog2.png" style="max-height:25px;"></a><p style="font-size: 14px;margin-top: 4px;color: #6C6B6B;">Never Stop Learning</p></div></div>'
         };
 
         transporter.sendMail(mailOptions, function(error, info){
@@ -39,7 +39,7 @@ var EmailBusiness = (function() {
             to: email_to, // list of receivers
             subject: 'Cotuto - Password Recovery', // Subject line
             text: 'Cotuto - Password Recovery', // plaintext body
-            html: '<div style="width: 100%;text-align: center;margin-top:30px;"><img src="https://s3.amazonaws.com/cotutoweb/logo2.png" style="height:40px;"></div><div style="text-align: center;"><p style="font-size: 25px;color: #00669B;">Hey '+name+' did you forget your password?</p><p style="font-size: 20px;margin-top: -15px;width: 32%;margin-left: 34%;">Access your account using this password ('+newPassword+') and change this on account page.</p><div style="text-align: center;margin-top:60px;"><a href="https://www.facebook.com/cotutoeducation/"><img src="https://s3.amazonaws.com/cotutoweb/facebook.png" style="max-height:25px;"></a><a href="https://www.instagram.com/cotuto/"><img src="https://s3.amazonaws.com/cotutoweb/instagram.png" style="max-height:25px;"></a><a href="https://blog.cotuto.com/"><img src="https://s3.amazonaws.com/cotutoweb/blog2.png" style="max-height:25px;"></a><p style="font-size: 14px;margin-top: 4px;color: #6C6B6B;">Never Stop Learning</p></div></div>'
+            html: '<div style="width: 100%;text-align: center;margin-top:30px;"><img src="https://s3.amazonaws.com/cotutoweb/CotutoLogo1.png" style="height:90px;"></div><div style="text-align: center;"><p style="font-size: 25px;color: #00669B;">Hey '+name+' did you forget your password?</p><p style="font-size: 20px;margin-top: -15px;width: 32%;margin-left: 34%;">Access your account using this password ('+newPassword+') and change this on account page.</p><div style="text-align: center;margin-top:60px;"><a href="https://www.facebook.com/cotutoeducation/"><img src="https://s3.amazonaws.com/cotutoweb/facebook.png" style="max-height:25px;"></a><a href="https://www.instagram.com/cotuto/"><img src="https://s3.amazonaws.com/cotutoweb/instagram.png" style="max-height:25px;"></a><a href="https://blog.cotuto.com/"><img src="https://s3.amazonaws.com/cotutoweb/blog2.png" style="max-height:25px;"></a><p style="font-size: 14px;margin-top: 4px;color: #6C6B6B;">Never Stop Learning</p></div></div>'
         };
 
         transporter.sendMail(mailOptions, function(error, info){
@@ -61,6 +61,27 @@ var EmailBusiness = (function() {
             subject: 'Welcome to Cotuto', // Subject line
             text: 'Welcome to Cotuto', // plaintext body
             html: '<div style="width: 100%;text-align: center;margin-top:80px;"><img src="https://s3.amazonaws.com/cotutoweb/CotutoLogo1.png" style="height:120px;"></div><div style="text-align: center;font-family: helvetica;"><p style="font-size: 25px;color: #00669B;">Welcome to Cotuto!</p><p style="font-size: 20px;margin-top: -15px;width: 35%;margin-left: 32%;">To login into your account use the following email address and password combination:</p><p style="font-size: 20px;margin-top: -15px;">Email: ' + email_to + ' - Password: ' + password + '</p><p style="font-size: 16px;">To change your password, go to the Account Page.</p><p style="font-size: 16px;margin-top: -15px;">To fill in your profile, go to the Profile Page.</p><p style="font-size: 20px;margin-top: 50px;margin-bottom:3px;">Click on link below to confirm your email:</p><a href="'+link+'" style="font-size: 30px;font-weight: bold;color: #00669B;">Click here</a><p style="font-size: 16px;margin-top: 50px;">If you have any questions, send us an email to info@cotuto.com.</p><p style="font-size: 16px;margin-top: -15px;">Thanks,</p><p style="font-size: 16px;margin-top: -15px;">The Cotuto Team</p><div style="text-align: center;margin-top:60px;"><a href="https://www.facebook.com/cotutoeducation/"><img src="https://s3.amazonaws.com/cotutoweb/facebook.png" style="max-height:25px;"></a><a href="https://www.instagram.com/cotuto/"><img src="https://s3.amazonaws.com/cotutoweb/instagram.png" style="max-height:25px;"></a><a href="https://blog.cotuto.com/"><img src="https://s3.amazonaws.com/cotutoweb/blog2.png" style="max-height:25px;"></a><p style="font-size: 14px;margin-top: 4px;color: #6C6B6B;">Never Stop Learning</p></div></div>'
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+                return console.log(error);
+            }
+            console.log('Message sent: ' + info.response);
+        });
+
+    };
+
+    EmailBusiness.prototype.sendEmailReview = function(email_to,img_course,img_instructor,date,courseName,instructor) {
+
+        //email_to = "ninomarques.info@gmail.com";
+
+        var mailOptions = {
+            from: '"Cotuto Info" <info@cotuto.com>', // sender address
+            to: email_to, // list of receivers
+            subject: 'Review your Class - Cotuto', // Subject line
+            text: 'Review your Class - Cotuto', // plaintext body
+            html: '<html><head></head><body><div style="width: 100%;text-align: center;margin-top:40px;"><img src="https://s3.amazonaws.com/cotutoweb/CotutoLogo1.png" style="max-height:80px;"></div><div style="width: 100%;text-align: center;"> <div style="margin-bottom: -115px;"><img src="https://s3.amazonaws.com/cotutoweb/'+img_course+'" style="min-height: 285px !important;min-width:450px !important;max-height: 285px !important;max-width:450px !important;"></div><div style="margin-left: 22%;display: inline-flex;"><img src="https://s3.amazonaws.com/cotutoweb/'+img_instructor+'" style="max-height: 80px !important;max-width: 80px !important;min-height: 80px !important;min-width: 80px !important;border-radius: 10px;border-style: solid;border-color: #FFFFFF;margin-top: 15px;"><p style="font-size: 21px;color: #00669B;width: 55%;margin-left: 15px;">You only have until '+date+' to write a review for '+courseName+' by '+instructor+'</p></div></div><div style="text-align: center;width: 60%;margin-left: 20%;"><p style="font-size: 15px;">It\'ll only take a moment and it\'s a great opportunity to share your experience with other students.</p><a href="https://www.cotuto.com/" style="font-size: 18px;font-weight: bold;color: #FFFFFF; border-width: 1px;border-style: solid;border-radius: 5px; padding: 5px 155px;background-color: #00669B;text-decoration: none;">Write a Review</a><div style="text-align: center;margin-top:55px;"><a href="https://www.facebook.com/cotutoeducation/"><img src="https://s3.amazonaws.com/cotutoweb/facebook.png" style="max-height:25px;"></a><a href="https://www.instagram.com/cotuto/"><img src="https://s3.amazonaws.com/cotutoweb/instagram.png" style="max-height:25px;"></a><a href="https://blog.cotuto.com/"><img src="https://s3.amazonaws.com/cotutoweb/blog2.png" style="max-height:25px;"></a><p style="font-size: 14px;margin-top: 4px;color: #6C6B6B;">Never Stop Learning</p></div></div></body></html>'
         };
 
         transporter.sendMail(mailOptions, function(error, info){

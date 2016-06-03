@@ -1,6 +1,54 @@
+var factory = require("./../factory/dbfactory");
+var emailBusiness = require("./../business/emailBusiness");
+
 var UtilBusiness = (function() {
 
     var UtilBusiness = function() {
+
+    };
+
+    UtilBusiness.prototype.sendEmailReview = function(callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select *, DATE_FORMAT(timestampadd(day,30,last_date),'%M %d') until_date ";
+        sql = sql + " from ( ";
+        sql = sql + " select UU.use_email, COU.cor_image, U.use_image, COU.cor_name, U.use_first_name,cla_id, ";
+        sql = sql + " (select count(*) from class_review where use_id = CR.use_id and cla_id = CR.cla_id) as reviews, ";
+        sql = sql + " (select clt_date from class_time where cla_id = CR.cla_id order by clt_date desc limit 1) as last_date ";
+        sql = sql + " from class_register CR ";
+        sql = sql + " INNER JOIN course COU on CR.cor_id = COU.cor_id ";
+        sql = sql + " INNER JOIN user U on COU.use_id = U.use_id ";
+        sql = sql + " INNER JOIN user UU on CR.use_id = UU.use_id ";
+        sql = sql + " where clr_status = 'A' ";
+        sql = sql + " AND clr_transaction_status = 'P' ";
+        sql = sql + " ) as aux ";
+        sql = sql + " where reviews = 0 ";
+        sql = sql + " and last_date < curdate() ";
+        sql = sql + " and TIMESTAMPDIFF(day,last_date,CURDATE()) < 30 ";
+
+
+        connection.query(sql,function(err,review){
+            connection.end();
+            if(!err) {
+
+                var collectionReview = review;
+
+                collectionReview.forEach(function(item){
+                    emailBusiness.sendEmailReview(item.use_email,item.cor_image, item.use_image, item.until_date, item.cor_name, item.use_first_name);
+                })
+
+                callback('OK');
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
+
 
     };
 
