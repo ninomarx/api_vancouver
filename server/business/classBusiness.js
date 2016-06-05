@@ -247,7 +247,7 @@ var ClassBusiness = (function() {
 
         var sql = "";
         sql = sql + " SELECT cre_id,cre_review,cre_stars,use_image, ";
-        sql = sql + " CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') ) AS use_name ";
+        sql = sql + " US.use_first_name AS use_name ";
         sql = sql + " FROM class_review CR ";
         sql = sql + " INNER JOIN user US ON CR.use_id = US.use_id ";
         sql = sql + " where cor_id = " + classModel.cor_id + " and cre_status = 'A' ; ";
@@ -387,7 +387,7 @@ var ClassBusiness = (function() {
         sql = sql + " where cr.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and clr_status = 'A' and clr_transaction_status <> 'C' ";
-        sql = sql + " AND cre_id is null ";
+        //sql = sql + " AND cre_id is null ";
         sql = sql + " and ct.clt_date < CURDATE()  ) as aux; ";
 
         connection.query(sql, function (err, classObj) {

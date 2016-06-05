@@ -361,7 +361,7 @@ var CourseBusiness = (function() {
             sql = sql + "LEFT JOIN city CI ON C.cit_id = CI.cit_id ";
             sql = sql + "LEFT JOIN province PR ON CI.pro_id = PR.pro_id ";
             sql = sql + "LEFT JOIN class_register CR ON C.cla_id = CR.cla_id ";
-            sql = sql + "WHERE C.use_id = " + courseModel.use_id + " and cla_status = 'A' AND clt_firstClass = 'Y' ";
+            sql = sql + "WHERE C.use_id = " + courseModel.use_id + " and cla_status = 'A' AND clt_firstClass = 'Y' AND CT.clt_date >= curdate()  ";
             sql = sql + "GROUP BY C.cla_id ";
             sql = sql + "ORDER BY C.cor_id; ";
 
