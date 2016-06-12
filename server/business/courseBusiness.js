@@ -59,7 +59,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE  CI.cit_id in (select cit_id from city where reg_id in (select reg_id from city where cit_id = " + courseModel.cit_id + ")) ";
         sql = sql + " AND COU.cor_status = 'A' ";
         sql = sql + " AND CL.cla_status = 'A' ";
-        sql = sql + " AND ct.clt_date >= Curdate() ";
+        sql = sql + " AND ct.clt_date >= DATE_ADD(Curdate(), INTERVAL -1 DAY) ";
         sql = sql + " GROUP  BY COU.cor_id, ";
         sql = sql + " CL.cla_id) AS AUX ";
         sql = sql + " WHERE  (cla_max_size - students) > 0 ";
@@ -158,7 +158,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE  ";
         sql = sql + " COU.cor_status = 'A' ";
         sql = sql + " AND CL.cla_status = 'A' ";
-        sql = sql + " AND ct.clt_date >= Curdate() ";
+        sql = sql + " AND ct.clt_date >= DATE_ADD(Curdate(), INTERVAL -1 DAY) ";
         sql = sql + " GROUP  BY COU.cor_id, ";
         sql = sql + " CL.cla_id) AS AUX ";
         sql = sql + " WHERE  (cla_max_size - students) > 0 ";
@@ -265,7 +265,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE  ";
         sql = sql + " COU.cor_status = 'A' ";
         sql = sql + " AND CL.cla_status = 'A' ";
-        sql = sql + " AND ct.clt_date >= Curdate() ";
+        sql = sql + " AND ct.clt_date >= DATE_ADD(Curdate(), INTERVAL -1 DAY)";
         sql = sql + " GROUP  BY COU.cor_id, ";
         sql = sql + " CL.cla_id) AS AUX ";
         sql = sql + " WHERE  (cla_max_size - students) > 0 ";
@@ -853,7 +853,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE ";
         sql = sql + "      COU.cor_status = 'A' AND ";
         sql = sql + "      CL.cla_status = 'A'  AND";
-        sql = sql + "      ct.clt_date >= CURDATE() ";
+        sql = sql + "      ct.clt_date >= DATE_ADD(Curdate(), INTERVAL -1 DAY) ";
 
         if(courseModel.cit_id) {
             sql = sql + " AND ";
@@ -1141,7 +1141,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE ";
         sql = sql + "      COU.cor_status = 'A' AND ";
         sql = sql + "      CL.cla_status = 'A'  AND";
-        sql = sql + "      ct.clt_date >= CURDATE() ";
+        sql = sql + "      ct.clt_date >= DATE_ADD(Curdate(), INTERVAL -1 DAY) ";
 
 
         if(courseModel.cit_id) {

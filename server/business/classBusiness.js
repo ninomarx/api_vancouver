@@ -613,6 +613,70 @@ var ClassBusiness = (function() {
 
     };
 
+    ClassBusiness.prototype.getRoster = function(classModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select CR.use_id, use_image, concat(use_first_name,' ', use_last_name) use_name, ";
+        sql = sql + " date_format(CR.clr_added_date,'%Y-%m-%d') as clr_added_date, CR.clr_instructor_value, ";
+        sql = sql + " case ";
+        sql = sql + " when CR.clr_transaction_status = 'W' then 'Registered' ";
+        sql = sql + " when CR.clr_transaction_status = 'P' then 'Paid' ";
+        sql = sql + " when CR.clr_transaction_status = 'C' then 'Cancelled' ";
+        sql = sql + " end as status ";
+        sql = sql + " from class_register CR ";
+        sql = sql + " INNER JOIN user U ON CR.use_id = U.use_id ";
+        sql = sql + " where cla_id = " + classModel.cla_id + "; ";
+
+
+        connection.query(sql,function(err,classObj){
+            connection.end();
+            if(!err) {
+
+                var collectionClass = classObj;
+
+                callback(collectionClass);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "database error"});
+        });
+
+
+    };
+
+    ClassBusiness.prototype.getGoal = function(classModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select clr_course_goal ";
+        sql = sql + " from class_register ";
+        sql = sql + " where cla_id = " + classModel.cla_id + " and use_id = " + classModel.use_id + " ;";
+
+        connection.query(sql,function(err,classObj){
+            connection.end();
+            if(!err) {
+
+                var collectionClass = classObj;
+
+                callback(collectionClass);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "database error"});
+        });
+
+
+    };
+
 
     Date.prototype.yyyymmdd = function() {
         var yyyy = this.getFullYear().toString();

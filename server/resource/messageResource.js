@@ -129,6 +129,19 @@ var MessageResource = (function() {
         });
     }
 
+    MessageResource.prototype.postMessageMultiple = function(req,res){
+
+        var messageModel = new Object();
+
+        if (req){
+            messageModel = req.body;
+        }
+
+        messageBusiness.postMessageMultiple(messageModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new MessageResource();
 })();
 

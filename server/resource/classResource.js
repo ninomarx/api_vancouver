@@ -194,6 +194,32 @@ var ClassResource = (function() {
         });
     }
 
+    ClassResource.prototype.getRoster = function(req,res){
+
+        var classModel = new Object();
+
+        if (req){
+            classModel = req.body;
+        }
+
+        classBusiness.getRoster(classModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    ClassResource.prototype.getGoal = function(req,res){
+
+        var classModel = new Object();
+
+        if (req){
+            classModel = req.body;
+        }
+
+        classBusiness.getGoal(classModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new ClassResource();
 })();
 

@@ -54,7 +54,8 @@ var registerResource = require("./server/resource/registerResource");
 var messageResource  = require("./server/resource/messageResource");
 var paymentResource  = require("./server/resource/paymentResource");
 var reviewResource   = require("./server/resource/reviewResource");
-var utilResource   = require("./server/resource/utilResource");
+var utilResource     = require("./server/resource/utilResource");
+var reportResource   = require("./server/resource/reportResource");
 
 
 var adminInstructorsResource = require("./server/resource/admin/instructorResource");
@@ -368,6 +369,16 @@ server.post('/api/class/cancelClass', function (req, res, next) {
     return next();
 });
 
+server.post('/api/class/getRoster', function (req, res, next) {
+    classResource.getRoster(req,res);
+    return next();
+});
+
+server.post('/api/class/getGoal', function (req, res, next) {
+    classResource.getGoal(req,res);
+    return next();
+});
+
 
 /**
  * Wishlist
@@ -458,6 +469,12 @@ server.post('/api/message/postMessageStudent', function (req, res, next) {
     return next();
 });
 
+server.post('/api/message/postMessageMultiple', function (req, res, next) {
+    messageResource.postMessageMultiple(req,res);
+    return next();
+});
+
+
 /**
  * Payment
  */
@@ -495,6 +512,13 @@ server.get('/api/util/sendEmailReview', function (req, res, next) {
 });
 
 
+/**
+ * REPORT
+ */
+server.post('/api/report/saveReport', function (req, res, next) {
+    reportResource.saveReport(req,res);
+    return next();
+});
 
 
 /**
