@@ -892,13 +892,13 @@ var CourseBusiness = (function() {
 
                     if (aux == 1) {
                         if (item == "M")
-                            sql = sql + "  CT.clt_start_time BETWEEN '12:00AM' AND '12:00PM' ";
+                            sql = sql + "  CT.clt_start_time BETWEEN '00:00' AND '12:00' ";
 
                         if (item == "N")
-                            sql = sql + "  CT.clt_start_time BETWEEN '12:00PM' AND '5:00PM' ";
+                            sql = sql + "  CT.clt_start_time BETWEEN '12:00' AND '17:00' ";
 
                         if (item == "E")
-                            sql = sql + "  CT.clt_start_time BETWEEN '5:00PM' AND '12:00AM'  ";
+                            sql = sql + "  CT.clt_start_time BETWEEN '17:00' AND '23:59' ";
                     }
                     else {
 

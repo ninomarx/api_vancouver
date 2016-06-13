@@ -57,7 +57,8 @@ var MessageBusiness = (function() {
 
         messageModel.page = (messageModel.page - 1) * messageModel.pages;
 
-        sql = sql + " LIMIT  " + messageModel.page + "," + messageModel.pages + ";";
+        sql = sql + " LIMIT  " + messageModel.page + "," + messageModel.pages + "; ";
+
 
         connection.query(sql,function(err,message){
             connection.end();
@@ -172,7 +173,7 @@ var MessageBusiness = (function() {
         var sql = "";
         sql = sql + " select CEILING(count(*)/ " + messageModel.pages + ") as pages";
         sql = sql + " from message ";
-        sql = sql + " where use_id_receiver = " + messageModel.use_id + " ";
+        sql = sql + " where (use_id_receiver = " + messageModel.use_id + " or use_id_transmitter = " + messageModel.use_id + ") ";
         sql = sql + " AND mes_status = 'A' ";
 
 
@@ -261,7 +262,7 @@ var MessageBusiness = (function() {
         sql = sql + " inner join user u on mc.use_id = u.use_id ";
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
         sql = sql + " where mes_id = " + messageModel.mes_id + " ";
-        sql = sql + " order by mec_date desc, mec_id desc; ";
+        sql = sql + " order by mec_date, mec_id desc; ";
 
         connection.query(sql,function(err,message){
             connection.end();
