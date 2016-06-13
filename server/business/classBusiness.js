@@ -383,7 +383,7 @@ var ClassBusiness = (function() {
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id ";
         sql = sql + " inner join city city on c.cit_id = city.cit_id ";
         sql = sql + " inner join province prov on city.pro_id = prov.pro_id ";
-        sql = sql + " LEFT JOIN class_review cre ON c.cor_id = cre.cor_id AND cre.use_id = " + classModel.use_id + " "
+        sql = sql + " LEFT JOIN class_review cre ON c.cor_id = cre.cor_id AND cre.use_id = " + classModel.use_id + " and cre.cla_id = c.cla_id "
         sql = sql + " where cr.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and clr_status = 'A' and clr_transaction_status <> 'C' ";
