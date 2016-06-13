@@ -363,7 +363,7 @@ var CourseBusiness = (function() {
             sql = sql + "LEFT JOIN class_register CR ON C.cla_id = CR.cla_id ";
             sql = sql + "WHERE C.use_id = " + courseModel.use_id + " and cla_status = 'A' AND clt_firstClass = 'Y' AND CT.clt_date >= curdate()  ";
             sql = sql + "GROUP BY C.cla_id ";
-            sql = sql + "ORDER BY C.cor_id; ";
+            sql = sql + "ORDER BY C.cor_id,CT.clt_date; ";
 
             connection.query(sql,function(err,classesA){if(!err) {
                 collectionClassA = classesA;
@@ -423,7 +423,7 @@ var CourseBusiness = (function() {
                 sql = sql + "LEFT JOIN class_register CR ON C.cla_id = CR.cla_id ";
                 sql = sql + "WHERE C.use_id = " + courseModel.use_id + " and cla_status = 'P' AND clt_firstClass = 'Y' ";
                 sql = sql + "GROUP BY C.cla_id ";
-                sql = sql + "ORDER BY C.cor_id; ";
+                sql = sql + "ORDER BY C.cor_id,CT.clt_date; ";
 
                 connection.query(sql,function(err,classesP){if(!err) {
                     collectionClassP = classesP;
