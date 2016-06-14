@@ -55,6 +55,7 @@ var ClassBusiness = (function() {
             sql = sql + " cla_min_size = '" + classModel.cla_min_size + "',";
             sql = sql + " cla_max_size = '" + classModel.cla_max_size + "',";
             sql = sql + " cla_address = '" + classModel.cla_address.replace(/'/g, "\\'") + "',";
+            sql = sql + " cla_location_name = '" + classModel.cla_location_name.replace(/'/g, "\\'") + "',";
             sql = sql + " cla_added_date = '" + classModel.cla_added_date + "',";
             sql = sql + " cla_status = '" + classModel.cla_status + "',";
             sql = sql + " cla_deadline = '" + classModel.cla_deadline + "',";
@@ -77,7 +78,7 @@ var ClassBusiness = (function() {
             sql = sql + " INSERT INTO class (cla_session_type,cla_duration,cla_cost,cla_min_size, ";
             sql = sql + " cla_max_size,cla_address,cla_added_date,cla_status,cla_deadline, ";
             sql = sql + " cla_allow_lateRegistration,cla_allow_lateWithdraw,cla_lateWithdraw_date, ";
-            sql = sql + " age_id,col_id,cit_id,cor_id,use_id,nei_id,cla_latitude,cla_longitude,cla_link) ";
+            sql = sql + " age_id,col_id,cit_id,cor_id,use_id,nei_id,cla_latitude,cla_longitude,cla_link,cla_location_name) ";
             sql = sql + " VALUES (";
             sql = sql + " '" + classModel.cla_session_type + "',";
             sql = sql + " '" + classModel.cla_duration + "','"  + classModel.cla_cost + "',";
@@ -88,7 +89,8 @@ var ClassBusiness = (function() {
             sql = sql + " '" + classModel.cla_lateWithdraw_date + "','"  + classModel.age_id + "',";
             sql = sql + " '" + classModel.col_id + "','"  + classModel.cit_id + "',";
             sql = sql + " '" + classModel.cor_id + "','"  + classModel.use_id + "',";
-            sql = sql + " '" + classModel.nei_id + "','" + classModel.latitude + "','" +  classModel.longitude + "',''";
+            sql = sql + " '" + classModel.nei_id + "','" + classModel.latitude + "','" +  classModel.longitude + "','',";
+            sql = sql + " '" + classModel.cla_location_name + "'";
             sql = sql + " );";
         }
 
@@ -619,7 +621,7 @@ var ClassBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " select CR.use_id, use_image, concat(use_first_name,' ', use_last_name) use_name, ";
+        sql = sql + " select CR.use_id, use_image, concat(coalesce(use_first_name,''),' ', coalesce(use_last_name,'')) use_name, ";
         sql = sql + " date_format(CR.clr_added_date,'%Y-%m-%d') as clr_added_date, CR.clr_instructor_value, ";
         sql = sql + " case ";
         sql = sql + " when CR.clr_transaction_status = 'W' then 'Registered' ";

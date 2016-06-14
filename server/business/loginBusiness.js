@@ -40,9 +40,9 @@ var LoginBusiness = (function() {
                     var codeUser = Math.random().toString(36).slice(-12);
 
                     sql = "";
-                    sql = sql + " INSERT INTO user (use_login,use_first_name, use_password,use_email,use_image, use_status, use_type, use_registration_date,cit_id, use_facebook, use_confirm_email_code) ";
+                    sql = sql + " INSERT INTO user (use_login,use_first_name,use_last_name, use_password,use_email,use_image, use_status, use_type, use_registration_date,cit_id, use_facebook, use_confirm_email_code) ";
                     sql = sql + " VALUES ";
-                    sql = sql + " ('" + loginModel.use_login + "','" + loginModel.use_first_name + "','" + loginModel.use_password + "','" + loginModel.use_login + "','noimage_user.png','A','1',now()," + loginModel.cit_id + ",'" + loginModel.use_facebook + "', + '" + codeUser + "'); ";
+                    sql = sql + " ('" + loginModel.use_login + "','" + loginModel.use_first_name + "','" + loginModel.use_last_name + "','" + loginModel.use_password + "','" + loginModel.use_login + "','noimage_user.png','A','1',now()," + loginModel.cit_id + ",'" + loginModel.use_facebook + "', + '" + codeUser + "'); ";
 
                     connection.query(sql, function (err, login2) {
                         if (!err) {
