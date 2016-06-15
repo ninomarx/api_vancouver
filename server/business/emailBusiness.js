@@ -74,7 +74,7 @@ var EmailBusiness = (function() {
 
     EmailBusiness.prototype.sendEmailReview = function(email_to,img_course,img_instructor,date,courseName,instructor) {
 
-        //email_to = "ninomarques.info@gmail.com";
+        email_to = "ninomarques.info@gmail.com";
 
         var mailOptions = {
             from: '"Cotuto Info" <info@cotuto.com>', // sender address

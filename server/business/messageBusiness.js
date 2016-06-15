@@ -17,9 +17,10 @@ var MessageBusiness = (function() {
         sql = sql + " (select mes_id, use_id_receiver,use_id_transmitter,";
         sql = sql + " mes_transmitter_type,mes_star,cla_id, mes_status,";
         sql = sql + " case when mes_transmitter_type = 1 then use_image else use_image end as image, ";
-        sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as use_name, ";
+        sql = sql + " CONCAT(coalesce(use_first_name,''),' ',coalesce(use_last_name,'') ) as use_name, ";
         sql = sql + "  (select case when length(mec_message) > 55 then  CONCAT(SUBSTRING(mec_message,1,55), '', '...') else mec_message end  from message_conversation where mes_id = m.mes_id and use_id <>  " + messageModel.use_id + " order by mec_date desc limit 1) mec_message, ";
         sql = sql + " (select case when TIMESTAMPDIFF(day, mec_date, CURDATE()) > 0 then  CONCAT(TIMESTAMPDIFF(day, mec_date, CURDATE()), '', ' days ago') else 'today' end from message_conversation where mes_id = m.mes_id  and use_id <>  " + messageModel.use_id + "   order by mec_date desc limit 1) mec_date, ";
+        sql = sql + " (SELECT mec_date FROM   message_conversation WHERE  mes_id = m.mes_id ORDER  BY mec_date DESC LIMIT  1)  as mec_date_order, ";
         sql = sql + " mes_text,  DATE_FORMAT(mes_date, \"%b. %d %Y\") mes_date ";
         sql = sql + " from message m ";
         sql = sql + " inner join user u on m.use_id_transmitter = u.use_id ";
@@ -31,9 +32,10 @@ var MessageBusiness = (function() {
         sql = sql + " (select mes_id,use_id_receiver,use_id_transmitter, ";
         sql = sql + " mes_transmitter_type,mes_star,cla_id,mes_status, ";
         sql = sql + " case when mes_transmitter_type = 1 then use_image else use_image end as image, ";
-        sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as use_name, ";
+        sql = sql + " CONCAT(coalesce(use_first_name,''),' ',coalesce(use_last_name,'') ) as use_name, ";
         sql = sql + "  (select case when length(mec_message) > 55 then  CONCAT(SUBSTRING(mec_message,1,55), '', '...') else mec_message end  from message_conversation where mes_id = m.mes_id and use_id <>  " + messageModel.use_id + " order by mec_date desc limit 1) mec_message, ";
         sql = sql + " (select case when TIMESTAMPDIFF(day, mec_date, CURDATE()) > 0 then  CONCAT(TIMESTAMPDIFF(day, mec_date, CURDATE()), '', ' days ago') else 'today' end from message_conversation where mes_id = m.mes_id  and use_id <>  " + messageModel.use_id + "   order by mec_date desc limit 1) mec_date, ";
+        sql = sql + " (SELECT mec_date FROM   message_conversation WHERE  mes_id = m.mes_id ORDER  BY mec_date DESC LIMIT  1)  as mec_date_order, ";
         sql = sql + " mes_text,  DATE_FORMAT(mes_date, \"%b. %d %Y\") mes_date ";
         sql = sql + " from message m ";
         sql = sql + " inner join user u on m.use_id_receiver = u.use_id ";
@@ -57,6 +59,7 @@ var MessageBusiness = (function() {
 
         messageModel.page = (messageModel.page - 1) * messageModel.pages;
 
+        sql = sql + " ORDER BY mec_date_order desc ";
         sql = sql + " LIMIT  " + messageModel.page + "," + messageModel.pages + "; ";
 
 
@@ -255,14 +258,14 @@ var MessageBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " select mec_id, mec_message, u.use_first_name, DATE_FORMAT(mec_date,\"%M %d %Y at %l:%i %p\") as mec_date, ";
+        sql = sql + " select mec_id, mec_message, u.use_first_name, DATE_FORMAT(mec_date,\"%M %d %Y at %l:%i %p\") as mec_date, mec_date as mec_date_order, ";
         sql = sql + " case when u.use_id = " + messageModel.use_id + " then 'S' else 'I' end as type, ";
         sql = sql + " case when u.use_id = " + messageModel.use_id + " then u.use_image else  u.use_image end as image ";
         sql = sql + " from message_conversation mc ";
         sql = sql + " inner join user u on mc.use_id = u.use_id ";
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
         sql = sql + " where mes_id = " + messageModel.mes_id + " ";
-        sql = sql + " order by mec_date, mec_id desc; ";
+        sql = sql + " order by mec_date_order desc; ";
 
         connection.query(sql,function(err,message){
             connection.end();

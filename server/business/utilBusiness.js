@@ -27,7 +27,7 @@ var UtilBusiness = (function() {
         sql = sql + " ) as aux ";
         sql = sql + " where reviews = 0 ";
         sql = sql + " and last_date < curdate() ";
-        sql = sql + " and TIMESTAMPDIFF(day,last_date,CURDATE()) < 30 ";
+        sql = sql + " and TIMESTAMPDIFF(day,last_date,CURDATE()) in (1,4,7,10,13,15) ";
 
 
         connection.query(sql,function(err,review){
