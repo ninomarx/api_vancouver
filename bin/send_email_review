@@ -3,7 +3,7 @@
 var utilBusiness = require("./../server/business/utilBusiness");
 
 function sendEmailReview() {
-  utilBusiness.sendEmailReview();
+  utilBusiness.sendEmailReview(function(ret){console.log(ret);});
 }
 sendEmailReview();
 process.exit();
