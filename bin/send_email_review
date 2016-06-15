@@ -4,6 +4,7 @@ var utilBusiness = require("./../server/business/utilBusiness");
 
 function sendEmailReview() {
   utilBusiness.sendEmailReview(function(ret){console.log(ret);});
+    console.log('Hello');
 }
 sendEmailReview();
 process.exit();
