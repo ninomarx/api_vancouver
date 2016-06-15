@@ -1,10 +1,9 @@
 #! /app/.heroku/node/bin/node
 
-var utilBusiness = require("./../server/business/utilBusiness");
+var utilBusiness = require("./../business/utilBusiness");
 
 function sendEmailReview() {
   utilBusiness.sendEmailReview(function(ret){console.log(ret);});
-    console.log('Hello');
 }
 sendEmailReview();
 process.exit();
