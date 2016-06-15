@@ -191,7 +191,7 @@ var ClassBusiness = (function() {
         sql = sql + " end AS number_session,(cla_max_size - students) AS spot_left ";
         sql = sql + " FROM   ( ";
 
-        sql = sql + " select CL.use_id as use_id_instructor, CL.cla_id,Cl.cor_id, cla_session_type, cla_duration, cla_cost, cla_min_size, cla_max_size, cla_address, ";
+        sql = sql + " select CL.use_id as use_id_instructor, CL.cla_id,Cl.cor_id, cla_session_type, cla_duration, cla_cost, cla_min_size, cla_max_size, cla_address,cla_location_name, ";
         sql = sql + "   cla_status, cla_allow_lateRegistration, cla_allow_lateWithdraw, cla_lateWithdraw_date, ";
         sql = sql + "   cla_latitude, cla_longitude, clt_date, clt_start_time, clt_address, clt_firstClass, cor_name, cor_description, ";
         sql = sql + "   cor_accreditation, cor_accreditation_description, cor_learn, cor_bring, cor_aware_before,cor_about_me, ";
