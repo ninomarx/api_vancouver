@@ -37,7 +37,7 @@ var UtilBusiness = (function() {
                 var collectionReview = review;
 
                 collectionReview.forEach(function(item){
-                    emailBusiness.sendEmailReview(item.use_email,item.cor_image, item.use_image, item.until_date, item.cor_name, item.use_first_name);
+                    emailBusiness.sendEmailReview(item.use_email,item.cor_image, item.use_image, item.until_date, item.cor_name, item.use_first_name, item.cla_id);
                 })
 
                 callback('OK');
