@@ -31,6 +31,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="dbfactory.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7771429">
+              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="teste.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/teste.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -41,10 +51,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="emailBusiness.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="emailBusiness.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/business/emailBusiness.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.22285715">
+            <state vertical-scroll-proportion="0.0">
               <caret line="76" column="8" selection-start-line="76" selection-start-column="8" selection-end-line="76" selection-end-column="8" />
               <folding>
                 <marker date="1466017857782" expanded="true" signature="777:824" placeholder="..." />
@@ -191,11 +201,11 @@
         <option value="$PROJECT_DIR$/server/business/loginBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/courseBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/classBusiness.js" />
-        <option value="$PROJECT_DIR$/server/factory/dbfactory.js" />
         <option value="$PROJECT_DIR$/server/business/messageBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/utilBusiness.js" />
         <option value="$PROJECT_DIR$/bin/send_email_review" />
         <option value="$PROJECT_DIR$/server/business/emailBusiness.js" />
+        <option value="$PROJECT_DIR$/server/factory/dbfactory.js" />
       </list>
     </option>
   </component>
@@ -912,22 +922,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6314286">
-          <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="523" column="3" selection-start-line="523" selection-start-column="3" selection-end-line="523" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/teste.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -972,7 +966,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/business/emailBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.22285715">
+        <state vertical-scroll-proportion="0.0">
           <caret line="76" column="8" selection-start-line="76" selection-start-column="8" selection-end-line="76" selection-end-column="8" />
           <folding>
             <marker date="1466017857782" expanded="true" signature="777:824" placeholder="..." />
@@ -1027,6 +1021,22 @@
             <marker date="1466017857782" expanded="true" signature="8249:8265" placeholder="..." />
             <marker date="1466017857782" expanded="true" signature="8281:8328" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="523" column="3" selection-start-line="523" selection-start-column="3" selection-end-line="523" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7771429">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
