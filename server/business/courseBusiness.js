@@ -1365,6 +1365,32 @@ var CourseBusiness = (function() {
 
     };
 
+    CourseBusiness.prototype.delete = function(courseModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " DELETE FROM course WHERE cor_id = " + courseModel.cor_id + ";";
+
+        connection.query(sql,function(err,courses){
+            connection.end();
+            if(!err) {
+                var collectionCourse = courses;
+                callback(collectionCourse);
+            } else {
+                callback("COD009");
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+
+
+    };
+
     return new CourseBusiness();
 })();
 

@@ -161,6 +161,11 @@ server.post('/api/course/selectBySearch', function (req, res, next) {
     return next();
 });
 
+server.post('/api/course/delete', function (req, res, next) {
+    courseResource.delete(req,res);
+    return next();
+});
+
 /**
  * Province
  */
