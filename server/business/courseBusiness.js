@@ -68,7 +68,7 @@ var CourseBusiness = (function() {
          sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
-        sql = sql + " ORDER  BY priority,cla_deadline,spot_left DESC,distance,cor_name ";
+        sql = sql + " ORDER  BY priority,cla_deadlineFilter DESC,spot_left DESC,distance,cor_name ";
 
 
         connection.query(sql,function(err,courses){
@@ -991,17 +991,17 @@ var CourseBusiness = (function() {
         sql = sql + " ) ";*/
 
         if(courseModel.filter.sort == "R") {
-            sql = sql + " ORDER BY priority, cla_deadline,spot_left DESC, distance, cor_name; ";
+            sql = sql + " ORDER BY priority, cla_deadlineFilter,spot_left DESC, distance, cor_name; ";
         }
         else if(courseModel.filter.sort == "S") {
-            sql = sql + " ORDER BY cla_deadline,priority,spot_left DESC, distance, cor_name; ";
+            sql = sql + " ORDER BY cla_deadlineFilter,priority,spot_left DESC, distance, cor_name; ";
         }
         else if(courseModel.filter.sort == "P") {
-            sql = sql + " ORDER BY cla_cost, priority, cla_deadline,spot_left DESC, distance, cor_name; ";
+            sql = sql + " ORDER BY cla_cost, priority, cla_deadlineFilter,spot_left DESC, distance, cor_name; ";
         }
         else
         {
-            sql = sql + " ORDER BY cla_deadline,priority,spot_left DESC, distance, cor_name; ";
+            sql = sql + " ORDER BY cla_deadlineFilter,priority,spot_left DESC, distance, cor_name; ";
         }
 
 

@@ -429,7 +429,7 @@ var ClassBusiness = (function() {
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
         sql = sql + " inner join class_register cr on c.cla_id = cr.cla_id ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id ";
-        sql = sql + " LEFT JOIN class_review cre ON c.cla_id = cre.cla_id AND cre.cor_id = " + classModel.use_id + " "
+        sql = sql + " LEFT JOIN class_review cre ON c.cla_id = cre.cla_id AND cre.use_id = " + classModel.use_id + " "
         sql = sql + " where cr.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and clr_status = 'A' and clr_transaction_status <> 'C' ";
