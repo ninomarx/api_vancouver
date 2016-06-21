@@ -316,9 +316,9 @@ var MessageBusiness = (function() {
 
     MessageBusiness.prototype.postMessageStudent = function(messageModel, callback) {
 
-        utilBusiness.processData(messageModel, function(obj){
+     /*   utilBusiness.processData(messageModel, function(obj){
             messageModel = obj;
-        });
+        });*/
 
         var connection = factory.getConnection();
         connection.connect();

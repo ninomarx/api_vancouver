@@ -56,6 +56,7 @@ var paymentResource  = require("./server/resource/paymentResource");
 var reviewResource   = require("./server/resource/reviewResource");
 var utilResource     = require("./server/resource/utilResource");
 var reportResource   = require("./server/resource/reportResource");
+var discountResource = require("./server/resource/discountResource");
 
 
 var adminInstructorsResource = require("./server/resource/admin/instructorResource");
@@ -505,6 +506,19 @@ server.post('/api/payment/createAccount', function (req, res, next) {
  */
 server.post('/api/review/save', function (req, res, next) {
     reviewResource.save(req,res);
+    return next();
+});
+
+/**
+ * Discount
+ */
+server.get('/api/discount/save', function (req, res, next) {
+    discountResource.save(req,res);
+    return next();
+});
+
+server.get('/api/discount/saveCodes', function (req, res, next) {
+    discountResource.saveCodes(req,res);
     return next();
 });
 
