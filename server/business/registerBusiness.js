@@ -121,10 +121,10 @@ var RegisterBusiness = (function() {
         sql = sql + " from ( ";
         sql = sql + " select cou.use_id,cla_max_size, ";
         sql = sql + " case ";
-        sql = sql + "    when cla_allow_lateRegistration = 'N' and (DATE_FORMAT(now(),'%Y-%m-%d') >cla_deadline then 'N' ";
-        sql = sql + "    when cla_allow_lateRegistration = 'N' and (DATE_FORMAT(now(),'%Y-%m-%d') <=cla_deadline then 'Y' ";
-        sql = sql + "    when cla_allow_lateRegistration = 'S' and (DATE_FORMAT(now(),'%Y-%m-%d') > ct.clt_date then'N' ";
-        sql = sql + "    when cla_allow_lateRegistration = 'S' and (DATE_FORMAT(now(),'%Y-%m-%d') <= ct.clt_date then'Y' ";
+        sql = sql + "    when cla_allow_lateRegistration = 'N' and now()>cla_deadline then 'N' ";
+        sql = sql + "    when cla_allow_lateRegistration = 'N' and now()<=cla_deadline then 'Y' ";
+        sql = sql + "    when cla_allow_lateRegistration = 'S' and now()> ct.clt_date then'N' ";
+        sql = sql + "    when cla_allow_lateRegistration = 'S' and now()<= ct.clt_date then'Y' ";
         sql = sql + " end as validDate, ";
         sql = sql + " (select costumerIdStripe from user where use_id = " + registerModel.use_id  + ") as codStripe, ";
         sql = sql + " (select clr_id from class_register where cla_id = " + registerModel.cla_id  + " and use_id = " + registerModel.use_id  + " and clr_status = 'A'  limit 1) as clr_id, ";
