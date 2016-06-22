@@ -512,13 +512,28 @@ server.post('/api/review/save', function (req, res, next) {
 /**
  * Discount
  */
-server.get('/api/discount/save', function (req, res, next) {
+server.post('/api/discount/save', function (req, res, next) {
     discountResource.save(req,res);
     return next();
 });
 
-server.get('/api/discount/saveCodes', function (req, res, next) {
+server.post('/api/discount/saveCodes', function (req, res, next) {
     discountResource.saveCodes(req,res);
+    return next();
+});
+
+server.post('/api/discount/getDiscount', function (req, res, next) {
+    discountResource.getDiscount(req,res);
+    return next();
+});
+
+server.post('/api/discount/getDiscountClass', function (req, res, next) {
+    discountResource.getDiscountClass(req,res);
+    return next();
+});
+
+server.post('/api/discount/getDiscountCodes', function (req, res, next) {
+    discountResource.getDiscountCodes(req,res);
     return next();
 });
 

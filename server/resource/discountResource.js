@@ -33,7 +33,45 @@ var DiscountResource = (function() {
         discountBusiness.saveCodes(discountModel, function(obj){
             res.json(obj);
         });
+    }
 
+    DiscountResource.prototype.getDiscount = function(req,res){
+
+        var discountModel = new Object();
+
+        if (req){
+            discountModel = req.body;
+        }
+
+        discountBusiness.getDiscount(discountModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    DiscountResource.prototype.getDiscountClass = function(req,res){
+
+        var discountModel = new Object();
+
+        if (req){
+            discountModel = req.body;
+        }
+
+        discountBusiness.getDiscountClass(discountModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    DiscountResource.prototype.getDiscountCodes = function(req,res){
+
+        var discountModel = new Object();
+
+        if (req){
+            discountModel = req.body;
+        }
+
+        discountBusiness.getDiscountCodes(discountModel, function(obj){
+            res.json(obj);
+        });
     }
 
     return new DiscountResource();

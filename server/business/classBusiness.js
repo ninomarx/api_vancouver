@@ -136,7 +136,8 @@ var ClassBusiness = (function() {
                         connection.query(sql, function (err, classObj2) {
                             connection.end();
                             if (!err) {
-                                callback("OK");
+                                var ret_class = classModel.cla_id.toString();
+                                callback(ret_class);
                             }
                         });
                     }
