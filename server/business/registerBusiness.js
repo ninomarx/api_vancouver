@@ -10,27 +10,34 @@ var RegisterBusiness = (function() {
 
         var clr_instructor_value = 0;
         RegisterBusiness.prototype.taxVerify(registerModel,function(ret){
-            clr_instructor_value = registerModel.cor_cost - ret[0].ret;
+            if(registerModel.code_type == '' || registerModel.code_type == 1) {
+                clr_instructor_value = registerModel.cor_cost - ret[0].ret;
+            }else{
+                clr_instructor_value = (registerModel.cor_cost + registerModel.clr_discount) - ret[0].ret;
+            }
 
             var connection = factory.getConnection();
             connection.connect();
 
             var sql = "";
 
-            sql = sql + " INSERT INTO class_register (clr_cost, clr_added_date, clr_status, clr_transaction_status, cla_id, use_id, cor_id, clr_cancel_date, clr_instructor_value) ";
+            sql = sql + " INSERT INTO class_register (clr_cost, clr_added_date, clr_status, clr_transaction_status, cla_id, use_id, cor_id, clr_cancel_date, clr_instructor_value,clr_course_goal,clr_discount) ";
             sql = sql + " VALUES( ";
             sql = sql + "  " + registerModel.cor_cost + " , ";
-            sql = sql + " NOW(), ";
+            sql = sql + "  '" + registerModel.clr_added_date + "', ";
             sql = sql + " 'A', "; // A:active, I: Inactive
             sql = sql + " 'W', "; // W:waiting, P:paid, C:cancelled
             sql = sql + " " + registerModel.cla_id + ",  ";
             sql = sql + " " + registerModel.use_id + ",  ";
             sql = sql + " " + registerModel.cor_id + ",   ";
             sql = sql + " null,   ";
-            sql = sql + " " + clr_instructor_value + "   ";
-            sql = sql + " ) ";
+            sql = sql + " " + clr_instructor_value + ",   ";
+            sql = sql + " '" + registerModel.clr_course_goal + "',  ";
+            sql = sql + " " + registerModel.clr_discount + "   ";
+            sql = sql + " ); ";
 
-
+            sql = sql + " UPDATE User SET use_first_name = '" + registerModel.use_first_name + "', use_last_name = '" + registerModel.use_last_name + "', use_phone = '" + registerModel.use_phone + "' ";
+            sql = sql + " WHERE use_id = " + registerModel.use_id + "; ";
 
             connection.query(sql,function(err,registerObj){
                 connection.end();
@@ -157,8 +164,13 @@ var RegisterBusiness = (function() {
 
         sql = sql + " select ";
         sql = sql + " case ";
-        sql = sql + " when codSourceOk = 'Y' then ((cla_cost * linkTax)/100) ";
-        sql = sql + " else ((cla_cost * generalTax)/100) ";
+        if(registerModel.code_type == '' || registerModel.code_type == 1) {
+            sql = sql + " when codSourceOk = 'Y' then ((" + registerModel.cor_cost + " * linkTax)/100) ";
+            sql = sql + " else ((" + registerModel.cor_cost + " * generalTax)/100) ";
+        }else{
+            sql = sql + " when codSourceOk = 'Y' then ((cla_cost * linkTax)/100) ";
+            sql = sql + " else ((cla_cost * generalTax)/100) ";
+        }
         sql = sql + " end as ret ";
         sql = sql + " from ( ";
         sql = sql + " select cla_cost, ";

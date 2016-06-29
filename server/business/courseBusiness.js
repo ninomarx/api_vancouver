@@ -69,6 +69,7 @@ var CourseBusiness = (function() {
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
         sql = sql + " ORDER  BY priority,cla_deadlineFilter DESC,spot_left DESC,distance,cor_name ";
+        sql = sql + " LIMIT 24 ";
 
 
         connection.query(sql,function(err,courses){
@@ -168,7 +169,8 @@ var CourseBusiness = (function() {
          sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
-        sql = sql + " ORDER  BY priority,cla_deadline,spot_left DESC,distance,cor_name ";
+        sql = sql + " ORDER  BY priority,cla_deadline,spot_left DESC,distance,cor_name "
+        sql = sql + " LIMIT 24 ";
 
 
         connection.query(sql,function(err,courses){
@@ -277,6 +279,7 @@ var CourseBusiness = (function() {
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
         sql = sql + " ORDER  BY priority,cla_deadline,spot_left DESC,distance,cor_name ";
+        sql = sql + " LIMIT 24 ";
 
 
         connection.query(sql,function(err,courses){
@@ -363,7 +366,7 @@ var CourseBusiness = (function() {
             sql = sql + "INNER JOIN class_time CT ON C.cla_id = CT.cla_id ";
             sql = sql + "LEFT JOIN city CI ON C.cit_id = CI.cit_id ";
             sql = sql + "LEFT JOIN province PR ON CI.pro_id = PR.pro_id ";
-            sql = sql + "LEFT JOIN class_register CR ON C.cla_id = CR.cla_id ";
+            sql = sql + "LEFT JOIN class_register CR ON C.cla_id = CR.cla_id and CR.clr_status = 'A' ";
             sql = sql + "WHERE C.use_id = " + courseModel.use_id + " and cla_status = 'A' AND clt_firstClass = 'Y' AND CT.clt_date >= curdate()  ";
             sql = sql + "GROUP BY C.cla_id ";
             sql = sql + "ORDER BY C.cor_id,CT.clt_date; ";

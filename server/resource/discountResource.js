@@ -61,6 +61,19 @@ var DiscountResource = (function() {
         });
     }
 
+    DiscountResource.prototype.getDiscountAllClass = function(req,res){
+
+        var discountModel = new Object();
+
+        if (req){
+            discountModel = req.body;
+        }
+
+        discountBusiness.getDiscountAllClass(discountModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     DiscountResource.prototype.getDiscountCodes = function(req,res){
 
         var discountModel = new Object();
@@ -70,6 +83,19 @@ var DiscountResource = (function() {
         }
 
         discountBusiness.getDiscountCodes(discountModel, function(obj){
+            res.json(obj);
+        });
+    }
+
+    DiscountResource.prototype.validateDiscountCode = function(req,res){
+
+        var discountModel = new Object();
+
+        if (req){
+            discountModel = req.body;
+        }
+
+        discountBusiness.validateDiscountCode(discountModel, function(obj){
             res.json(obj);
         });
     }

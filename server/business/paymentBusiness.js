@@ -1,6 +1,6 @@
 var factory = require("./../factory/dbfactory");
-//var stripe = require("stripe")("sk_test_460XHEvqOdYJFTRiy4zP88ha");
-var stripe = require("stripe")("sk_live_KsGnJ5V6z1BJKdCuhdq47Zhz");
+var stripe = require("stripe")("sk_test_460XHEvqOdYJFTRiy4zP88ha");
+//var stripe = require("stripe")("sk_live_KsGnJ5V6z1BJKdCuhdq47Zhz");
 
 var PaymentBusiness = (function() {
 
@@ -99,15 +99,15 @@ var PaymentBusiness = (function() {
         });
     };
 
-    PaymentBusiness.prototype.chargeCustomer = function(paymentModel,customer_id,accountIdStripe) {
+    PaymentBusiness.prototype.chargeCustomer = function(paymentModel,accountIdStripe) {
 
         stripe.charges.create({
             amount: paymentModel.amount,
             currency: "cad",
-            customer: customer_id,
+            customer: paymentModel.customer_id,
             description: paymentModel.description,
             destination: accountIdStripe,
-            application_fee: 1200
+            application_fee: paymentModel.fee
 
         }, function(err, charge) {
             if (err && err.type === 'StripeCardError') {
@@ -157,7 +157,7 @@ var PaymentBusiness = (function() {
 
     };
 
-    PaymentBusiness.prototype.getStripeAccount = function(paymentModel,costumerIdStripe) {
+    PaymentBusiness.prototype.getStripeAccount = function(paymentModel) {
 
         var connection = factory.getConnection();
         connection.connect();
@@ -169,7 +169,7 @@ var PaymentBusiness = (function() {
         connection.query(sql,function(err,user){
             connection.end();
             if(!err) {
-                PaymentBusiness.prototype.chargeCustomer(paymentModel,costumerIdStripe, user[0].accountIdStripe);
+                PaymentBusiness.prototype.chargeCustomer(paymentModel, user[0].accountIdStripe);
             }
         });
 
@@ -178,6 +178,46 @@ var PaymentBusiness = (function() {
             callback({"code" : 100, "status" : "Error to connect database"});
         });
     };
+
+    PaymentBusiness.prototype.chargeAll = function(callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select * from ( ";
+        sql = sql + " select clr_id,CAST((clr_cost*100) AS DECIMAL(18,0)) as amount, co.use_id as use_id_instructor, ";
+        sql = sql + " CAST(((clr_cost - clr_instructor_value) * 100) AS DECIMAL(18,0)) as fee, ";
+        sql = sql + " co.cor_name as description, u.costumerIdStripe, ";
+        sql = sql + " (SELECT max(clt_date) FROM class_time WHERE cla_id = cr.cla_id) as date_class ";
+        sql = sql + " from class_register cr ";
+        sql = sql + " inner join course co on cr.cor_id = co.cor_id ";
+        sql = sql + " inner join user u on cr.use_id = u.use_id ";
+        sql = sql + " where clr_status = 'A' ";
+        sql = sql + " AND clr_transaction_status = 'W' ";
+        sql = sql + " ) as aux ";
+        sql = sql + " where  DATE_FORMAT(now(),'%Y-%m-%d') >  DATE_ADD(date_class, INTERVAL 3 DAY); ";
+
+
+        connection.query(sql,function(err,user_charge){
+            connection.end();
+            if(!err) {
+                user_charge.forEach(function (item){
+                    PaymentBusiness.prototype.getStripeAccount(item);
+                })
+
+                callback("OK");
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+
+    };
+
+
 
     return new PaymentBusiness();
 })();

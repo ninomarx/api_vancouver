@@ -25,37 +25,27 @@
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="527" column="3" selection-start-line="527" selection-start-column="3" selection-end-line="527" selection-end-column="3" />
+              <caret line="586" column="16" selection-start-line="586" selection-start-column="16" selection-end-line="586" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dbfactory.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
+      <file leaf-file-name="paymentBusiness.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3197279">
-              <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+            <state vertical-scroll-proportion="-5.724138">
+              <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="discountBusiness.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/business/discountBusiness.js">
+      <file leaf-file-name="paymentResource.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/resource/paymentResource.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="108" column="59" selection-start-line="108" selection-start-column="28" selection-end-line="108" selection-end-column="59" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="registerBusiness.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/business/registerBusiness.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="126" column="97" selection-start-line="126" selection-start-column="97" selection-end-line="126" selection-end-column="97" />
+            <state vertical-scroll-proportion="0.8689459">
+              <caret line="42" column="47" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -83,7 +73,6 @@
         <option value="$PROJECT_DIR$/server/resource/provinceResource.js" />
         <option value="$PROJECT_DIR$/server/resource/ageResource.js" />
         <option value="internal/linkedlist.js" />
-        <option value="$PROJECT_DIR$/server/resource/paymentResource.js" />
         <option value="node.js" />
         <option value="$PROJECT_DIR$/server/resource/reviewResource.js" />
         <option value="$PROJECT_DIR$/server/resource/registerResource.js" />
@@ -101,7 +90,6 @@
         <option value="$PROJECT_DIR$/server/resource/loginResource.js" />
         <option value="$PROJECT_DIR$/bin/test_task" />
         <option value="$PROJECT_DIR$/server/business/ageBusiness.js" />
-        <option value="$PROJECT_DIR$/server/business/paymentBusiness.js" />
         <option value="$PROJECT_DIR$/server/resource/userResource.js" />
         <option value="$PROJECT_DIR$/server/business/userBusiness.js" />
         <option value="$PROJECT_DIR$/server/resource/utilResource.js" />
@@ -116,14 +104,16 @@
         <option value="$PROJECT_DIR$/server/business/utilBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/emailBusiness.js" />
         <option value="$PROJECT_DIR$/server/resource/courseResource.js" />
-        <option value="$PROJECT_DIR$/server/business/courseBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/messageBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/classBusiness.js" />
-        <option value="$PROJECT_DIR$/server/resource/discountResource.js" />
-        <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/server/business/discountBusiness.js" />
-        <option value="$PROJECT_DIR$/server/business/registerBusiness.js" />
         <option value="$PROJECT_DIR$/server/factory/dbfactory.js" />
+        <option value="$PROJECT_DIR$/server/resource/discountResource.js" />
+        <option value="$PROJECT_DIR$/server/business/discountBusiness.js" />
+        <option value="$PROJECT_DIR$/server/business/courseBusiness.js" />
+        <option value="$PROJECT_DIR$/server/business/registerBusiness.js" />
+        <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/server/resource/paymentResource.js" />
+        <option value="$PROJECT_DIR$/server/business/paymentBusiness.js" />
       </list>
     </option>
   </component>
@@ -135,9 +125,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="width" value="1374" />
-    <option name="height" value="745" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1376" />
+    <option name="height" value="754" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -248,24 +239,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Cotuto_API" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Cotuto_API" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -304,6 +281,9 @@
       <method />
     </configuration>
     <configuration default="false" name="paymentResource.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="paymentResource.js" working-dir="$PROJECT_DIR$/server/resource">
+      <method />
+    </configuration>
+    <configuration default="false" name="discountBusiness.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="discountBusiness.js" working-dir="$PROJECT_DIR$/server/business">
       <method />
     </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -364,19 +344,21 @@
       <ConfigurationWrapper RunnerId="debuggableProgram" />
       <method />
     </configuration>
-    <list size="5">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Node.js.server.js" />
       <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.demo_audio_video_simple.html" />
       <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.teste.html" />
       <item index="3" class="java.lang.String" itemvalue="Node.js.courseBusiness.js" />
       <item index="4" class="java.lang.String" itemvalue="Node.js.paymentResource.js" />
+      <item index="5" class="java.lang.String" itemvalue="Node.js.discountBusiness.js" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.paymentResource.js" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.courseBusiness.js" />
-        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.teste.html" />
-        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.demo_audio_video_simple.html" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.discountBusiness.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.paymentResource.js" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.courseBusiness.js" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.teste.html" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.demo_audio_video_simple.html" />
       </list>
     </recent_temporary>
   </component>
@@ -403,20 +385,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1374" height="745" extended-state="0" />
+    <frame x="-8" y="-8" width="1376" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18188623" sideWeight="0.48478702" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17937219" sideWeight="0.48478702" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279743" sideWeight="0.4968652" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39228296" sideWeight="0.52615845" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3115824" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43890676" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23491028" sideWeight="0.47309417" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17684887" sideWeight="0.47309417" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39151713" sideWeight="0.47384155" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39067525" sideWeight="0.47384155" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15625" sideWeight="0.51521295" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3523654" sideWeight="0.77901787" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35209003" sideWeight="0.77901787" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -460,17 +442,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/business/registerBusiness.js</url>
-          <line>53</line>
+          <line>60</line>
           <option name="timeStamp" value="430" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/business/registerBusiness.js</url>
-          <line>63</line>
+          <line>70</line>
           <option name="timeStamp" value="431" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/business/registerBusiness.js</url>
-          <line>62</line>
+          <line>69</line>
           <option name="timeStamp" value="432" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -504,16 +486,6 @@
           <option name="timeStamp" value="461" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/business/paymentBusiness.js</url>
-          <line>12</line>
-          <option name="timeStamp" value="505" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/business/paymentBusiness.js</url>
-          <line>20</line>
-          <option name="timeStamp" value="507" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/business/userBusiness.js</url>
           <line>267</line>
           <option name="timeStamp" value="524" />
@@ -543,28 +515,39 @@
           <line>361</line>
           <option name="timeStamp" value="545" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/business/registerBusiness.js</url>
+          <line>41</line>
+          <option name="timeStamp" value="561" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/business/registerBusiness.js</url>
+          <line>42</line>
+          <option name="timeStamp" value="562" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/business/paymentBusiness.js</url>
+          <line>103</line>
+          <option name="timeStamp" value="571" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/business/paymentBusiness.js</url>
+          <line>112</line>
+          <option name="timeStamp" value="575" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="556" />
+      <option name="time" value="576" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="NodeJSConfigurationType">
-        <watch expression="messageModel" language="JavaScript" />
-        <watch expression="err" language="JavaScript" />
         <watch expression="sql" language="JavaScript" />
-        <watch expression="courses" language="JavaScript" />
-        <watch expression="discountModel.cld_early_limit" language="JavaScript" />
-        <watch expression="discountModel.codes" language="JavaScript" />
+        <watch expression="err" language="JavaScript" />
+        <watch expression="user_charge" language="JavaScript" />
+        <watch expression="paymentModel" language="JavaScript" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/resource/countryResource.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5225806">
-          <caret line="42" column="30" selection-start-line="42" selection-start-column="30" selection-end-line="42" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/mysql/lib/protocol/sequences/Sequence.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -656,13 +639,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/resource/paymentResource.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/stripe/lib/StripeResource.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.24848485">
@@ -709,13 +685,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4259681">
           <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/categoryBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="131" column="38" selection-start-line="131" selection-start-column="27" selection-end-line="131" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -807,25 +776,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/resource/courseResource.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5816555">
-          <caret line="120" column="5" selection-start-line="120" selection-start-column="5" selection-end-line="120" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7822222">
-          <caret line="70" column="64" selection-start-line="70" selection-start-column="64" selection-end-line="70" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/resource/ageResource.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.41555557">
           <caret line="11" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="27" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -833,66 +787,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11333334">
           <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/emailBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17428571">
-          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-          <folding>
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -908,7 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3315508">
           <caret line="530" column="0" selection-start-line="530" selection-start-column="0" selection-end-line="530" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -916,39 +809,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.4716554">
           <caret line="39" column="161" selection-start-line="39" selection-start-column="161" selection-end-line="39" selection-end-column="161" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/discountBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="108" column="59" selection-start-line="108" selection-start-column="28" selection-end-line="108" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/resource/discountResource.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7324263">
-          <caret line="58" column="41" selection-start-line="58" selection-start-column="25" selection-end-line="58" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/classBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -956,6 +816,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11337868">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/resource/courseResource.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="120" column="5" selection-start-line="120" selection-start-column="5" selection-end-line="120" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/emailBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6043771">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11333334">
+          <caret line="12" column="29" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/discountBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="197" column="124" selection-start-line="197" selection-start-column="124" selection-end-line="197" selection-end-column="124" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/resource/discountResource.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="89" column="51" selection-start-line="89" selection-start-column="31" selection-end-line="89" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/classBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="596" column="0" selection-start-line="596" selection-start-column="0" selection-end-line="596" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -963,7 +868,39 @@
     <entry file="file://$PROJECT_DIR$/server/business/registerBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="126" column="97" selection-start-line="126" selection-start-column="97" selection-end-line="126" selection-end-column="97" />
+          <caret line="118" column="31" selection-start-line="118" selection-start-column="31" selection-end-line="118" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="62" column="77" selection-start-line="62" selection-start-column="41" selection-end-line="62" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/resource/provinceResource.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/categoryBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28099173">
+          <caret line="8" column="72" selection-start-line="8" selection-start-column="64" selection-end-line="8" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.724138">
+          <caret line="110" column="0" selection-start-line="110" selection-start-column="0" selection-end-line="110" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -971,15 +908,15 @@
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="527" column="3" selection-start-line="527" selection-start-column="3" selection-end-line="527" selection-end-column="3" />
+          <caret line="586" column="16" selection-start-line="586" selection-start-column="16" selection-end-line="586" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
+    <entry file="file://$PROJECT_DIR$/server/resource/paymentResource.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3197279">
-          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.8689459">
+          <caret line="42" column="47" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
           <folding />
         </state>
       </provider>

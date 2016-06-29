@@ -500,6 +500,11 @@ server.post('/api/payment/createAccount', function (req, res, next) {
     return next();
 });
 
+server.get('/api/payment/chargeAll', function (req, res, next) {
+    paymentResource.chargeAll(req,res);
+    return next();
+});
+
 
 /**
  * Review
@@ -532,8 +537,18 @@ server.post('/api/discount/getDiscountClass', function (req, res, next) {
     return next();
 });
 
+server.post('/api/discount/getDiscountAllClass', function (req, res, next) {
+    discountResource.getDiscountAllClass(req,res);
+    return next();
+});
+
 server.post('/api/discount/getDiscountCodes', function (req, res, next) {
     discountResource.getDiscountCodes(req,res);
+    return next();
+});
+
+server.post('/api/discount/validateDiscountCode', function (req, res, next) {
+    discountResource.validateDiscountCode(req,res);
     return next();
 });
 

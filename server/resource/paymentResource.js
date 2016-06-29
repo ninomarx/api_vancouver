@@ -46,6 +46,16 @@ var PaymentResource = (function() {
 
     }
 
+    PaymentResource.prototype.chargeAll = function(req,res){
+
+        var paymentModel = new Object();
+
+        paymentBusiness.chargeAll(paymentModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
 
     return new PaymentResource();
 })();

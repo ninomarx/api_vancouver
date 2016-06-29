@@ -110,13 +110,44 @@ var DiscountBusiness = (function() {
         sql = sql + " end as type, ";
         sql = sql + " (cla_cost - cld_early_discount) as early_value, ";
         sql = sql + " (cla_cost - cld_last_discount) as last_value, ";
-        sql = sql + " cast(((cld_early_discount * 100)/cla_cost) as decimal(18,2)) as early_perc_value, ";
-        sql = sql + " cast(((cld_last_discount * 100)/cla_cost) as decimal(18,2)) as last_perc_value, ";
+        sql = sql + " round(cast(((cld_early_discount * 100)/cla_cost) as decimal(18,2))) as early_perc_value, ";
+        sql = sql + " round(cast(((cld_last_discount * 100)/cla_cost) as decimal(18,2))) as last_perc_value, ";
         sql = sql + " (select case when count(*) < cld_early_limit then 'N' else 'Y' end ";
         sql = sql + " from class_register where cla_id = " + discountModel.cla_id + " and clr_cost = (cla_cost - cld_early_discount)) as reach_limit_early ";
         sql = sql + " FROM class c ";
         sql = sql + " INNER JOIN class_discount cd on c.cla_id = cd.cla_id ";
         sql = sql + " WHERE c.cla_id = " + discountModel.cla_id + "; ";
+
+        connection.query(sql,function(err,discount){
+            connection.end();
+            if(!err) {
+
+                var collectionDiscount = discount;
+                callback(collectionDiscount);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "database error"});
+        });
+    };
+
+    DiscountBusiness.prototype.getDiscountAllClass = function(discountModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " SELECT c.cla_id,";
+        sql = sql + " case when now() <= cld_early_deadline and cld_early = 'Y' then 'E' ";
+        sql = sql + " when  (DATE_FORMAT(now(),'%Y-%m-%d') between DATE_ADD(cla_deadline,INTERVAL -1 DAY) and cla_deadline) and cld_last = 'Y' then 'L' else 'N' ";
+        sql = sql + " end as type, ";
+        sql = sql + " round(cast(((cld_early_discount * 100)/cla_cost) as decimal(18,2))) as early_perc_value, ";
+        sql = sql + " round(cast(((cld_last_discount * 100)/cla_cost) as decimal(18,2))) as last_perc_value ";
+        sql = sql + " FROM class c ";
+        sql = sql + " INNER JOIN class_discount cd on c.cla_id = cd.cla_id ";
+        sql = sql + " WHERE c.cla_id IN (" + discountModel.classes + "); ";
 
         connection.query(sql,function(err,discount){
             connection.end();
@@ -140,6 +171,32 @@ var DiscountBusiness = (function() {
 
         var sql = "";
         sql = sql + " SELECT  *,@rownum:=@rownum+1 AS 'index' FROM class_promo_codes ,(SELECT @rownum := 0) r  WHERE cla_id = " + discountModel.cla_id + ";";
+
+        connection.query(sql,function(err,discount){
+            connection.end();
+            if(!err) {
+
+                var collectionDiscount = discount;
+                callback(collectionDiscount);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "database error"});
+        });
+    };
+
+    DiscountBusiness.prototype.validateDiscountCode = function(discountModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " SELECT * ";
+        sql = sql + " FROM class_promo_codes ";
+        sql = sql + " WHERE cpc_code_name = '" + discountModel.cpc_code_name + "' and cla_id = " + discountModel.cla_id + "; ";
+
 
         connection.query(sql,function(err,discount){
             connection.end();
