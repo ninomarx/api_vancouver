@@ -49,13 +49,14 @@ var DiscountBusiness = (function() {
         sql = sql + " DELETE FROM class_promo_codes WHERE cla_id = " + discountModel.cla_id + "; ";
 
         discountModel.codes.forEach(function(item){
-            sql = sql + " INSERT INTO class_promo_codes (cla_id,cpc_code_name,cpc_discount,cpc_limit,cpc_deadline)";
+            sql = sql + " INSERT INTO class_promo_codes (cla_id,cpc_code_name,cpc_discount,cpc_limit,cpc_deadline,cpc_type)";
             sql = sql + " values( ";
             sql = sql + " " + discountModel.cla_id + ", ";
             sql = sql + " '" + item.cpc_code_name + "', ";
             sql = sql + " " + item.cpc_discount + ", ";
             sql = sql + " " + item.cpc_limit + ", ";
-            sql = sql + " '" + item.cpc_deadline + "' ";
+            sql = sql + " '" + item.cpc_deadline + "', ";
+            sql = sql + " 1 ";
             sql = sql + " ); ";
         })
 
@@ -105,15 +106,15 @@ var DiscountBusiness = (function() {
 
         var sql = "";
         sql = sql + " SELECT ";
-        sql = sql + " case when now() <= cld_early_deadline and cld_early = 'Y' then 'E' ";
+        sql = sql + " case when DATE_FORMAT(now(),'%Y-%m-%d') <= cld_early_deadline and cld_early = 'Y' then 'E' ";
         sql = sql + " when  (DATE_FORMAT(now(),'%Y-%m-%d') between DATE_ADD(cla_deadline,INTERVAL -1 DAY) and cla_deadline) and cld_last = 'Y' then 'L' else 'N' ";
-        sql = sql + " end as type, ";
-        sql = sql + " (cla_cost - cld_early_discount) as early_value, ";
-        sql = sql + " (cla_cost - cld_last_discount) as last_value, ";
-        sql = sql + " round(cast(((cld_early_discount * 100)/cla_cost) as decimal(18,2))) as early_perc_value, ";
-        sql = sql + " round(cast(((cld_last_discount * 100)/cla_cost) as decimal(18,2))) as last_perc_value, ";
+        sql = sql + " end as type, date_format(cld_early_deadline,'%M %d') as cld_early_deadline,";
+        sql = sql + " (cld_early_discount) as early_value, ";
+        sql = sql + " (cld_last_discount) as last_value, ";
+        sql = sql + " round(cast((((cla_cost - cld_early_discount) * 100)/cla_cost) as decimal(18,2))) as early_perc_value, ";
+        sql = sql + " round(cast((((cla_cost - cld_last_discount) * 100)/cla_cost) as decimal(18,2))) as last_perc_value, ";
         sql = sql + " (select case when count(*) < cld_early_limit then 'N' else 'Y' end ";
-        sql = sql + " from class_register where cla_id = " + discountModel.cla_id + " and clr_cost = (cla_cost - cld_early_discount)) as reach_limit_early ";
+        sql = sql + " from class_register where cla_id = " + discountModel.cla_id + " and clr_cost = (cld_early_discount)) as reach_limit_early ";
         sql = sql + " FROM class c ";
         sql = sql + " INNER JOIN class_discount cd on c.cla_id = cd.cla_id ";
         sql = sql + " WHERE c.cla_id = " + discountModel.cla_id + "; ";
@@ -140,11 +141,11 @@ var DiscountBusiness = (function() {
 
         var sql = "";
         sql = sql + " SELECT c.cla_id,";
-        sql = sql + " case when now() <= cld_early_deadline and cld_early = 'Y' then 'E' ";
+        sql = sql + " case when DATE_FORMAT(now(),'%Y-%m-%d') <= cld_early_deadline and cld_early = 'Y' then 'E' ";
         sql = sql + " when  (DATE_FORMAT(now(),'%Y-%m-%d') between DATE_ADD(cla_deadline,INTERVAL -1 DAY) and cla_deadline) and cld_last = 'Y' then 'L' else 'N' ";
         sql = sql + " end as type, ";
-        sql = sql + " round(cast(((cld_early_discount * 100)/cla_cost) as decimal(18,2))) as early_perc_value, ";
-        sql = sql + " round(cast(((cld_last_discount * 100)/cla_cost) as decimal(18,2))) as last_perc_value ";
+        sql = sql + " round(cast((((cla_cost - cld_early_discount) * 100)/cla_cost) as decimal(18,2))) as early_perc_value, ";
+        sql = sql + " round(cast((((cla_cost - cld_last_discount) * 100)/cla_cost) as decimal(18,2))) as last_perc_value ";
         sql = sql + " FROM class c ";
         sql = sql + " INNER JOIN class_discount cd on c.cla_id = cd.cla_id ";
         sql = sql + " WHERE c.cla_id IN (" + discountModel.classes + "); ";

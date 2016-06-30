@@ -21,7 +21,7 @@ var RegisterBusiness = (function() {
 
             var sql = "";
 
-            sql = sql + " INSERT INTO class_register (clr_cost, clr_added_date, clr_status, clr_transaction_status, cla_id, use_id, cor_id, clr_cancel_date, clr_instructor_value,clr_course_goal,clr_discount) ";
+            sql = sql + " INSERT INTO class_register (clr_cost, clr_added_date, clr_status, clr_transaction_status, cla_id, use_id, cor_id, clr_cancel_date, clr_instructor_value,clr_course_goal,clr_discount,clr_discount_code) ";
             sql = sql + " VALUES( ";
             sql = sql + "  " + registerModel.cor_cost + " , ";
             sql = sql + "  '" + registerModel.clr_added_date + "', ";
@@ -33,7 +33,8 @@ var RegisterBusiness = (function() {
             sql = sql + " null,   ";
             sql = sql + " " + clr_instructor_value + ",   ";
             sql = sql + " '" + registerModel.clr_course_goal + "',  ";
-            sql = sql + " " + registerModel.clr_discount + "   ";
+            sql = sql + " " + registerModel.clr_discount + ",   ";
+            sql = sql + " '" + registerModel.code + "'   ";
             sql = sql + " ); ";
 
             sql = sql + " UPDATE User SET use_first_name = '" + registerModel.use_first_name + "', use_last_name = '" + registerModel.use_last_name + "', use_phone = '" + registerModel.use_phone + "' ";

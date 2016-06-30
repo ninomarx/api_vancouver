@@ -622,13 +622,13 @@ var ClassBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " select CR.use_id, use_image, concat(coalesce(use_first_name,''),' ', coalesce(use_last_name,'')) use_name, ";
-        sql = sql + " date_format(CR.clr_added_date,'%Y-%m-%d') as clr_added_date, CR.clr_instructor_value, ";
+        sql = sql + " select clr_id, CR.use_id, use_image, concat(coalesce(use_first_name,''),' ', coalesce(use_last_name,'')) use_name, ";
+        sql = sql + " date_format(CR.clr_added_date,'%Y-%m-%d') as clr_added_date, CR.clr_cost, ";
         sql = sql + " case ";
         sql = sql + " when CR.clr_transaction_status = 'W' then 'Registered' ";
         sql = sql + " when CR.clr_transaction_status = 'P' then 'Paid' ";
         sql = sql + " when CR.clr_transaction_status = 'C' then 'Cancelled' ";
-        sql = sql + " end as status ";
+        sql = sql + " end as status, coalesce(NULLIF(clr_discount_code,''),'N/A') as clr_discount_code ";
         sql = sql + " from class_register CR ";
         sql = sql + " INNER JOIN user U ON CR.use_id = U.use_id ";
         sql = sql + " where cla_id = " + classModel.cla_id + "; ";
@@ -660,7 +660,7 @@ var ClassBusiness = (function() {
         var sql = "";
         sql = sql + " select clr_course_goal ";
         sql = sql + " from class_register ";
-        sql = sql + " where cla_id = " + classModel.cla_id + " and use_id = " + classModel.use_id + " ;";
+        sql = sql + " where cla_id = " + classModel.cla_id + " and use_id = " + classModel.use_id + " and clr_id = " + classModel.clr_id + ";";
 
         connection.query(sql,function(err,classObj){
             connection.end();

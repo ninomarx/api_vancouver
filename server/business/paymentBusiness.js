@@ -104,13 +104,16 @@ var PaymentBusiness = (function() {
         stripe.charges.create({
             amount: paymentModel.amount,
             currency: "cad",
-            customer: paymentModel.customer_id,
+            customer: paymentModel.costumerIdStripe,
             description: paymentModel.description,
             destination: accountIdStripe,
             application_fee: paymentModel.fee
 
         }, function(err, charge) {
-            if (err && err.type === 'StripeCardError') {
+            if (err) {
+            }
+            else{
+                PaymentBusiness.prototype.updatePayment(paymentModel.clr_id);
             }
         })
     };
@@ -207,6 +210,31 @@ var PaymentBusiness = (function() {
                 })
 
                 callback("OK");
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+
+    };
+
+    PaymentBusiness.prototype.updatePayment = function(clr_id) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " UPDATE";
+        sql = sql + " class_register ";
+        sql = sql + " set clr_transaction_status = 'P' ";
+        sql = sql + " WHERE clr_id = " + clr_id + "; ";
+
+        connection.query(sql,function(err,user){
+            connection.end();
+            if(!err) {
+
             }
         });
 
