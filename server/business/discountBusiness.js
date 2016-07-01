@@ -145,9 +145,10 @@ var DiscountBusiness = (function() {
         sql = sql + " when  (DATE_FORMAT(now(),'%Y-%m-%d') between DATE_ADD(cla_deadline,INTERVAL -1 DAY) and cla_deadline) and cld_last = 'Y' then 'L' else 'N' ";
         sql = sql + " end as type, ";
         sql = sql + " round(cast((((cla_cost - cld_early_discount) * 100)/cla_cost) as decimal(18,2))) as early_perc_value, ";
-        sql = sql + " round(cast((((cla_cost - cld_last_discount) * 100)/cla_cost) as decimal(18,2))) as last_perc_value ";
+        sql = sql + " round(cast((((cla_cost - cld_last_discount) * 100)/cla_cost) as decimal(18,2))) as last_perc_value, ";
+        sql = sql + " cld_early_discount, cld_last_discount,cla_cost ";
         sql = sql + " FROM class c ";
-        sql = sql + " INNER JOIN class_discount cd on c.cla_id = cd.cla_id ";
+        sql = sql + " LEFT JOIN class_discount cd on c.cla_id = cd.cla_id ";
         sql = sql + " WHERE c.cla_id IN (" + discountModel.classes + "); ";
 
         connection.query(sql,function(err,discount){
