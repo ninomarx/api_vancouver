@@ -17,11 +17,11 @@ var DiscountBusiness = (function() {
         sql = sql + " VALUES( ";
         sql = sql + " " + discountModel.cla_id + ", ";
         sql = sql + " '" + discountModel.cld_early + "', ";
-        sql = sql + " " + discountModel.cld_early_discount + ", ";
-        sql = sql + " " + discountModel.cld_early_limit + ", ";
+        sql = sql + " '" + discountModel.cld_early_discount + "', ";
+        sql = sql + " '" + discountModel.cld_early_limit + "', ";
         sql = sql + " '" + discountModel.cld_early_deadline + "', ";
         sql = sql + " '" + discountModel.cld_last + "', ";
-        sql = sql + " " + discountModel.cld_last_discount + " ";
+        sql = sql + " '" + discountModel.cld_last_discount + "' ";
         sql = sql + " ) ";
 
         connection.query(sql,function(err,age){
@@ -82,7 +82,7 @@ var DiscountBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " SELECT * FROM class_discount WHERE cla_id = " + discountModel.cla_id + ";";
+        sql = sql + " SELECT *,date_format(cld_early_deadline,'%m-%d-%Y') as early_deadline FROM class_discount WHERE cla_id = " + discountModel.cla_id + ";";
 
         connection.query(sql,function(err,discount){
             connection.end();
