@@ -114,7 +114,7 @@ var DiscountBusiness = (function() {
         sql = sql + " round(cast((((cla_cost - cld_early_discount) * 100)/cla_cost) as decimal(18,2))) as early_perc_value, ";
         sql = sql + " round(cast((((cla_cost - cld_last_discount) * 100)/cla_cost) as decimal(18,2))) as last_perc_value, ";
         sql = sql + " (select case when count(*) < cld_early_limit then 'N' else 'Y' end ";
-        sql = sql + " from class_register where cla_id = " + discountModel.cla_id + " and clr_cost = (cld_early_discount)) as reach_limit_early ";
+        sql = sql + " from class_register where cla_id = " + discountModel.cla_id + " and clr_cost = (cld_early_discount) and clr_status = 'A') as reach_limit_early  ";
         sql = sql + " FROM class c ";
         sql = sql + " INNER JOIN class_discount cd on c.cla_id = cd.cla_id ";
         sql = sql + " WHERE c.cla_id = " + discountModel.cla_id + "; ";
@@ -146,7 +146,12 @@ var DiscountBusiness = (function() {
         sql = sql + " end as type, ";
         sql = sql + " round(cast((((cla_cost - cld_early_discount) * 100)/cla_cost) as decimal(18,2))) as early_perc_value, ";
         sql = sql + " round(cast((((cla_cost - cld_last_discount) * 100)/cla_cost) as decimal(18,2))) as last_perc_value, ";
-        sql = sql + " cld_early_discount, cld_last_discount,cla_cost ";
+        sql = sql + " cld_early_discount, cld_last_discount,cla_cost, ";
+        sql = sql + " (select case when count(*) < cld_early_limit then 'N' else 'Y' end ";
+        sql = sql + "  from class_register ";
+        sql = sql + "  where cla_id = c.cla_id ";
+        sql = sql + "        and clr_cost = cld_early_discount ";
+        sql = sql + "        and clr_status = 'A' ) as reach_limit ";
         sql = sql + " FROM class c ";
         sql = sql + " LEFT JOIN class_discount cd on c.cla_id = cd.cla_id ";
         sql = sql + " WHERE c.cla_id IN (" + discountModel.classes + "); ";
