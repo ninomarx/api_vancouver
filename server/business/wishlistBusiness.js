@@ -47,7 +47,7 @@ var WishlistBusiness = (function() {
 
         var sql = "";
         sql = sql + " select *, ";
-        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else CONCAT(FLOOR(cla_duration/60),'h',MOD(cla_duration,60),'m')  end as sessions ";
+        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else cla_duration  end as sessions ";
         sql = sql + " from ( ";
         sql = sql + " select c.cla_id,co.cor_image, co.cor_name, city.cit_description, prov.pro_code,  ";
         sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as instructor_name,use_image, ";

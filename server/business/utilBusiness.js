@@ -13,7 +13,7 @@ var UtilBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " select *, DATE_FORMAT(timestampadd(day,30,last_date),'%M %d') until_date ";
+        sql = sql + " select *, DATE_FORMAT(timestampadd(day,15,last_date),'%M %d') until_date ";
         sql = sql + " from ( ";
         sql = sql + " select UU.use_email, COU.cor_image, U.use_image, COU.cor_name, U.use_first_name,cla_id, ";
         sql = sql + " (select count(*) from class_review where use_id = CR.use_id and cla_id = CR.cla_id) as reviews, ";

@@ -188,7 +188,7 @@ var ClassBusiness = (function() {
         sql = sql + " SELECT *, ";
         sql = sql + " case ";
         sql = sql + " when number_session > 1 then Concat(number_session, ' Sessions') ";
-        sql = sql + " else Concat(SUBSTRING(SEC_TO_TIME(cla_duration * 60),1,5), 'hr') ";
+        sql = sql + " else cla_duration ";
         sql = sql + " end AS number_session,(cla_max_size - students) AS spot_left ";
         sql = sql + " FROM   ( ";
 
@@ -253,7 +253,7 @@ var ClassBusiness = (function() {
         sql = sql + " US.use_first_name AS use_name ";
         sql = sql + " FROM class_review CR ";
         sql = sql + " INNER JOIN user US ON CR.use_id = US.use_id ";
-        sql = sql + " where cor_id = " + classModel.cor_id + " and cre_status = 'A' ; ";
+        sql = sql + " where cor_id = " + classModel.cor_id + " and cre_status = 'A' and cre_review_private = 'N' ; ";
 
 
         connection.query(sql,function(err,classObj){
@@ -323,7 +323,7 @@ var ClassBusiness = (function() {
 
         var sql = "";
         sql = sql + " select *, ";
-        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else CONCAT(FLOOR(cla_duration/60),'h',MOD(cla_duration,60),'m')  end as sessions ";
+        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else cla_duration  end as sessions ";
         sql = sql + " from ( ";
         sql = sql + " select c.cla_id,co.cor_image, co.cor_name,city.cit_description, prov.pro_code, ";
         sql = sql + " CONCAT(coalesce(use_first_name,''),' ',coalesce(use_last_name,'') ) as instructor_name,use_image, ";
@@ -367,7 +367,7 @@ var ClassBusiness = (function() {
 
         var sql = "";
         sql = sql + " select *, ";
-        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else CONCAT(FLOOR(cla_duration/60),'h',MOD(cla_duration,60),'m')  end as sessions ";
+        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else cla_duration  end as sessions ";
         sql = sql + " from ( ";
         sql = sql + " select c.cla_id,co.cor_image, co.cor_name,co.cor_id, ";
         sql = sql + " CONCAT(coalesce(use_first_name,''),' ',coalesce(use_last_name,'') ) as instructor_name,use_image, ";
@@ -411,7 +411,7 @@ var ClassBusiness = (function() {
 
         var sql = "";
         sql = sql + " select *, ";
-        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else CONCAT(FLOOR(cla_duration/60),'h',MOD(cla_duration,60),'m')  end as sessions ";
+        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else cla_duration end as sessions ";
         sql = sql + " from ( ";
         sql = sql + " select c.cla_id,co.cor_image, co.cor_name, co.cor_id, ";
         sql = sql + " CONCAT(coalesce(use_first_name,''),' ',coalesce(use_last_name,'') ) as instructor_name,use_image, ";
@@ -454,7 +454,7 @@ var ClassBusiness = (function() {
 
         var sql = "";
         sql = sql + " select *, ";
-        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else CONCAT(FLOOR(cla_duration/60),'h',MOD(cla_duration,60),'m')  end as sessions ";
+        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else cla_duration end as sessions ";
         sql = sql + " from ( ";
         sql = sql + " select c.cla_id,co.cor_image, co.cor_name, ";
         sql = sql + " CONCAT(coalesce(use_first_name,''),' ',coalesce(use_last_name,'') ) as instructor_name,use_image, ";
@@ -499,7 +499,7 @@ var ClassBusiness = (function() {
         var sql = "";
 
         sql = sql + " select *, ";
-        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else CONCAT(FLOOR(cla_duration/60),'h',MOD(cla_duration,60),'m')  end as sessions, ";
+        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else cla_duration end as sessions, ";
         sql = sql + " (students*cla_cost) gross, ";
         sql = sql + " concat(students,'/',cla_max_size) students, ";
         sql = sql + " case when students >= cla_min_size then ' - Class is on!' else '' end classOn ";
@@ -549,7 +549,7 @@ var ClassBusiness = (function() {
         var sql = "";
 
         sql = sql + " select *, ";
-        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else CONCAT(FLOOR(cla_duration/60),'h',MOD(cla_duration,60),'m')  end as sessions, ";
+        sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else cla_duration end as sessions, ";
         sql = sql + " concat(students,'/',cla_max_size) students, ";
         sql = sql + " case when students >= cla_min_size then ' - Class is on!' else '' end classOn ";
         sql = sql + " from ( ";

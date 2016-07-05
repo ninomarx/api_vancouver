@@ -13,7 +13,7 @@ var ReviewBusiness = (function() {
 
         var sql = "";
 
-        sql = sql + " INSERT INTO class_review (cre_stars, cre_review, cre_added_date, cre_status, use_id, cla_id, cor_id, cre_feedback_instructor, cre_feedback_cotuto_instructor, cre_feedback_cotuto_improve) ";
+        sql = sql + " INSERT INTO class_review (cre_stars, cre_review, cre_added_date, cre_status, use_id, cla_id, cor_id, cre_feedback_instructor, cre_feedback_cotuto_instructor, cre_feedback_cotuto_improve,cre_review_private) ";
         sql = sql + " VALUES( ";
         sql = sql + "  " + reviewModel.cre_stars + " , ";
         sql = sql + "  '" + reviewModel.cre_review.replace(/'/g, "\\'")  + "' , ";
@@ -24,7 +24,8 @@ var ReviewBusiness = (function() {
         sql = sql + "  " + reviewModel.cor_id + " , ";
         sql = sql + "  '" + reviewModel.cre_feedback_instructor.replace(/'/g, "\\'")  + "' , ";
         sql = sql + "  '" + reviewModel.cre_feedback_cotuto_instructor.replace(/'/g, "\\'")  + "' , ";
-        sql = sql + "  ' " + reviewModel.cre_feedback_cotuto_improve.replace(/'/g, "\\'")  + "'   ";
+        sql = sql + "  '" + reviewModel.cre_feedback_cotuto_improve.replace(/'/g, "\\'")  + "' ,  ";
+        sql = sql + "  '" + reviewModel.cre_review_private + "'   ";
         sql = sql + " ) ";
 
 
