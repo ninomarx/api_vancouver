@@ -680,6 +680,30 @@ var ClassBusiness = (function() {
 
     };
 
+    ClassBusiness.prototype.regAdjust = function(classModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " UPDATE class set cla_max_size = " + classModel.qtde + " WHERE cla_id = " + classModel.cla_id;
+
+        connection.query(sql,function(err,age){
+            connection.end();
+            if(!err) {
+
+                var collectionAge = age;
+
+                callback(collectionAge);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Database Error"});
+        });
+    };
+
 
     Date.prototype.yyyymmdd = function() {
         var yyyy = this.getFullYear().toString();

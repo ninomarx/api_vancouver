@@ -385,6 +385,11 @@ server.post('/api/class/getGoal', function (req, res, next) {
     return next();
 });
 
+server.post('/api/class/regAdjust', function (req, res, next) {
+    classResource.regAdjust(req,res);
+    return next();
+});
+
 
 /**
  * Wishlist

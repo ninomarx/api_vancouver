@@ -220,6 +220,19 @@ var ClassResource = (function() {
         });
     }
 
+    ClassResource.prototype.regAdjust = function(req,res){
+
+        var classModel = new Object();
+
+        if (req){
+            classModel = req.body;
+        }
+
+        classBusiness.regAdjust(classModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new ClassResource();
 })();
 
