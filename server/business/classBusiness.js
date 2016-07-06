@@ -686,7 +686,28 @@ var ClassBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " UPDATE class set cla_max_size = " + classModel.qtde + " WHERE cla_id = " + classModel.cla_id;
+        if(classModel.op == 2) {
+
+            sql = sql + " INSERT INTO class_register (clr_cost, clr_added_date, clr_status, clr_transaction_status, cla_id, use_id, cor_id, clr_cancel_date, clr_instructor_value,clr_course_goal,clr_discount,clr_discount_code) ";
+            sql = sql + " VALUES( ";
+            sql = sql + "  0 , ";
+            sql = sql + "  '" + classModel.clr_added_date + "', ";
+            sql = sql + " 'A', "; // A:active, I: Inactive
+            sql = sql + " 'P', "; // W:waiting, P:paid, C:cancelled
+            sql = sql + " " + classModel.cla_id + ",  ";
+            sql = sql + " 9999,  ";
+            sql = sql + " " + classModel.cor_id + ",   ";
+            sql = sql + " null,   ";
+            sql = sql + " 0,   ";
+            sql = sql + " '',  ";
+            sql = sql + " 0,   ";
+            sql = sql + " 'External Registration'   ";
+            sql = sql + " ); ";
+
+        }else{
+            sql = sql + " DELETE FROM class_register ";
+            sql = sql + " WHERE cla_id = " +  classModel.cla_id + " AND use_id = 9999 LIMIT 1;";
+        }
 
         connection.query(sql,function(err,age){
             connection.end();
