@@ -16,7 +16,8 @@ var ClassBusiness = (function() {
         sql = sql + " FROM class C";
         sql = sql + " INNER JOIN class_time CT ON C.cla_id = CT.cla_id ";
         sql = sql + " ,(SELECT @rownum := 0) r ";
-        sql = sql + " WHERE C.cla_id =  " + classModel.cla_id + " AND clt_firstClass = 'N'; ";
+        sql = sql + " WHERE C.cla_id =  " + classModel.cla_id + " AND clt_firstClass = 'N' ";
+        sql = sql + " ORDER BY clt_date; ";
 
 
         connection.query(sql,function(err,classObj){
