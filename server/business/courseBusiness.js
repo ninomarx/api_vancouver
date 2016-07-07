@@ -63,8 +63,8 @@ var CourseBusiness = (function() {
         sql = sql + " AND ct.clt_date >= DATE_ADD(Curdate(), INTERVAL -1 DAY) ";
         sql = sql + " GROUP  BY COU.cor_id, ";
         sql = sql + " CL.cla_id) AS AUX ";
-        sql = sql + " WHERE  (cla_max_size - students) > 0 ";
-        /*      sql = sql + " AND ( ";
+        /*sql = sql + " WHERE  (cla_max_size - students) > 0 ";
+              sql = sql + " AND ( ";
          sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
@@ -164,8 +164,8 @@ var CourseBusiness = (function() {
         sql = sql + " AND ct.clt_date >= DATE_ADD(Curdate(), INTERVAL -1 DAY) ";
         sql = sql + " GROUP  BY COU.cor_id, ";
         sql = sql + " CL.cla_id) AS AUX ";
-        sql = sql + " WHERE  (cla_max_size - students) > 0 ";
-        /*      sql = sql + " AND ( ";
+        /*sql = sql + " WHERE  (cla_max_size - students) > 0 ";
+              sql = sql + " AND ( ";
          sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
@@ -273,8 +273,8 @@ var CourseBusiness = (function() {
         sql = sql + " AND ct.clt_date >= DATE_ADD(Curdate(), INTERVAL -1 DAY)";
         sql = sql + " GROUP  BY COU.cor_id, ";
         sql = sql + " CL.cla_id) AS AUX ";
-        sql = sql + " WHERE  (cla_max_size - students) > 0 ";
-        /*      sql = sql + " AND ( ";
+        /*sql = sql + " WHERE  (cla_max_size - students) > 0 ";
+              sql = sql + " AND ( ";
          sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
@@ -988,8 +988,8 @@ var CourseBusiness = (function() {
 
         sql = sql + " GROUP BY COU.cor_id,CL.cla_id  ";
         sql = sql + " ) AS AUX ";
-        sql = sql + " WHERE (cla_max_size - students) > 0  ";
-      /*  sql = sql + " AND ( ";
+      /*sql = sql + " WHERE (cla_max_size - students) > 0  ";
+        sql = sql + " AND ( ";
         sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
         sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
         sql = sql + " ) ";*/
@@ -1273,8 +1273,8 @@ var CourseBusiness = (function() {
 
         sql = sql + " GROUP BY COU.cor_id,CL.cla_id  ";
         sql = sql + " ) AS AUX ";
-        sql = sql + " WHERE (cla_max_size - students) > 0  ";
-        /*  sql = sql + " AND ( ";
+        /*sql = sql + " WHERE (cla_max_size - students) > 0  ";
+         sql = sql + " AND ( ";
          sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
