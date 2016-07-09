@@ -307,7 +307,8 @@ var ClassBusiness = (function() {
         sql = sql + " (SELECT COUNT(*) FROM class_time WHERE cla_id = CT.cla_id) AS sessions ";
         sql = sql + " FROM class CT ";
         sql = sql + " INNER JOIN class_time C ON CT.cla_id = C.cla_id ";
-        sql = sql + " where CT.cor_id = " + classModel.cor_id + "  and clt_firstClass = 'Y' AND CT.cla_status = 'A' and C.clt_date > now() and CT.cla_id <> " +  classModel.cla_id + ";";
+        sql = sql + " where CT.cor_id = " + classModel.cor_id + "  and clt_firstClass = 'Y' AND CT.cla_status = 'A' and C.clt_date > now() and CT.cla_id <> " +  classModel.cla_id + " ";
+        sql = sql + " ORDER BY clt_date "
 
         connection.query(sql, function (err, classObj) {
             connection.end();
