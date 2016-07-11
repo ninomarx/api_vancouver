@@ -865,7 +865,119 @@ var CourseBusiness = (function() {
         if(courseModel.use_id != "")
             sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status";
         sql = sql + "  ,(SELECT min(clt_date) FROM class cla inner join class_time clat on cla.cla_id = clat.cla_id ";
-        sql = sql + "   WHERE cor_id = COU.cor_id and clt_date > curdate() and cla_status = 'A' AND clt_firstClass = 'Y' ) as date_first_class ";
+        sql = sql + "   WHERE cor_id = COU.cor_id and cla_status = 'A' AND clt_firstClass = 'Y' ";
+
+        if(courseModel.filter.begin_date != "" && courseModel.filter.end_date != "" ){
+            sql = sql + " AND (clt_date BETWEEN STR_TO_DATE('" + courseModel.filter.begin_date + "','%m/%d/%Y') AND STR_TO_DATE('" + courseModel.filter.end_date + "','%m/%d/%Y'))";
+        }else{
+            sql = sql + " AND clt_date > curdate() ";
+        }
+
+        var aux = courseModel.filter.times.length;
+        var aux2 = 0;
+        if(courseModel.filter.times.length > 0) {
+
+            var index = courseModel.filter.times.indexOf("A");
+
+            if (index > -1) {
+                sql = sql;
+            }
+            else
+            {
+                sql = sql + " AND ";
+
+                courseModel.filter.times.forEach(function (item) {
+
+                    if (aux == 1) {
+                        if (item == "M")
+                            sql = sql + "  clt_start_time BETWEEN '00:00' AND '12:00' ";
+
+                        if (item == "N")
+                            sql = sql + "  clt_start_time BETWEEN '12:00' AND '17:00' ";
+
+                        if (item == "E")
+                            sql = sql + "  clt_start_time BETWEEN '17:00' AND '23:59' ";
+                    }
+                    else {
+
+                        if (aux2 == 0)
+                            sql = sql + " ( ";
+                        else
+                            sql = sql + " OR ";
+
+                        if (item == "M") {
+                            sql = sql + "  clt_start_time <= '12:00PM' ";
+                            aux2++;
+                        }
+
+                        if (item == "N") {
+                            sql = sql + "  clt_start_time BETWEEN '12:00PM' AND '6:00PM' ";
+                            aux2++;
+                        }
+
+                        if (item == "E") {
+                            sql = sql + "  clt_start_time >= '6:00PM' ";
+                            aux2++;
+                        }
+
+                        if (aux == aux2)
+                            sql = sql + " ) ";
+                    }
+
+                })
+            }
+
+        }
+
+        if(courseModel.filter.days.length > 0) {
+
+            var days = "";
+            var all = "N";
+            courseModel.filter.days.forEach(function(item){
+
+                days = days + " " + item + ",";
+
+                if(item == "A")
+                    all = "S";
+
+            })
+            days = days.substring(0,days.length - 1);
+
+            if(all == "N")
+                sql = sql + " AND DAYOFWEEK(clt_date) IN (" + days + ") ";
+        }
+
+        if(courseModel.filter.age.length > 0) {
+            sql = sql + " AND ";
+            var ages = "";
+            courseModel.filter.age.forEach(function(item){
+
+                ages = ages + " " + item + ",";
+
+            })
+            ages = ages.substring(0,ages.length - 1);
+            sql = sql + " age_id IN (" + ages + ") ";
+        }
+
+        if(courseModel.filter.level.length > 0) {
+            sql = sql + " AND ";
+            var levels = "";
+            courseModel.filter.level.forEach(function(item){
+
+                levels = levels + " " + item + ",";
+
+            })
+            levels = levels.substring(0,levels.length - 1);
+            sql = sql + " col_id IN (" + levels + ") ";
+        }
+
+        if(courseModel.filter.price_1 != "" && courseModel.filter.price_2 != "" ){
+            sql = sql + " AND ";
+            sql = sql + " (cla_cost BETWEEN " + courseModel.filter.price_1 + " AND " + courseModel.filter.price_2 + ") ";
+        }
+
+        sql = sql + "  ) as date_first_class ";
+
         sql = sql + " FROM   course COU ";
         sql = sql + " INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
         sql = sql + " INNER JOIN class_time CT ON CL.cla_id = CT.cla_id AND CT.clt_firstclass = 'Y' ";
@@ -1157,7 +1269,118 @@ var CourseBusiness = (function() {
         if(courseModel.use_id != "")
             sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status";
         sql = sql + "  ,(SELECT min(clt_date) FROM class cla inner join class_time clat on cla.cla_id = clat.cla_id ";
-        sql = sql + "   WHERE cor_id = COU.cor_id and clt_date > curdate() and cla_status = 'A' AND clt_firstClass = 'Y' ) as date_first_class ";
+        sql = sql + "   WHERE cor_id = COU.cor_id and cla_status = 'A' AND clt_firstClass = 'Y' ";
+
+        if(courseModel.filter.begin_date != "" && courseModel.filter.end_date != "" ){
+            sql = sql + " AND (clt_date BETWEEN STR_TO_DATE('" + courseModel.filter.begin_date + "','%m/%d/%Y') AND STR_TO_DATE('" + courseModel.filter.end_date + "','%m/%d/%Y'))";
+        }else{
+            sql = sql + " AND clt_date > curdate() ";
+        }
+
+        var aux = courseModel.filter.times.length;
+        var aux2 = 0;
+        if(courseModel.filter.times.length > 0) {
+
+            var index = courseModel.filter.times.indexOf("A");
+
+            if (index > -1) {
+                sql = sql;
+            }
+            else
+            {
+                sql = sql + " AND ";
+
+                courseModel.filter.times.forEach(function (item) {
+
+                    if (aux == 1) {
+                        if (item == "M")
+                            sql = sql + "  clt_start_time BETWEEN '00:00' AND '12:00' ";
+
+                        if (item == "N")
+                            sql = sql + "  clt_start_time BETWEEN '12:00' AND '17:00' ";
+
+                        if (item == "E")
+                            sql = sql + "  clt_start_time BETWEEN '17:00' AND '23:59' ";
+                    }
+                    else {
+
+                        if (aux2 == 0)
+                            sql = sql + " ( ";
+                        else
+                            sql = sql + " OR ";
+
+                        if (item == "M") {
+                            sql = sql + "  clt_start_time <= '12:00PM' ";
+                            aux2++;
+                        }
+
+                        if (item == "N") {
+                            sql = sql + "  clt_start_time BETWEEN '12:00PM' AND '6:00PM' ";
+                            aux2++;
+                        }
+
+                        if (item == "E") {
+                            sql = sql + "  clt_start_time >= '6:00PM' ";
+                            aux2++;
+                        }
+
+                        if (aux == aux2)
+                            sql = sql + " ) ";
+                    }
+
+                })
+            }
+
+        }
+
+        if(courseModel.filter.days.length > 0) {
+
+            var days = "";
+            var all = "N";
+            courseModel.filter.days.forEach(function(item){
+
+                days = days + " " + item + ",";
+
+                if(item == "A")
+                    all = "S";
+
+            })
+            days = days.substring(0,days.length - 1);
+
+            if(all == "N")
+                sql = sql + " AND DAYOFWEEK(clt_date) IN (" + days + ") ";
+        }
+
+        if(courseModel.filter.age.length > 0) {
+            sql = sql + " AND ";
+            var ages = "";
+            courseModel.filter.age.forEach(function(item){
+
+                ages = ages + " " + item + ",";
+
+            })
+            ages = ages.substring(0,ages.length - 1);
+            sql = sql + " age_id IN (" + ages + ") ";
+        }
+
+        if(courseModel.filter.level.length > 0) {
+            sql = sql + " AND ";
+            var levels = "";
+            courseModel.filter.level.forEach(function(item){
+
+                levels = levels + " " + item + ",";
+
+            })
+            levels = levels.substring(0,levels.length - 1);
+            sql = sql + " col_id IN (" + levels + ") ";
+        }
+
+        if(courseModel.filter.price_1 != "" && courseModel.filter.price_2 != "" ){
+            sql = sql + " AND ";
+            sql = sql + " (cla_cost BETWEEN " + courseModel.filter.price_1 + " AND " + courseModel.filter.price_2 + ") ";
+        }
+
+        sql = sql + "  ) as date_first_class ";
         sql = sql + " FROM   course COU ";
         sql = sql + " INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
         sql = sql + " INNER JOIN class_time CT ON CL.cla_id = CT.cla_id AND CT.clt_firstclass = 'Y' ";
