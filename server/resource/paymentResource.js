@@ -56,6 +56,15 @@ var PaymentResource = (function() {
 
     }
 
+    PaymentResource.prototype.CreditRefund = function(req,res){
+
+        var paymentModel = new Object();
+
+        paymentBusiness.CreditRefund(paymentModel, function(obj){
+            res.json(obj);
+        });
+
+    }
 
     return new PaymentResource();
 })();

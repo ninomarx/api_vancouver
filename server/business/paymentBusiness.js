@@ -220,6 +220,59 @@ var PaymentBusiness = (function() {
 
     };
 
+    PaymentBusiness.prototype.CreditRefund = function(callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select accountIdStripe,CAST((sum(clr_cotuto_credit)*100) as decimal(18,0)) amount, cor_name from ( ";
+        sql = sql + " select u.accountIdStripe, clr_cotuto_credit, co.cor_name, ";
+        sql = sql + " (SELECT max(clt_date) FROM class_time WHERE cla_id = cr.cla_id) as date_class ";
+        sql = sql + " from class_register cr ";
+        sql = sql + " inner join course co on cr.cor_id = co.cor_id ";
+        sql = sql + " inner join user_instructor u on co.use_id = u.use_id ";
+        sql = sql + " where clr_status = 'A' ";
+        sql = sql + " AND clr_transaction_status = 'W' ";
+        sql = sql + " ) as aux ";
+        sql = sql + " where  DATE_FORMAT(now(),'%Y-%m-%d') >  DATE_ADD(date_class, INTERVAL 3 DAY) ";
+        sql = sql + " GROUP BY accountIdStripe,cor_name; ";
+
+
+        connection.query(sql,function(err,user_charge){
+            connection.end();
+            if(!err) {
+                user_charge.forEach(function (item){
+                    PaymentBusiness.prototype.transferInstructor(item);
+                })
+
+                callback("OK");
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+
+    };
+
+    PaymentBusiness.prototype.transferInstructor = function(transferModel) {
+
+        stripe.transfers.create({
+            amount: transferModel.amount,
+            currency: "cad",
+            destination: transferModel.accountIdStripe,
+            description: transferModel.cor_name
+
+        }, function(err, charge) {
+            if (err) {
+            }
+            else{
+            }
+        })
+    };
+
     PaymentBusiness.prototype.updatePayment = function(clr_id) {
 
         var connection = factory.getConnection();

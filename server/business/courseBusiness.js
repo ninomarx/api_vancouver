@@ -109,9 +109,7 @@ var CourseBusiness = (function() {
             callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
         });
 
-
     };
-
 
     CourseBusiness.prototype.selectNearby = function(courseModel, callback) {
 
@@ -372,13 +370,13 @@ var CourseBusiness = (function() {
 
             /*  Class Posted Data */
             sql = "";
-            sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
+            sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
             sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time,CI.cit_description, PR.pro_code,  ";
             sql = sql + "C.cla_cost, COALESCE(C.cla_address,'') AS cla_address,COALESCE(C.cla_location_name,'') AS cla_location_name,C.cla_location_name, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
             sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
             sql = sql + "C.cla_allow_lateWithdraw, DATE_FORMAT(C.cla_lateWithdraw_date,\"%m/%d/%Y\") as cla_lateWithdraw_date ,C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link , ";
             sql = sql + "(SELECT COUNT(*) FROM class_register CR2 WHERE CR2.cla_id = C.cla_id and CR2.clr_status = 'A' AND CR2.use_id = 9999  ) AS qtde_students_aux, ";
-            sql = sql + "(SELECT concat(' - ', Date_format(CTF.clt_date, \"%b %d, %y\")) FROM   class_time CTF WHERE  CTF.cla_id = C.cla_id AND  clt_firstclass <> 'Y' ORDER  BY clt_date DESC LIMIT 1) AS clt_final_date  ";
+            sql = sql + "(SELECT concat(' - ', Date_format(CTF.clt_date, \"%b %d, %Y\")) FROM   class_time CTF WHERE  CTF.cla_id = C.cla_id AND  clt_firstclass <> 'Y' ORDER  BY clt_date DESC LIMIT 1) AS clt_final_date  ";
             sql = sql + "FROM Class C ";
             sql = sql + "INNER JOIN class_time CT ON C.cla_id = CT.cla_id ";
             sql = sql + "LEFT JOIN city CI ON C.cit_id = CI.cit_id ";
@@ -434,12 +432,12 @@ var CourseBusiness = (function() {
 
                 /* Class Planned Data */
                 sql = "";
-                sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
+                sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
                 sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p') AS final_time,CI.cit_description, PR.pro_code, ";
                 sql = sql + "C.cla_cost,COALESCE(C.cla_address,'') AS cla_address,COALESCE(C.cla_location_name,'') AS cla_location_name,C.cla_location_name, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
                 sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
                 sql = sql + "C.cla_allow_lateWithdraw,  DATE_FORMAT(C.cla_lateWithdraw_date,\"%m/%d/%Y\") as cla_lateWithdraw_date, C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link,  ";
-                sql = sql + "(SELECT concat(' - ', Date_format(CTF.clt_date, \"%b %d, %y\")) FROM   class_time CTF WHERE  CTF.cla_id = C.cla_id AND  clt_firstclass <> 'Y' ORDER  BY clt_date DESC LIMIT 1) AS clt_final_date  ";
+                sql = sql + "(SELECT concat(' - ', Date_format(CTF.clt_date, \"%b %d, %Y\")) FROM   class_time CTF WHERE  CTF.cla_id = C.cla_id AND  clt_firstclass <> 'Y' ORDER  BY clt_date DESC LIMIT 1) AS clt_final_date  ";
                 sql = sql + "FROM Class C ";
                 sql = sql + "INNER JOIN class_time CT ON C.cla_id = CT.cla_id ";
                 sql = sql + "LEFT JOIN city CI ON C.cit_id = CI.cit_id ";

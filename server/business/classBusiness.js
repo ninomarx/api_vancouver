@@ -193,7 +193,7 @@ var ClassBusiness = (function() {
         sql = sql + " end AS number_session,(cla_max_size - students) AS spot_left ";
         sql = sql + " FROM   ( ";
 
-        sql = sql + " select CL.use_id as use_id_instructor, CL.cla_id,Cl.cor_id, cla_session_type, cla_duration, cla_cost, cla_min_size, cla_max_size, cla_address,cla_location_name, ";
+        sql = sql + " select CL.use_id as use_id_instructor, CL.cla_id,Cl.cor_id, cla_session_type, cla_duration, cla_cost, cla_min_size, cla_max_size, cla_address,nullif(cla_location_name,'') as cla_location_name, ";
         sql = sql + "   cla_status, cla_allow_lateRegistration, cla_allow_lateWithdraw, cla_lateWithdraw_date, ";
         sql = sql + "   cla_latitude, cla_longitude, clt_date, clt_start_time, clt_address, clt_firstClass, cor_name, cor_description, ";
         sql = sql + "   cor_accreditation, cor_accreditation_description, cor_learn, cor_bring, cor_aware_before,cor_about_me, ";
@@ -201,7 +201,12 @@ var ClassBusiness = (function() {
         sql = sql + "   cor_style, cor_why_take, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') ) AS use_name, ";
         sql = sql + "   use_description, use_email, usi_about, usi_expertise, usi_credential, use_image, ";
         sql = sql + "   usi_coached_before, usi_coached_experience, usi_speaking_groups, usi_speaking_experience, ";
-        sql = sql + "   DATE_FORMAT(CT.clt_date, \"%b %d\") as dateShow,  DATE_FORMAT(CT.clt_date, \"%b %d, %Y\") as dateShowC,  ";
+        sql = sql + "   DATE_FORMAT(CT.clt_date, \"%b %d\") as dateShow, ";
+        sql = sql + "   case  ";
+        sql = sql + "       when cla_session_type = 'S' then DATE_FORMAT(cla_deadline, \"%b %d, %Y\")  ";
+        sql = sql + "       when cla_session_type = 'M' and cla_allow_lateWithdraw = 'Y' then  DATE_FORMAT(cla_lateWithdraw_date, \"%b %d, %Y\")  ";
+        sql = sql + "       when cla_session_type = 'M' and cla_allow_lateWithdraw = 'N' then DATE_FORMAT(cla_deadline, \"%b %d, %Y\")  ";
+        sql = sql + "   end as dateShowC , ";
         sql = sql + "   cit_description, pro_code, age_description,col_description, ";
         sql = sql + "   DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(CT.clt_date) AS dayName, ";
         sql = sql + "   TIMESTAMPDIFF(day,CURDATE(),Date_format(CL.cla_deadline, \"%y-%m-%d\")) as cla_deadline2, ";
@@ -339,7 +344,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p') AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
-        sql = sql + " c.cla_address, ";
+        sql = sql + " c.cla_address,CAST(coalesce(clr_discount,0) as DECIMAL(18,2)) as clr_discount, ";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
         sql = sql + " from class c ";
         sql = sql + " inner join course co on c.cor_id = co.cor_id ";
@@ -427,7 +432,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
-        sql = sql + " c.cla_address, coalesce(cre.cre_id,0) as cre_id,";
+        sql = sql + " c.cla_address, coalesce(cre.cre_id,0) as cre_id,CAST(coalesce(clr_discount,0) as DECIMAL(18,2)) as clr_discount,";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
         sql = sql + " from class c ";
         sql = sql + " inner join course co on c.cor_id = co.cor_id ";
@@ -522,6 +527,7 @@ var ClassBusiness = (function() {
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration, ";
         sql = sql + " (select count(*) from class_register where cla_id = c.cla_id) students, ";
         sql = sql + " (select coalesce(sum(clr_instructor_value),0) from class_register where cla_id = c.cla_id) clr_instructor_value, ";
+        sql = sql + " (select coalesce(sum(coalesce(nullif(clr_discount,''),0)),0) from class_register where cla_id = c.cla_id) clr_discount, ";
         sql = sql + " c.cla_max_size, c.cla_min_size ";
         sql = sql + " from class c ";
         sql = sql + " inner join course co on c.cor_id = co.cor_id ";
@@ -571,6 +577,8 @@ var ClassBusiness = (function() {
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration, ";
         sql = sql + " (select count(*) from class_register where cla_id = c.cla_id) students, ";
         sql = sql + " (select coalesce(sum(clr_instructor_value),0) from class_register where cla_id = c.cla_id) clr_instructor_value, ";
+        sql = sql + " (select cast((coalesce(Sum(cre_stars) / Count(cre_id),0)) as decimal(18,2)) from class_review  where cor_id = co.cor_id) star_general, ";
+        sql = sql + " (select CAST(((count(*)*cla_duration)/60) AS DECIMAL(18,2)) from class_time where cla_id = c.cla_id) as hours_total, ";
         sql = sql + " c.cla_max_size, c.cla_min_size ";
         sql = sql + " from class c ";
         sql = sql + " inner join course co on c.cor_id = co.cor_id ";

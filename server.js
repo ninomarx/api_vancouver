@@ -510,6 +510,10 @@ server.get('/api/payment/chargeAll', function (req, res, next) {
     return next();
 });
 
+server.get('/api/payment/CreditRefund', function (req, res, next) {
+    paymentResource.CreditRefund(req,res);
+    return next();
+});
 
 /**
  * Review
