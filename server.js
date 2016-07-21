@@ -58,9 +58,12 @@ var utilResource     = require("./server/resource/utilResource");
 var reportResource   = require("./server/resource/reportResource");
 var discountResource = require("./server/resource/discountResource");
 
-
 var adminInstructorsResource = require("./server/resource/admin/instructorResource");
-var adminLoginResource = require("./server/resource/admin/loginResource");
+var adminLoginResource       = require("./server/resource/admin/loginResource");
+var adminUserResource        = require("./server/resource/admin/userResource");
+var adminClassResource       = require("./server/resource/admin/classResource");
+var adminTransactionResource = require("./server/resource/admin/transactionResource");
+var adminSettingsResource    = require("./server/resource/admin/settingsResource");
 
 /**
  * Country
@@ -597,6 +600,53 @@ server.post('/api/admin/instructor/allowInstructor', function (req, res, next) {
  */
 server.post('/api/admin/login/signin', function (req, res, next) {
     adminLoginResource.signin(req,res);
+    return next();
+});
+
+/**
+ * ADMIN - USER
+ */
+server.get('/api/admin/user/select', function (req, res, next) {
+    adminUserResource.select(req,res);
+    return next();
+});
+
+server.post('/api/admin/user/allowUser', function (req, res, next) {
+    adminUserResource.allowUser(req,res);
+    return next();
+});
+
+/**
+ * ADMIN - CLASS
+ */
+server.get('/api/admin/class/select', function (req, res, next) {
+    adminClassResource.select(req,res);
+    return next();
+});
+
+/**
+ * ADMIN - TRANSACTION
+ */
+server.get('/api/admin/transaction/select', function (req, res, next) {
+    adminTransactionResource.select(req,res);
+    return next();
+});
+
+/**
+ * ADMIN - SETTINGS
+ */
+server.post('/api/admin/settings/select', function (req, res, next) {
+    adminSettingsResource.select(req,res);
+    return next();
+});
+
+server.post('/api/admin/settings/save', function (req, res, next) {
+    adminSettingsResource.save(req,res);
+    return next();
+});
+
+server.post('/api/admin/settings/savePassword', function (req, res, next) {
+    adminSettingsResource.savePassword(req,res);
     return next();
 });
 

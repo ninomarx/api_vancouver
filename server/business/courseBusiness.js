@@ -350,7 +350,7 @@ var CourseBusiness = (function() {
         sql = sql + " SELECT  COU.cor_id, COU.cor_image, COU.cor_name, COU.cor_description, ";
         sql = sql + " COU.cor_learn, COU.cor_who_isfor, COU.cor_bring, ";
         sql = sql + " COU.cor_accreditation, COU.cor_style, COU.cor_structure, COU.cor_added_date, COU.cor_status, ";
-        sql = sql + " COU.cor_why_take, COU.cor_aware_before,cor_about_me, ";
+        sql = sql + " COU.cor_why_take, COU.cor_aware_before,cor_about_me,coalesce(nullif(cor_waiver,''),'') as cor_waiver, ";
         sql = sql + " COU.cor_why_love, COU.cor_style, COU.cor_expertise, COU.cor_accreditation_description, ";
         sql = sql + " (select count(wis_id) from wishlist where cla_id in (select cla_id from class where cor_id = COU.cor_id)) wishlist, ";
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = COU.cor_id) AS number_reviews, ";
@@ -724,14 +724,15 @@ var CourseBusiness = (function() {
             sql = sql + " INSERT INTO course ( ";
             sql = sql + " cor_name,cor_description,cor_accreditation,cor_accreditation_description, ";
             sql = sql + " cor_learn,cor_bring,cor_aware_before,cor_structure,cor_image,cor_added_date, ";
-            sql = sql + " cor_status,use_id,cor_who_isfor,cor_expertise,cor_why_love,cor_style,cor_why_take, cor_about_me) ";
+            sql = sql + " cor_status,use_id,cor_who_isfor,cor_expertise,cor_why_love,cor_style,cor_why_take, cor_about_me,cor_waiver) ";
             sql = sql + " VALUES ( ";
             sql = sql + " '" + courseModel.cor_name.replace(/'/g, "\\'") + "', '" + courseModel.cor_description.replace(/'/g, "\\'") + "', '" + courseModel.cor_accreditation + "', ";
             sql = sql + " '" + courseModel.cor_accreditation_description.replace(/'/g, "\\'") + "', '" + courseModel.cor_learn.replace(/'/g, "\\'") + "', '" + courseModel.cor_bring.replace(/'/g, "\\'") + "', ";
             sql = sql + " '" + courseModel.cor_aware_before.replace(/'/g, "\\'") + "', '" + courseModel.cor_structure.replace(/'/g, "\\'") + "', '" + courseModel.cor_image + "', ";
             sql = sql + " '" + courseModel.cor_added_date + "', '" + courseModel.cor_status + "', " + courseModel.use_id + ", ";
             sql = sql + " '" + courseModel.cor_who_isfor.replace(/'/g, "\\'") + "', '" + courseModel.cor_expertise.replace(/'/g, "\\'") + "', '" + courseModel.cor_why_love.replace(/'/g, "\\'") + "', ";
-            sql = sql + " '" + courseModel.cor_style.replace(/'/g, "\\'") + "', '" + courseModel.cor_why_take.replace(/'/g, "\\'") + "', '" + courseModel.cor_about_me.replace(/'/g, "\\'") + "' ";
+            sql = sql + " '" + courseModel.cor_style.replace(/'/g, "\\'") + "', '" + courseModel.cor_why_take.replace(/'/g, "\\'") + "', '" + courseModel.cor_about_me.replace(/'/g, "\\'") + "', ";
+            sql = sql + " '" + courseModel.cor_waiver + "' ";
             sql = sql + " ); ";
 
         }
@@ -752,7 +753,8 @@ var CourseBusiness = (function() {
             sql = sql + " cor_why_love = '" + courseModel.cor_why_love.replace(/'/g, "\\'") + "',";
             sql = sql + " cor_style = '" + courseModel.cor_style.replace(/'/g, "\\'") + "',";
             sql = sql + " cor_why_take = '" + courseModel.cor_why_take.replace(/'/g, "\\'") + "',";
-            sql = sql + " cor_about_me = '" + courseModel.cor_about_me.replace(/'/g, "\\'") + "'";
+            sql = sql + " cor_about_me = '" + courseModel.cor_about_me.replace(/'/g, "\\'") + "',";
+            sql = sql + " cor_waiver = '" + courseModel.cor_waiver + "'";
             sql = sql + " WHERE ";
             sql = sql + " cor_id = " + courseModel.cor_id + ";";
         }
