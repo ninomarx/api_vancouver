@@ -64,6 +64,7 @@ var adminUserResource        = require("./server/resource/admin/userResource");
 var adminClassResource       = require("./server/resource/admin/classResource");
 var adminTransactionResource = require("./server/resource/admin/transactionResource");
 var adminSettingsResource    = require("./server/resource/admin/settingsResource");
+var adminReviewResource      = require("./server/resource/admin/reviewResource");
 
 /**
  * Country
@@ -647,6 +648,24 @@ server.post('/api/admin/settings/save', function (req, res, next) {
 
 server.post('/api/admin/settings/savePassword', function (req, res, next) {
     adminSettingsResource.savePassword(req,res);
+    return next();
+});
+
+/**
+ * ADMIN - Review
+ */
+server.get('/api/admin/review/select', function (req, res, next) {
+    adminReviewResource.select(req,res);
+    return next();
+});
+
+server.post('/api/admin/review/selectById', function (req, res, next) {
+    adminReviewResource.selectById(req,res);
+    return next();
+});
+
+server.post('/api/admin/review/save', function (req, res, next) {
+    adminReviewResource.save(req,res);
     return next();
 });
 

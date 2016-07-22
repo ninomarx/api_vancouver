@@ -25,35 +25,18 @@
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+              <caret line="670" column="0" selection-start-line="661" selection-start-column="71" selection-end-line="670" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dbfactory.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="dbfactory.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="48" selection-start-line="21" selection-start-column="10" selection-end-line="24" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.37205386">
+              <caret line="13" column="48" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="paymentBusiness.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.085427135">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding>
-                <element signature="e#1530#2181#0" expanded="false" />
-                <element signature="e#2256#2331#0" expanded="false" />
-                <element signature="e#2407#3035#0" expanded="false" />
-                <element signature="e#3124#3620#0" expanded="false" />
-                <element signature="e#3692#3957#0" expanded="false" />
-                <element signature="e#9050#9645#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -70,8 +53,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/server/resource/ageResource.js" />
-        <option value="internal/linkedlist.js" />
         <option value="$PROJECT_DIR$/server/resource/reviewResource.js" />
         <option value="$PROJECT_DIR$/server/resource/registerResource.js" />
         <option value="domain.js" />
@@ -103,7 +84,6 @@
         <option value="$PROJECT_DIR$/server/business/discountBusiness.js" />
         <option value="node.js" />
         <option value="$PROJECT_DIR$/server/business/reviewBusiness.js" />
-        <option value="$PROJECT_DIR$/server/business/utilBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/wishlistBusiness.js" />
         <option value="$PROJECT_DIR$/server/resource/classResource.js" />
         <option value="$PROJECT_DIR$/server/resource/paymentResource.js" />
@@ -118,9 +98,12 @@
         <option value="$PROJECT_DIR$/server/business/admin/transactionBusiness.js" />
         <option value="$PROJECT_DIR$/server/resource/admin/settingsResources.js" />
         <option value="$PROJECT_DIR$/server/business/admin/settingsBusiness.js" />
-        <option value="$PROJECT_DIR$/server.js" />
-        <option value="$PROJECT_DIR$/server/factory/dbfactory.js" />
         <option value="$PROJECT_DIR$/server/business/paymentBusiness.js" />
+        <option value="$PROJECT_DIR$/server/resource/admin/reviewResource.js" />
+        <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/server/business/admin/reviewBusiness.js" />
+        <option value="$PROJECT_DIR$/server/business/utilBusiness.js" />
+        <option value="$PROJECT_DIR$/server/factory/dbfactory.js" />
       </list>
     </option>
   </component>
@@ -209,28 +192,6 @@
               <option name="myItemId" value="server" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resource" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Cotuto_API" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Cotuto_API" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -265,28 +226,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="business" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Cotuto_API" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Cotuto_API" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="business" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -443,8 +382,9 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279743" sideWeight="0.4968652" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15916398" sideWeight="0.5438988" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43890676" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26848873" sideWeight="0.45610118" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27813506" sideWeight="0.45610118" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39067525" sideWeight="0.47384155" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15625" sideWeight="0.51521295" order="2" side_tool="true" content_ui="tabs" />
@@ -455,7 +395,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43890676" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -567,16 +506,6 @@
           <option name="timeStamp" value="602" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/business/paymentBusiness.js</url>
-          <line>261</line>
-          <option name="timeStamp" value="628" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/business/paymentBusiness.js</url>
-          <line>268</line>
-          <option name="timeStamp" value="631" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/business/admin/userBusiness.js</url>
           <line>44</line>
           <option name="timeStamp" value="638" />
@@ -586,8 +515,13 @@
           <line>44</line>
           <option name="timeStamp" value="639" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/business/admin/reviewBusiness.js</url>
+          <line>25</line>
+          <option name="timeStamp" value="641" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="641" />
+      <option name="time" value="642" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="NodeJSConfigurationType">
@@ -599,20 +533,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/resource/categoryResource.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40350878">
-          <caret line="76" column="26" selection-start-line="76" selection-start-column="26" selection-end-line="76" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/start.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mztconnect.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.08108108">
@@ -805,13 +725,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/wishlistBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.11111111">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/business/ageBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6168033">
@@ -824,13 +737,6 @@
         <state vertical-scroll-proportion="-1.3586066">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/utilBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -882,32 +788,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/admin/userBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="77" selection-start-line="42" selection-start-column="77" selection-end-line="42" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/admin/instructorBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31924883">
-          <caret line="8" column="25" selection-start-line="0" selection-start-column="0" selection-end-line="64" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/resource/admin/instructorResource.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.43896714">
           <caret line="14" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="41" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3316583">
-          <caret line="374" column="200" selection-start-line="374" selection-start-column="169" selection-end-line="374" selection-end-column="200" />
         </state>
       </provider>
     </entry>
@@ -925,17 +809,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/resource/admin/userResource.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5971897">
-          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/resource/admin/transactionResource.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19906323">
           <caret line="5" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="23" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -961,33 +839,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/emailBusiness.js">
+    <entry file="file://$PROJECT_DIR$/server/resource/admin/userResource.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.5433254">
-          <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.543771">
+          <caret line="19" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="41" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/admin/instructorBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.7517564">
+          <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/admin/userBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5971897">
+          <caret line="15" column="98" selection-start-line="15" selection-start-column="81" selection-end-line="15" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41708544">
+          <caret line="728" column="72" selection-start-line="728" selection-start-column="51" selection-end-line="728" selection-end-column="72" />
+          <folding>
+            <element signature="e#261#6827#0" expanded="false" />
+            <element signature="e#6906#13028#0" expanded="false" />
+            <element signature="e#13109#19286#0" expanded="false" />
+            <element signature="e#45888#62050#0" expanded="false" />
+            <element signature="e#62131#78118#0" expanded="false" />
+            <element signature="e#78191#79342#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/resource/admin/reviewResource.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/admin/reviewBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="50" column="121" selection-start-line="50" selection-start-column="109" selection-end-line="50" selection-end-column="121" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="24" selection-start-line="46" selection-start-column="24" selection-end-line="46" selection-end-column="24" />
+          <caret line="670" column="0" selection-start-line="661" selection-start-column="71" selection-end-line="670" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
+    <entry file="file://$PROJECT_DIR$/server/business/wishlistBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="48" selection-start-line="21" selection-start-column="10" selection-end-line="24" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.111638956">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.085427135">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.9287411">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2181#0" expanded="false" />
             <element signature="e#2256#2331#0" expanded="false" />
@@ -996,6 +922,81 @@
             <element signature="e#3692#3957#0" expanded="false" />
             <element signature="e#9050#9645#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/utilBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63804716">
+          <caret line="25" column="54" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/emailBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27946126">
+          <caret line="74" column="43" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="43" />
+          <folding>
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37205386">
+          <caret line="13" column="48" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
+          <folding />
         </state>
       </provider>
     </entry>

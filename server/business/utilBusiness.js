@@ -23,7 +23,7 @@ var UtilBusiness = (function() {
         sql = sql + " INNER JOIN user U on COU.use_id = U.use_id ";
         sql = sql + " INNER JOIN user UU on CR.use_id = UU.use_id ";
         sql = sql + " where clr_status = 'A' ";
-        sql = sql + " AND clr_transaction_status = 'P' ";
+        sql = sql + " AND clr_transaction_status <> 'C' ";
         sql = sql + " ) as aux ";
         sql = sql + " where reviews = 0 ";
         sql = sql + " and last_date < curdate() ";
