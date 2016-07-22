@@ -1,6 +1,6 @@
 var factory = require("./../factory/dbfactory");
-var stripe = require("stripe")("sk_test_460XHEvqOdYJFTRiy4zP88ha");
-//var stripe = require("stripe")("sk_live_KsGnJ5V6z1BJKdCuhdq47Zhz");
+//var stripe = require("stripe")("sk_test_460XHEvqOdYJFTRiy4zP88ha");
+var stripe = require("stripe")("sk_live_KsGnJ5V6z1BJKdCuhdq47Zhz");
 
 var PaymentBusiness = (function() {
 
@@ -199,7 +199,7 @@ var PaymentBusiness = (function() {
         sql = sql + " where clr_status = 'A' ";
         sql = sql + " AND clr_transaction_status = 'W' ";
         sql = sql + " ) as aux ";
-        sql = sql + " where  DATE_FORMAT(now(),'%Y-%m-%d') >  DATE_ADD(date_class, INTERVAL 3 DAY) AND AMOUNT > 0; ";
+        sql = sql + " where  DATE_FORMAT(now(),'%Y-%m-%d') >  DATE_ADD(date_class, INTERVAL 3 DAY); ";
 
 
         connection.query(sql,function(err,user_charge){
