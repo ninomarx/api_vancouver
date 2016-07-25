@@ -21,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="642" column="0" selection-start-line="642" selection-start-column="0" selection-end-line="642" selection-end-column="0" />
+            <state vertical-scroll-proportion="-0.29216152">
+              <caret line="654" column="17" selection-start-line="654" selection-start-column="17" selection-end-line="654" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -35,17 +35,17 @@
         <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="58" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
+              <caret line="13" column="48" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="paymentBusiness.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="paymentBusiness.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.09686609">
-              <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding>
                 <element signature="e#1530#2181#0" expanded="false" />
                 <element signature="e#2256#2331#0" expanded="false" />
@@ -106,7 +106,6 @@
         <option value="$PROJECT_DIR$/server/resource/paymentResource.js" />
         <option value="$PROJECT_DIR$/server/business/registerBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/courseBusiness.js" />
-        <option value="$PROJECT_DIR$/server/business/classBusiness.js" />
         <option value="$PROJECT_DIR$/server/resource/admin/userResource.js" />
         <option value="$PROJECT_DIR$/server/business/admin/userBusiness.js" />
         <option value="$PROJECT_DIR$/server/resource/admin/classResource.js" />
@@ -119,6 +118,7 @@
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/server/business/admin/reviewBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/utilBusiness.js" />
+        <option value="$PROJECT_DIR$/server/business/classBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/paymentBusiness.js" />
         <option value="$PROJECT_DIR$/server/factory/dbfactory.js" />
       </list>
@@ -160,6 +160,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -248,8 +250,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -399,11 +399,10 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279743" sideWeight="0.4968652" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15916398" sideWeight="0.5438988" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43890676" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27813506" sideWeight="0.45610118" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27813506" sideWeight="0.45610118" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39067525" sideWeight="0.47384155" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39067525" sideWeight="0.47384155" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15625" sideWeight="0.51521295" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3022508" sideWeight="0.58819133" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -412,6 +411,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.43890676" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -519,7 +519,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/business/classBusiness.js</url>
-          <line>724</line>
+          <line>727</line>
           <option name="timeStamp" value="602" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -538,7 +538,7 @@
           <option name="timeStamp" value="641" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="642" />
+      <option name="time" value="643" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="NodeJSConfigurationType">
@@ -779,32 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/classBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="196" column="72" selection-start-line="196" selection-start-column="72" selection-end-line="196" selection-end-column="72" />
-          <folding>
-            <element signature="e#209#1159#0" expanded="false" />
-            <element signature="e#1228#7261#0" expanded="false" />
-            <element signature="e#7335#7931#0" expanded="false" />
-            <element signature="e#12632#13486#0" expanded="false" />
-            <element signature="e#13563#14174#0" expanded="false" />
-            <element signature="e#14255#15438#0" expanded="false" />
-            <element signature="e#15523#17989#0" expanded="false" />
-            <element signature="e#18073#20523#0" expanded="false" />
-            <element signature="e#20610#23051#0" expanded="false" />
-            <element signature="e#23136#25564#0" expanded="false" />
-            <element signature="e#25648#28472#0" expanded="false" />
-            <element signature="e#28554#31472#0" expanded="false" />
-            <element signature="e#31548#32144#0" expanded="false" />
-            <element signature="e#32218#33505#0" expanded="false" />
-            <element signature="e#33577#34310#0" expanded="false" />
-            <element signature="e#34384#35948#0" expanded="false" />
-            <element signature="e#35993#36250#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/resource/admin/instructorResource.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.43896714">
@@ -830,7 +804,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19906323">
           <caret line="5" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="23" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -860,7 +833,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.543771">
           <caret line="19" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="41" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -868,7 +840,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.7517564">
           <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -880,26 +851,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41708544">
-          <caret line="728" column="72" selection-start-line="728" selection-start-column="51" selection-end-line="728" selection-end-column="72" />
-          <folding>
-            <element signature="e#261#6827#0" expanded="false" />
-            <element signature="e#6906#13028#0" expanded="false" />
-            <element signature="e#13109#19286#0" expanded="false" />
-            <element signature="e#45888#62050#0" expanded="false" />
-            <element signature="e#62131#78118#0" expanded="false" />
-            <element signature="e#78191#79342#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/resource/admin/reviewResource.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -915,7 +870,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.111638956">
           <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -923,7 +877,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.63804716">
           <caret line="25" column="54" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -931,81 +884,59 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.27946126">
           <caret line="74" column="43" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="354" column="8" selection-start-line="354" selection-start-column="8" selection-end-line="354" selection-end-column="140" />
           <folding>
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1466021473929" expanded="true" signature="-1:-1" placeholder="..." />
+            <element signature="e#261#6827#0" expanded="false" />
+            <element signature="e#6906#13028#0" expanded="false" />
+            <element signature="e#13109#19286#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.js">
+    <entry file="file://$PROJECT_DIR$/server/business/classBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="642" column="0" selection-start-line="642" selection-start-column="0" selection-end-line="642" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="-3.5172415">
+          <caret line="210" column="60" selection-start-line="210" selection-start-column="60" selection-end-line="210" selection-end-column="60" />
+          <folding>
+            <element signature="e#209#1159#0" expanded="false" />
+            <element signature="e#1228#7261#0" expanded="false" />
+            <element signature="e#7335#7931#0" expanded="false" />
+            <element signature="e#12772#13626#0" expanded="false" />
+            <element signature="e#13703#14512#0" expanded="false" />
+            <element signature="e#14593#15776#0" expanded="false" />
+            <element signature="e#15861#18327#0" expanded="false" />
+            <element signature="e#18411#20861#0" expanded="false" />
+            <element signature="e#20948#23389#0" expanded="false" />
+            <element signature="e#23474#25902#0" expanded="false" />
+            <element signature="e#25986#28810#0" expanded="false" />
+            <element signature="e#28892#31810#0" expanded="false" />
+            <element signature="e#31886#32482#0" expanded="false" />
+            <element signature="e#32556#33843#0" expanded="false" />
+            <element signature="e#33915#34648#0" expanded="false" />
+            <element signature="e#34722#36286#0" expanded="false" />
+            <element signature="e#36331#36588#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="58" selection-start-line="21" selection-start-column="58" selection-end-line="21" selection-end-column="58" />
+          <caret line="13" column="48" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09686609">
-          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding>
             <element signature="e#1530#2181#0" expanded="false" />
             <element signature="e#2256#2331#0" expanded="false" />
@@ -1014,6 +945,14 @@
             <element signature="e#3692#3957#0" expanded="false" />
             <element signature="e#9035#9630#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.29216152">
+          <caret line="654" column="17" selection-start-line="654" selection-start-column="17" selection-end-line="654" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>

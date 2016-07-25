@@ -214,7 +214,8 @@ var ClassBusiness = (function() {
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
         sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = cl.cor_id) star_general, ";
         sql = sql + " (select coalesce(count(clr_id),0) from class_register where cla_id = cl.cla_id and clr_status = 'A') as students, ";
-        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session ";
+        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session, ";
+        sql = sql + " (select count(wis_id) from wishlist where cla_id in (select cla_id from class where cor_id = CO.cor_id)) wishlist ";
         if(classModel.use_id != "")
             sql = sql + "      ,COALESCE(WL.wis_status,'N') AS wis_status ";
         sql = sql + " from class CL ";
@@ -284,9 +285,11 @@ var ClassBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " SELECT DATE_FORMAT(clt_date, \"%b %d\") as dateShow,DATE_FORMAT(clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(clt_date) AS dayName ";
-        sql = sql + " FROM class_time ";
-        sql = sql + " where cla_id = " + classModel.cla_id + " ; ";
+        sql = sql + " SELECT DATE_FORMAT(clt_date, \"%b %d\") as dateShow,DATE_FORMAT(clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(clt_date) AS dayName, ";
+        sql = sql + " TIME_FORMAT(ADDTIME(Ct.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time ";
+        sql = sql + " FROM class_time ct ";
+        sql = sql + " inner join class c on ct.cla_id = c.cla_id ";
+        sql = sql + " where c.cla_id = " + classModel.cla_id + " ; ";
 
         connection.query(sql, function (err, classObj) {
             connection.end();
