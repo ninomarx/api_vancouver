@@ -139,7 +139,7 @@ var ClassBusiness = (function() {
                             connection.end();
                             if (!err) {
 
-                                if(classModel.cla_status == 'A' && classModel.cla_status_prev == 'P') {
+                                if(classModel.cla_status == 'A' && (classModel.cla_status_prev == 'P' || classModel.cla_status_prev == "")) {
                                     utilBusiness.InstructorClassPosting(classModel.cla_id);
                                 }
 
