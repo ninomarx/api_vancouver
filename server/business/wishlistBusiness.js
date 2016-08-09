@@ -12,12 +12,13 @@ var WishlistBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " DELETE FROM wishlist WHERE use_id = "  + wishlistModel.use_id + " AND cla_id=" + wishlistModel.cla_id + ";";
-        sql = sql + " INSERT INTO wishlist (wis_status, use_id, cla_id)";
+        sql = sql + " DELETE FROM wishlist WHERE use_id = "  + wishlistModel.use_id + " AND cor_id=" + wishlistModel.cor_id + ";";
+        sql = sql + " INSERT INTO wishlist (wis_status, use_id, cor_id, wis_date)";
         sql = sql + " VALUES ( ";
         sql = sql + " '" + wishlistModel.wis_status + "',";
         sql = sql + " " + wishlistModel.use_id + ",";
-        sql = sql + " " + wishlistModel.cla_id + "";
+        sql = sql + " " + wishlistModel.cor_id + ",";
+        sql = sql + " curdate()";
         sql = sql + " ); ";
 
 
@@ -49,28 +50,31 @@ var WishlistBusiness = (function() {
         sql = sql + " select *, ";
         sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else cla_duration  end as sessions ";
         sql = sql + " from ( ";
-        sql = sql + " select c.cla_id,co.cor_image, co.cor_name, city.cit_description, prov.pro_code,  ";
-        sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as instructor_name,use_image, ";
-        sql = sql + " c.cla_cost, ";
+        sql = sql + " select aux.cor_id,cor_image,cor_name, city.cit_description, prov.pro_code, ";
+        sql = sql + " cla.cla_id,cla.cla_cost,cla.cla_address,instructor_name,use_image, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b. %d\") clt_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
-        sql = sql + " TIME_FORMAT(ADDTIME(ct.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p') AS final_time, ";
+        sql = sql + " TIME_FORMAT(ADDTIME(ct.clt_start_time, SEC_TO_TIME(cla.cla_duration*60)), '%l:%i %p') AS final_time, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Start in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Start today' end  as day_until, ";
-        sql = sql + " c.cla_address, ";
-        sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
-        sql = sql + " from class c ";
-        sql = sql + " inner join course co on c.cor_id = co.cor_id ";
+        sql = sql + " (select count(*) from class_time where cla_id = cla.cla_id) as sessions, cla.cla_duration ";
+        sql = sql + " from ( ";
+        sql = sql + " select co.cor_id, co.cor_image, co.cor_name, ";
+        sql = sql + " CONCAT(use_first_name,' ',use_last_name ) as instructor_name,use_image, ";
+        sql = sql + " (select cla.cla_id from class cla inner join class_time clt on cla.cla_id = clt.cla_id ";
+        sql = sql + " where cor_id = co.cor_id and clt_firstClass = 'Y' and clt.clt_date >= CURDATE() ";
+        sql = sql + " order by clt.clt_date desc limit 1) as next_class ";
+        sql = sql + " from wishlist ws ";
+        sql = sql + " inner join course co on ws.cor_id = co.cor_id ";
         sql = sql + " inner join user u on co.use_id = u.use_id ";
-        sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
-        sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id ";
-        sql = sql + " inner join wishlist ws on c.cla_id = ws.cla_id and ws.use_id = " + wishlistModel.use_id + " ";
-        sql = sql + " inner join city city on c.cit_id = city.cit_id ";
-        sql = sql + " inner join province prov on city.pro_id = prov.pro_id ";
-        sql = sql + " where ";
-        sql = sql + " ct.clt_firstClass = 'Y' ";
+        sql = sql + " where ws.use_id = " + wishlistModel.use_id + " ";
         sql = sql + " and wis_status = 'S' ";
-        sql = sql + " and ct.clt_date >= CURDATE()  ) as aux; ";
+        sql = sql + " group by co.cor_id) as aux ";
+        sql = sql + " left join class cla on aux.next_class = cla.cla_id ";
+        sql = sql + " left join class_time ct on cla.cla_id = ct.cla_id ";
+        sql = sql + " left join city city on cla.cit_id = city.cit_id ";
+        sql = sql + " left join province prov on city.pro_id = prov.pro_id ";
+        sql = sql + " ) as aux2 ";
 
         connection.query(sql, function (err, wishlist) {
             connection.end();

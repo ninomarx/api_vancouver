@@ -128,6 +128,19 @@ var UserResource = (function() {
         });
     }
 
+    UserResource.prototype.saveEmailStripe = function(req,res){
+
+        var userModel = new Object();
+
+        if (req){
+            userModel = req.body;
+        }
+
+        userBusiness.saveEmailStripe(userModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new UserResource();
 })();
 

@@ -1,4 +1,6 @@
-var factory = require("./../factory/dbfactory");
+var factory         = require("./../factory/dbfactory");
+var paymentBusiness = require("./../business/paymentBusiness");
+var utilBusiness    = require("./../business/utilBusiness");
 
 var RegisterBusiness = (function() {
 
@@ -11,9 +13,9 @@ var RegisterBusiness = (function() {
         var clr_instructor_value = 0;
         RegisterBusiness.prototype.taxVerify(registerModel,function(ret){
             if(registerModel.code_type == '' || registerModel.code_type == 1) {
-                clr_instructor_value = registerModel.cor_cost - ret[0].ret;
+                clr_instructor_value = registerModel.cor_cost - ret[0].ret - 0.30;
             }else{
-                clr_instructor_value = (registerModel.cor_cost + registerModel.clr_discount) - ret[0].ret;
+                clr_instructor_value = (registerModel.cor_cost + registerModel.clr_discount) - ret[0].ret - 0.30;
             }
 
             var connection = factory.getConnection();
@@ -21,7 +23,8 @@ var RegisterBusiness = (function() {
 
             var sql = "";
 
-            sql = sql + " INSERT INTO class_register (clr_cost, clr_added_date, clr_status, clr_transaction_status, cla_id, use_id, cor_id, clr_cancel_date, clr_instructor_value,clr_course_goal,clr_discount,clr_discount_code,clr_cotuto_credit) ";
+            sql = sql + " INSERT INTO class_register (clr_cost, clr_added_date, clr_status, clr_transaction_status,cla_id, use_id, cor_id, clr_cancel_date, " ;
+            sql = sql + "                             clr_instructor_value,clr_course_goal,clr_discount,clr_discount_code,clr_cotuto_credit,clr_transfered) ";
             sql = sql + " VALUES( ";
             sql = sql + "  " + registerModel.cor_cost + " , ";
             sql = sql + "  '" + registerModel.clr_added_date + "', ";
@@ -35,19 +38,41 @@ var RegisterBusiness = (function() {
             sql = sql + " '" + registerModel.clr_course_goal.replace(/'/g, "\\'") + "',  ";
             sql = sql + " " + registerModel.clr_discount + ",   ";
             sql = sql + " '" + registerModel.code + "',   ";
-            sql = sql + " " + registerModel.credit + "  ";
+            sql = sql + " " + registerModel.credit + ",  ";
+            sql = sql + " 'N'  ";
             sql = sql + " ); ";
 
             sql = sql + " UPDATE User SET use_first_name = '" + registerModel.use_first_name + "', use_last_name = '" + registerModel.use_last_name + "', use_phone = '" + registerModel.use_phone + "',use_credit = use_credit - " + registerModel.credit + " ";
             sql = sql + " WHERE use_id = " + registerModel.use_id + "; ";
 
             connection.query(sql,function(err,registerObj){
-                connection.end();
+                //connection.end();
                 if(!err) {
 
-                    var collectionClassRegister = registerObj;
+                    var collectionClassRegister = registerObj[0];
+                    paymentBusiness.chargeAll(collectionClassRegister.insertId, function (id){
+                        var sql = "";
+                        var ret = "";
+                        if(id != "") {
+                            sql = sql + " UPDATE class_register SET clr_stripe_code = '" + id + "'";
+                            sql = sql + " WHERE clr_id = " + collectionClassRegister.insertId + "; ";
+                            var ret = "OK";
+                        }else{
+                            sql = sql + " DELETE FROM class_register ";
+                            sql = sql + " WHERE clr_id = " + collectionClassRegister.insertId + "; ";
+                            var ret = "NOK";
+                        }
 
-                    callback(collectionClassRegister);
+                        connection.query(sql,function(err,retObj){
+                            connection.end();
+                            if(!err) {
+                                utilBusiness.InstructorRegistrationNotification(collectionClassRegister.insertId);
+                                var collectionRet = retObj;
+                                callback(ret);
+                            }
+                        });
+
+                    })
                 }
             });
 
@@ -66,11 +91,14 @@ var RegisterBusiness = (function() {
         var sql = "";
 
         sql = sql + " update class_register ";
-        sql = sql + " set clr_transaction_status = 'C', clr_status = 'I' ";
+        sql = sql + " set clr_transaction_status = 'C', clr_status = 'I',clr_cancel_date = curdate() ";
         sql = sql + " where cla_id = " + registerModel.cla_id  + " and use_id = " + registerModel.use_id  + " ";
+
+        paymentBusiness.refund(registerModel.clr_stripe_code);
 
         connection.query(sql,function(err,registerObj){
             if(!err) {
+                utilBusiness.UserCancellationRecord(registerModel.clr_id);
                 callback(registerObj);
             }
         });
@@ -93,7 +121,9 @@ var RegisterBusiness = (function() {
         sql = sql + " when cla_allow_lateWithdraw = 'Y' and now() <= cla_lateWithdraw_date then 'Y' ";
         sql = sql + " when cla_allow_lateWithdraw = 'Y' and now() > cla_lateWithdraw_date then 'N' ";
         sql = sql + " else 'N' ";
-        sql = sql + " end as cancel_allow, co.cor_name, date_format(clt_date,\"%Y-%m-%d\") date_class, c.cla_id ";
+        sql = sql + " end as cancel_allow, co.cor_name, date_format(clt_date,\"%Y-%m-%d\") date_class, c.cla_id, ";
+        sql = sql + " (select clr_stripe_code from class_register where cla_id = " + registerModel.cla_id + " and use_id = " + registerModel.use_id + " and clr_status = 'A') as clr_stripe_code,";
+        sql = sql + " (select clr_id from class_register where cla_id = " + registerModel.cla_id + " and use_id = " + registerModel.use_id + " and clr_status = 'A') as clr_id";
         sql = sql + " from class c ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id and ct.clt_firstClass = 'Y' ";
         sql = sql + " inner join course co on c.cor_id = co.cor_id ";
@@ -155,7 +185,6 @@ var RegisterBusiness = (function() {
             callback({"code" : 100, "status" : "database error"});
         });
     };
-
 
     RegisterBusiness.prototype.taxVerify = function(registerModel, callback) {
 

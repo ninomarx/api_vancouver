@@ -142,6 +142,19 @@ var MessageResource = (function() {
         });
     }
 
+    MessageResource.prototype.getClassCourse = function(req,res){
+
+        var messageModel = new Object();
+
+        if (req){
+            messageModel = req.body;
+        }
+
+        messageBusiness.getClassCourse(messageModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new MessageResource();
 })();
 

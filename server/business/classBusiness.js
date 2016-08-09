@@ -1,4 +1,5 @@
 var factory = require("./../factory/dbfactory");
+var utilBusiness = require("./../business/utilBusiness");
 
 var ClassBusiness = (function() {
 
@@ -137,6 +138,15 @@ var ClassBusiness = (function() {
                         connection.query(sql, function (err, classObj2) {
                             connection.end();
                             if (!err) {
+
+                                if(classModel.cla_status == 'A' && classModel.cla_status_prev == 'P') {
+                                    utilBusiness.InstructorClassPosting(classModel.cla_id);
+                                }
+
+                                if(classModel.cla_id != "") {
+                                    utilBusiness.UserClassChangeNotification(classModel.cla_id);
+                                }
+
                                 var ret_class = classModel.cla_id.toString();
                                 callback(ret_class);
                             }
@@ -215,7 +225,7 @@ var ClassBusiness = (function() {
         sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = cl.cor_id) star_general, ";
         sql = sql + " (select coalesce(count(clr_id),0) from class_register where cla_id = cl.cla_id and clr_status = 'A') as students, ";
         sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session, ";
-        sql = sql + " (select count(wis_id) from wishlist where cla_id in (select cla_id from class where cor_id = CO.cor_id)) wishlist ";
+        sql = sql + " (select count(wis_id) from wishlist where cor_id = CO.cor_id) wishlist ";
         if(classModel.use_id != "")
             sql = sql + "      ,COALESCE(WL.wis_status,'N') AS wis_status ";
         sql = sql + " from class CL ";
@@ -228,14 +238,15 @@ var ClassBusiness = (function() {
         sql = sql + "   INNER JOIN city CY ON CL.cit_id = CY.cit_id ";
         sql = sql + "   INNER JOIN province PR ON CY.pro_id = PR.pro_id ";
         if(classModel.use_id != "")
-            sql = sql + "   LEFT JOIN wishlist WL ON CL.cla_id = WL.cla_id and WL.use_id = " + classModel.use_id  + " ";
+            sql = sql + "   LEFT JOIN wishlist WL ON CL.cor_id = WL.cor_id and WL.use_id = " + classModel.use_id  + " ";
         sql = sql + " where CL.cla_id = " + classModel.cla_id + " AND CT.clt_firstClass = 'Y' ";
         sql = sql + " GROUP BY CO.cor_id, CL.cla_id ) AS AUX; ";
-
 
         connection.query(sql,function(err,classObj){
             connection.end();
             if(!err) {
+
+                ClassBusiness.prototype.saveClassVisit(classModel.cla_id,classModel.use_id);
 
                 var collectionClass = classObj;
 
@@ -249,6 +260,26 @@ var ClassBusiness = (function() {
         });
     };
 
+    ClassBusiness.prototype.saveClassVisit = function(cla_id,use_id) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        if(use_id != "")
+            sql = sql + " insert into class_visit (cla_id,clv_date,use_id) values (" + cla_id + ",now(), "+use_id+"); ";
+        else
+            sql = sql + " insert into class_visit (cla_id,clv_date) values (" + cla_id + ",now()); ";
+
+        connection.query(sql,function(err,classObj){
+            connection.end();
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "database error"});
+        });
+    };
 
     ClassBusiness.prototype.getClassComments = function(classModel, callback) {
 
@@ -302,7 +333,6 @@ var ClassBusiness = (function() {
         });
     };
 
-
     ClassBusiness.prototype.otherClassTime = function (classModel, callback) {
 
         var connection = factory.getConnection();
@@ -338,7 +368,7 @@ var ClassBusiness = (function() {
         sql = sql + " select *, ";
         sql = sql + " case when sessions > 1 then concat(sessions, ' Sessions') else cla_duration  end as sessions ";
         sql = sql + " from ( ";
-        sql = sql + " select c.cla_id,co.cor_image, co.cor_name,city.cit_description, prov.pro_code, ";
+        sql = sql + " select c.cla_id,co.cor_image, co.cor_name,city.cit_description, prov.pro_code,cr.clr_id, ";
         sql = sql + " CONCAT(coalesce(use_first_name,''),' ',coalesce(use_last_name,'') ) as instructor_name,use_image, ";
         sql = sql + " c.cla_cost, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b %d\") clt_date, ";

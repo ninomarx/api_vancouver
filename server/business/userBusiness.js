@@ -85,8 +85,8 @@ var UserBusiness = (function() {
 
         var sql = "";
         sql = sql + " UPDATE user SET ";
-        sql = sql + " use_login = '" + userModel.use_email + "',";
-        sql = sql + " use_email = '" + userModel.use_email + "'";
+        sql = sql + " use_login = '" + userModel.use_email + "' ";
+        //sql = sql + " use_email = '" + userModel.use_email + "'";
         sql = sql + " WHERE ";
         sql = sql + " use_id = " + userModel.use_id + "";
 
@@ -312,6 +312,31 @@ var UserBusiness = (function() {
         sql = sql + " SELECT * FROM user_tags ";
         sql = sql + " WHERE ";
         sql = sql + " use_id = '" + userModel.use_id + "';";
+
+        connection.query(sql,function(err,user){
+            connection.end();
+            if(!err) {
+                callback(user);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+    };
+
+    UserBusiness.prototype.saveEmailStripe = function(userModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " UPDATE user SET ";
+        sql = sql + " use_email = '" + userModel.use_email + "'";
+        sql = sql + " WHERE ";
+        sql = sql + " use_id = " + userModel.use_id + "";
+
 
         connection.query(sql,function(err,user){
             connection.end();

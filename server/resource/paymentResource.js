@@ -66,6 +66,20 @@ var PaymentResource = (function() {
 
     }
 
+    PaymentResource.prototype.refund = function(req,res){
+
+        var paymentModel = new Object();
+
+        if (req){
+            paymentModel = req.body;
+        }
+
+        paymentBusiness.refund(paymentModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
     return new PaymentResource();
 })();
 

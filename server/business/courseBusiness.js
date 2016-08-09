@@ -59,7 +59,7 @@ var CourseBusiness = (function() {
         sql = sql + " INNER JOIN age AG ON CL.age_id = AG.age_id ";
         sql = sql + " INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
         if(courseModel.use_id != "")
-            sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
+            sql = sql + "   LEFT JOIN wishlist WS ON CL.cor_id = WS.cor_id AND WS.use_id = " + courseModel.use_id + " ";
         sql = sql + " WHERE  CI.cit_id in (select cit_id from city where reg_id in (select reg_id from city where cit_id = " + courseModel.cit_id + ")) ";
         sql = sql + " AND COU.cor_status = 'A' ";
         sql = sql + " AND CL.cla_status = 'A' ";
@@ -163,7 +163,7 @@ var CourseBusiness = (function() {
         sql = sql + " INNER JOIN age AG ON CL.age_id = AG.age_id ";
         sql = sql + " INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
         if(courseModel.use_id != "")
-            sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
+            sql = sql + "   LEFT JOIN wishlist WS ON CL.cor_id = WS.cor_id AND WS.use_id = " + courseModel.use_id + " ";
         sql = sql + " WHERE  ";
         sql = sql + " COU.cor_status = 'A' ";
         sql = sql + " AND CL.cla_status = 'A' ";
@@ -274,7 +274,7 @@ var CourseBusiness = (function() {
         sql = sql + " INNER JOIN age AG ON CL.age_id = AG.age_id ";
         sql = sql + " INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
         if(courseModel.use_id != "") {
-            sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
+            sql = sql + "   LEFT JOIN wishlist WS ON CL.cor_id = WS.cor_id AND WS.use_id = " + courseModel.use_id + " ";
             sql = sql + "   INNER JOIN course_subcategory COS ON COU.cor_id = COS.cor_id ";
             sql = sql + "   INNER JOIN user_interests UI ON UI.cat_id = COS.cat_id  and UI.use_id = " + courseModel.use_id + " ";
         }
@@ -352,7 +352,7 @@ var CourseBusiness = (function() {
         sql = sql + " COU.cor_accreditation, COU.cor_style, COU.cor_structure, COU.cor_added_date, COU.cor_status, ";
         sql = sql + " COU.cor_why_take, COU.cor_aware_before,cor_about_me,coalesce(nullif(cor_waiver,''),'') as cor_waiver, ";
         sql = sql + " COU.cor_why_love, COU.cor_style, COU.cor_expertise, COU.cor_accreditation_description, ";
-        sql = sql + " (select count(wis_id) from wishlist where cla_id in (select cla_id from class where cor_id = COU.cor_id)) wishlist, ";
+        sql = sql + " (select count(wis_id) from wishlist where cor_id = COU.cor_id) wishlist, ";
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = COU.cor_id) AS number_reviews, ";
         sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = COU.cor_id) star_general ";
         sql = sql + " FROM course COU ";
@@ -373,7 +373,7 @@ var CourseBusiness = (function() {
             sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
             sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time,CI.cit_description, PR.pro_code,  ";
             sql = sql + "C.cla_cost, COALESCE(C.cla_address,'') AS cla_address,COALESCE(C.cla_location_name,'') AS cla_location_name,C.cla_location_name, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
-            sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
+            sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, C.cla_status as cla_status_prev, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
             sql = sql + "C.cla_allow_lateWithdraw, DATE_FORMAT(C.cla_lateWithdraw_date,\"%m/%d/%Y\") as cla_lateWithdraw_date ,C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link , ";
             sql = sql + "(SELECT COUNT(*) FROM class_register CR2 WHERE CR2.cla_id = C.cla_id and CR2.clr_status = 'A' AND CR2.use_id = 9999  ) AS qtde_students_aux, ";
             sql = sql + "(SELECT concat(' - ', Date_format(CTF.clt_date, \"%b %d, %Y\")) FROM   class_time CTF WHERE  CTF.cla_id = C.cla_id AND  clt_firstclass <> 'Y' ORDER  BY clt_date DESC LIMIT 1) AS clt_final_date  ";
@@ -435,7 +435,7 @@ var CourseBusiness = (function() {
                 sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
                 sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p') AS final_time,CI.cit_description, PR.pro_code, ";
                 sql = sql + "C.cla_cost,COALESCE(C.cla_address,'') AS cla_address,COALESCE(C.cla_location_name,'') AS cla_location_name,C.cla_location_name, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
-                sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
+                sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, C.cla_status as cla_status_prev, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
                 sql = sql + "C.cla_allow_lateWithdraw,  DATE_FORMAT(C.cla_lateWithdraw_date,\"%m/%d/%Y\") as cla_lateWithdraw_date, C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link,  ";
                 sql = sql + "(SELECT concat(' - ', Date_format(CTF.clt_date, \"%b %d, %Y\")) FROM   class_time CTF WHERE  CTF.cla_id = C.cla_id AND  clt_firstclass <> 'Y' ORDER  BY clt_date DESC LIMIT 1) AS clt_final_date  ";
                 sql = sql + "FROM Class C ";
@@ -989,7 +989,7 @@ var CourseBusiness = (function() {
         sql = sql + " INNER JOIN course_level COL ON CL.col_id = COL.col_id ";
         sql = sql + " LEFT JOIN course_subcategory CSU ON COU.cor_id = CSU.cor_id ";
         if(courseModel.use_id != "")
-            sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
+            sql = sql + "   LEFT JOIN wishlist WS ON CL.cor_id = WS.cor_id AND WS.use_id = " + courseModel.use_id + " ";
         sql = sql + " WHERE ";
         sql = sql + "      COU.cor_status = 'A' AND ";
         sql = sql + "      CL.cla_status = 'A'  AND";
@@ -1394,7 +1394,7 @@ var CourseBusiness = (function() {
         sql = sql + " LEFT JOIN class_review CV ON CL.cor_id = CV.cor_id ";
         sql = sql + " LEFT JOIN course_subcategory CSU ON COU.cor_id = CSU.cor_id ";
         if(courseModel.use_id != "")
-            sql = sql + "   LEFT JOIN wishlist WS ON CL.cla_id = WS.cla_id AND WS.use_id = " + courseModel.use_id + " ";
+            sql = sql + "   LEFT JOIN wishlist WS ON CL.cor_id = WS.cor_id AND WS.use_id = " + courseModel.use_id + " ";
         sql = sql + " WHERE ";
         sql = sql + "      COU.cor_status = 'A' AND ";
         sql = sql + "      CL.cla_status = 'A'  AND";
@@ -1409,6 +1409,7 @@ var CourseBusiness = (function() {
 
         if(courseModel.search != "") {
             sql = sql + " AND (COU.cor_name like \"%" + courseModel.search + "%\" OR COU.cor_description like \"%" + courseModel.search + "%\" OR ";
+            sql = sql + " US.use_first_name like \"%" + courseModel.search + "%\" OR US.use_last_name like \"%" + courseModel.search + "%\" OR ";
             sql = sql + " COU.cor_id in (select cor_id from course_tags where cta_tag like \"%" + courseModel.search + "%\" ))";
         }
 
@@ -1645,6 +1646,72 @@ var CourseBusiness = (function() {
                     });
                 }
 
+            } else {
+                callback("COD009");
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
+
+
+    };
+
+    CourseBusiness.prototype.selectInactiveCourse = function(courseModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " SELECT *, ";
+        sql = sql + " case ";
+        sql = sql + " when number_session > 1 then Concat(number_session, ' Sessions') ";
+        sql = sql + " else cla_duration ";
+        sql = sql + " end AS number_session ";
+        sql = sql + " FROM   ( ";
+        sql = sql + " SELECT COU.cor_id AS corId,COU.cor_image,COU.cor_name, US.use_image,CL.cla_duration,US.use_id, ";
+        sql = sql + " COU.cor_description, USI.usi_image, ";
+        sql = sql + " Concat(Coalesce(US.use_first_name, ''), ' ', Coalesce(US.use_last_name, '')) AS use_name, ";
+        sql = sql + " (SELECT  cla_cost FROM class WHERE cor_id = COU.cor_id order by cla_id  desc limit 1) cla_cost, ";
+        sql = sql + " (SELECT Coalesce(Count(*), 0) FROM class_review WHERE  cor_id = cl.cor_id) AS number_reviews, ";
+        sql = sql + " (SELECT Coalesce(Sum(cre_stars) / Count(cre_id), 0) FROM class_review WHERE  cor_id = cl.cor_id) star_general, ";
+        sql = sql + " (SELECT COUNT(*) FROM class_time WHERE cla_id in ((SELECT  max(cla_id) FROM class WHERE cor_id = COU.cor_id))) number_session ";
+        if(courseModel.use_id != "")
+            sql = sql + " ,Coalesce(nullif(WS.wis_status,''), 'N') AS wis_status ";
+        sql = sql + " FROM course COU ";
+        sql = sql + " INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
+        sql = sql + " INNER JOIN class_time CT ON CL.cla_id = CT.cla_id AND CT.clt_firstclass = 'Y' ";
+        sql = sql + " INNER JOIN city CI ON CL.cit_id = CI.cit_id ";
+        sql = sql + " INNER JOIN province PR ON CI.pro_id = PR.pro_id ";
+        sql = sql + " INNER JOIN user US ON US.use_id = COU.use_id ";
+        sql = sql + " INNER JOIN user_instructor USI ON US.use_id = USI.use_id ";
+        sql = sql + " LEFT JOIN course_subcategory CSU ON COU.cor_id = CSU.cor_id ";
+        if(courseModel.use_id != "")
+            sql = sql + " LEFT JOIN wishlist WS ON COU.cor_id = WS.cor_id AND WS.use_id = " + courseModel.use_id + " ";
+        sql = sql + " WHERE COU.cor_status = 'A' ";
+        sql = sql + " AND CL.cla_status = 'A' ";
+        sql = sql + " AND US.use_type = 2 ";
+        sql = sql + " AND ct.clt_date < Date_add(Curdate(), INTERVAL -1 day) ";
+        sql = sql + " AND CI.cit_id IN (SELECT cit_id FROM city WHERE reg_id IN (SELECT reg_id FROM city WHERE  cit_id = " + courseModel.cit_id + ")) ";
+        sql = sql + " AND COU.cor_id not in (select cor_id from class a inner join class_time b on a.cla_id = b.cla_id where clt_date >= Date_add(Curdate(), INTERVAL -1 day) AND CT.clt_firstclass = 'Y') ";
+        if(courseModel.cat_id != "")
+            sql = sql + " AND CSU.cat_id = " + courseModel.cat_id + " ";
+
+        if(courseModel.search != "") {
+            sql = sql + " AND (COU.cor_name like \"%" + courseModel.search + "%\" OR COU.cor_description like \"%" + courseModel.search + "%\" OR ";
+            sql = sql + " US.use_first_name like \"%" + courseModel.search + "%\" OR US.use_last_name like \"%" + courseModel.search + "%\" OR ";
+            sql = sql + " COU.cor_id in (select cor_id from course_tags where cta_tag like \"%" + courseModel.search + "%\" ))";
+        }
+
+        sql = sql + " GROUP  BY COU.cor_id ";
+        sql = sql + " ) as Aux2 ";
+
+        connection.query(sql,function(err,courses){
+            connection.end();
+            if(!err) {
+                callback(courses);
             } else {
                 callback("COD009");
             }

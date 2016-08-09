@@ -117,7 +117,19 @@ var CourseResource = (function() {
         courseBusiness.delete(courseModel, function(obj){
             res.json(obj);
         });
+    }
 
+    CourseResource.prototype.selectInactiveCourse = function(req,res){
+
+        var courseModel = new Object();
+
+        if (req){
+            courseModel = req.body;
+        }
+
+        courseBusiness.selectInactiveCourse(courseModel, function(obj){
+            res.json(obj);
+        });
     }
 
     return new CourseResource();

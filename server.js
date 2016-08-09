@@ -171,6 +171,12 @@ server.post('/api/course/delete', function (req, res, next) {
     return next();
 });
 
+server.post('/api/course/selectInactiveCourse', function (req, res, next) {
+    courseResource.selectInactiveCourse(req,res);
+    return next();
+});
+
+
 /**
  * Province
  */
@@ -267,6 +273,11 @@ server.post('/api/user/getCategorySetting', function (req, res, next) {
 
 server.post('/api/user/getTagsSetting', function (req, res, next) {
     userResource.getTagsSetting(req,res);
+    return next();
+});
+
+server.post('/api/user/saveEmailStripe', function (req, res, next) {
+    userResource.saveEmailStripe(req,res);
     return next();
 });
 
@@ -489,6 +500,10 @@ server.post('/api/message/postMessageMultiple', function (req, res, next) {
     return next();
 });
 
+server.post('/api/message/getClassCourse', function (req, res, next) {
+    messageResource.getClassCourse(req,res);
+    return next();
+});
 
 /**
  * Payment
@@ -516,6 +531,11 @@ server.get('/api/payment/chargeAll', function (req, res, next) {
 
 server.get('/api/payment/CreditRefund', function (req, res, next) {
     paymentResource.CreditRefund(req,res);
+    return next();
+});
+
+server.post('/api/payment/refund', function (req, res, next) {
+    paymentResource.refund(req,res);
     return next();
 });
 
@@ -573,6 +593,35 @@ server.get('/api/util/sendEmailReview', function (req, res, next) {
     return next();
 });
 
+server.get('/api/util/InstructorApplicationNotification', function (req, res, next) {
+    utilResource.InstructorApplicationNotification(req,res);
+    return next();
+});
+
+server.get('/api/util/InstructorClassPosting', function (req, res, next) {
+    utilResource.InstructorClassPosting(req,res);
+    return next();
+});
+
+server.get('/api/util/InstructorFinancialSummary', function (req, res, next) {
+    utilResource.InstructorFinancialSummary(req,res);
+    return next();
+});
+
+server.get('/api/util/InstructorRegistrationNotification', function (req, res, next) {
+    utilResource.InstructorRegistrationNotification(req,res);
+    return next();
+});
+
+server.get('/api/util/InstructorFinancialSummary', function (req, res, next) {
+    utilResource.InstructorFinancialSummary(req,res);
+    return next();
+});
+
+server.get('/api/util/InstructorWeekCoursePerformance', function (req, res, next) {
+    utilResource.InstructorWeekCoursePerformance(req,res);
+    return next();
+});
 
 /**
  * REPORT

@@ -1,4 +1,5 @@
-var factory = require("./../factory/dbfactory");
+var factory      = require("./../factory/dbfactory");
+var utilBusiness = require("./../business/utilBusiness");
 
 var ReviewBusiness = (function() {
 
@@ -33,7 +34,7 @@ var ReviewBusiness = (function() {
         connection.query(sql,function(err,reviewObj){
             connection.end();
             if(!err) {
-
+                utilBusiness.InstructorReview(reviewObj.insertId);
                 callback(reviewObj);
             }
         });

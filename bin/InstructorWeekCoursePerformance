@@ -1,0 +1,11 @@
+#! /app/.heroku/node/bin/node
+
+var utilBusiness = require("./../server/business/utilBusiness");
+
+function sendEmail() {
+    utilBusiness.InstructorWeekCoursePerformance(function(obj){
+      console.log(obj);
+  });
+};
+
+sendEmail();

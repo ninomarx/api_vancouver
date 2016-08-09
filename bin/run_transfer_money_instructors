@@ -1,0 +1,11 @@
+#! /app/.heroku/node/bin/node
+
+var paymentBusiness = require("./../server/business/paymentBusiness");
+
+function runTransfer() {
+    paymentBusiness.CreditRefund(function(obj){
+      console.log(obj);
+  });
+};
+
+runTransfer();
