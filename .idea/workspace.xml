@@ -31,28 +31,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="utilBusiness.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/server/business/utilBusiness.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47204968">
-              <caret line="194" column="93" selection-start-line="194" selection-start-column="93" selection-end-line="194" selection-end-column="93" />
-              <folding>
-                <element signature="e#277#2093#0" expanded="false" />
-                <element signature="e#2176#3200#0" expanded="false" />
-                <element signature="e#3272#4567#0" expanded="false" />
-                <element signature="e#4651#6455#0" expanded="false" />
-                <element signature="e#6521#7500#0" expanded="false" />
-                <element signature="e#9741#11035#0" expanded="false" />
-                <element signature="e#11112#12778#0" expanded="false" />
-                <element signature="e#12848#14829#0" expanded="false" />
-                <element signature="e#14904#19159#0" expanded="false" />
-                <element signature="e#19257#19739#0" expanded="false" />
-                <element signature="e#19881#20203#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="paymentBusiness.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -73,11 +51,33 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="utilBusiness.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/business/utilBusiness.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.36956522">
+              <caret line="191" column="61" selection-start-line="191" selection-start-column="61" selection-end-line="191" selection-end-column="61" />
+              <folding>
+                <element signature="e#277#2093#0" expanded="false" />
+                <element signature="e#2176#3200#0" expanded="false" />
+                <element signature="e#3272#4567#0" expanded="false" />
+                <element signature="e#4651#6455#0" expanded="false" />
+                <element signature="e#6521#7500#0" expanded="false" />
+                <element signature="e#9790#11084#0" expanded="false" />
+                <element signature="e#11161#12827#0" expanded="false" />
+                <element signature="e#12897#14878#0" expanded="false" />
+                <element signature="e#14953#19208#0" expanded="false" />
+                <element signature="e#19306#19788#0" expanded="false" />
+                <element signature="e#19930#20252#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="emailBusiness.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/business/emailBusiness.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="3.982143">
+              <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
               <folding>
                 <element signature="e#430#1976#0" expanded="false" />
                 <element signature="e#2068#3633#0" expanded="false" />
@@ -89,7 +89,6 @@
                 <element signature="e#46337#69016#0" expanded="false" />
                 <element signature="e#69092#77610#0" expanded="false" />
                 <element signature="e#77696#96778#0" expanded="false" />
-                <element signature="e#96862#111490#0" expanded="false" />
                 <element signature="e#111584#126547#0" expanded="false" />
                 <element signature="e#126629#140601#0" expanded="false" />
                 <element signature="e#140688#154369#0" expanded="false" />
@@ -1388,8 +1387,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/business/emailBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="3.982143">
+          <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
           <folding>
             <element signature="e#430#1976#0" expanded="false" />
             <element signature="e#2068#3633#0" expanded="false" />
@@ -1401,7 +1400,6 @@
             <element signature="e#46337#69016#0" expanded="false" />
             <element signature="e#69092#77610#0" expanded="false" />
             <element signature="e#77696#96778#0" expanded="false" />
-            <element signature="e#96862#111490#0" expanded="false" />
             <element signature="e#111584#126547#0" expanded="false" />
             <element signature="e#126629#140601#0" expanded="false" />
             <element signature="e#140688#154369#0" expanded="false" />
@@ -1920,20 +1918,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/business/utilBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47204968">
-          <caret line="194" column="93" selection-start-line="194" selection-start-column="93" selection-end-line="194" selection-end-column="93" />
+        <state vertical-scroll-proportion="0.36956522">
+          <caret line="191" column="61" selection-start-line="191" selection-start-column="61" selection-end-line="191" selection-end-column="61" />
           <folding>
             <element signature="e#277#2093#0" expanded="false" />
             <element signature="e#2176#3200#0" expanded="false" />
             <element signature="e#3272#4567#0" expanded="false" />
             <element signature="e#4651#6455#0" expanded="false" />
             <element signature="e#6521#7500#0" expanded="false" />
-            <element signature="e#9741#11035#0" expanded="false" />
-            <element signature="e#11112#12778#0" expanded="false" />
-            <element signature="e#12848#14829#0" expanded="false" />
-            <element signature="e#14904#19159#0" expanded="false" />
-            <element signature="e#19257#19739#0" expanded="false" />
-            <element signature="e#19881#20203#0" expanded="false" />
+            <element signature="e#9790#11084#0" expanded="false" />
+            <element signature="e#11161#12827#0" expanded="false" />
+            <element signature="e#12897#14878#0" expanded="false" />
+            <element signature="e#14953#19208#0" expanded="false" />
+            <element signature="e#19306#19788#0" expanded="false" />
+            <element signature="e#19930#20252#0" expanded="false" />
           </folding>
         </state>
       </provider>

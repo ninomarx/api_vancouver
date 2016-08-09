@@ -191,8 +191,8 @@ var UtilBusiness = (function() {
         sql = sql + " DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " TIME_FORMAT(ADDTIME(ct.clt_start_time, SEC_TO_TIME(cl.cla_duration*60)), '%l:%i %p')  AS final_time, ";
         sql = sql + " cl.cla_location_name, cl.cla_address,us2.use_first_name as instructor_name, ";
-        sql = sql + " case when mes.use_id_receiver != us1.use_id then us1.use_email ";
-        sql = sql + " else (select use_email from user where use_id = mes.use_id_transmitter) ";
+        sql = sql + " case when mes.use_id_receiver = us1.use_id then (select use_email from user where use_id = mes.use_id_transmitter) ";
+        sql = sql + " else (select use_email from user where use_id = mes.use_id_receiver) ";
         sql = sql + " end as email, ";
         sql = sql + " case when cou.use_id = us1.use_id then 'Teaches' else 'Wants to learn' end as role, ";
         sql = sql + " case when cou.use_id = us1.use_id then cou.cor_expertise else us1.use_want_learn end as use_want_learn ";
