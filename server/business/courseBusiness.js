@@ -1671,7 +1671,7 @@ var CourseBusiness = (function() {
         sql = sql + " else cla_duration ";
         sql = sql + " end AS number_session ";
         sql = sql + " FROM   ( ";
-        sql = sql + " SELECT COU.cor_id AS corId,COU.cor_image,COU.cor_name, US.use_image,CL.cla_duration,US.use_id, ";
+        sql = sql + " SELECT COU.cor_id AS corId, CL.cla_id, COU.cor_image,COU.cor_name, US.use_image,CL.cla_duration,US.use_id, ";
         sql = sql + " COU.cor_description, USI.usi_image, ";
         sql = sql + " Concat(Coalesce(US.use_first_name, ''), ' ', Coalesce(US.use_last_name, '')) AS use_name, ";
         sql = sql + " (SELECT  cla_cost FROM class WHERE cor_id = COU.cor_id order by cla_id  desc limit 1) cla_cost, ";

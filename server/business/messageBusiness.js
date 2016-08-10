@@ -125,7 +125,6 @@ var MessageBusiness = (function() {
         });
     };
 
-
     MessageBusiness.prototype.getMessagesAmout = function(messageModel, callback) {
 
         var connection = factory.getConnection();

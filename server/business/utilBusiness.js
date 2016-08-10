@@ -90,11 +90,13 @@ var UtilBusiness = (function() {
         sql = sql + " select cou.cor_name, DATE_FORMAT(ct.clt_date,'%M %d %Y') as clt_date, cou.cor_image, use_email, ";
         sql = sql + " DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time, ";
         sql = sql + "     TIME_FORMAT(ADDTIME(ct.clt_start_time, SEC_TO_TIME(cl.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " cl.cla_location_name, cl.cla_address ";
+        sql = sql + " cl.cla_location_name, CONCAT(cl.cla_address,', ',cit.cit_description,', ',prov.pro_code) cla_address";
         sql = sql + " from class cl ";
         sql = sql + " inner join class_time ct on cl.cla_id = ct.cla_id and ct.clt_firstClass = 'Y' ";
         sql = sql + " inner join course cou on cl.cor_id = cou.cor_id ";
         sql = sql + " inner join user us on cou.use_id = us.use_id ";
+        sql = sql + " inner join city cit on cl.cit_id = cit.cit_id ";
+        sql = sql + " inner join province prov on cit.pro_id = prov.pro_id ";
         sql = sql + " where cl.cla_id = " + cla_id + "; ";
 
         connection.query(sql,function(err,email_data){
@@ -123,7 +125,7 @@ var UtilBusiness = (function() {
         sql = sql + " us2.use_email, cou.cor_image, ";
         sql = sql + " DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " TIME_FORMAT(ADDTIME(ct.clt_start_time, SEC_TO_TIME(cl.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " cl.cla_location_name, cl.cla_address, ";
+        sql = sql + " cl.cla_location_name, CONCAT(cl.cla_address,', ',cit.cit_description,', ',prov.pro_code) cla_address, ";
         sql = sql + " cr.clr_id, coalesce(nullif(cr.clr_discount_code,''),'-') as clr_discount_code, cl.cla_cost,cr.clr_discount,cr.clr_cost,cr.clr_instructor_value, ";
         sql = sql + " (cr.clr_cost-cr.clr_instructor_value) as comission,clr_cotuto_credit,cr.clr_course_goal, us1.use_image ";
         sql = sql + "  from class_register cr ";
@@ -132,6 +134,8 @@ var UtilBusiness = (function() {
         sql = sql + " inner join user us2 on cou.use_id = us2.use_id ";
         sql = sql + " inner join class cl on cr.cla_id = cl.cla_id ";
         sql = sql + " inner join class_time ct on cl.cla_id = ct.cla_id and ct.clt_firstClass = 'Y' ";
+        sql = sql + " inner join city cit on cl.cit_id = cit.cit_id ";
+        sql = sql + " inner join province prov on cit.pro_id = prov.pro_id ";
         sql = sql + " where cr.clr_id = " + clr_id + "; ";
 
 
@@ -190,12 +194,12 @@ var UtilBusiness = (function() {
         sql = sql + " cou.cor_name, cou.cor_image, DATE_FORMAT(ct.clt_date,'%M %d %Y') as clt_date,  ";
         sql = sql + " DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " TIME_FORMAT(ADDTIME(ct.clt_start_time, SEC_TO_TIME(cl.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " cl.cla_location_name, cl.cla_address,us2.use_first_name as instructor_name, ";
+        sql = sql + " cl.cla_location_name, CONCAT(cl.cla_address,', ',cit.cit_description,', ',prov.pro_code) cla_address,us2.use_first_name as instructor_name, ";
         sql = sql + " case when mes.use_id_receiver = us1.use_id then (select use_email from user where use_id = mes.use_id_transmitter) ";
         sql = sql + " else (select use_email from user where use_id = mes.use_id_receiver) ";
         sql = sql + " end as email, ";
         sql = sql + " case when cou.use_id = us1.use_id then 'Teaches' else 'Wants to learn' end as role, ";
-        sql = sql + " case when cou.use_id = us1.use_id then cou.cor_expertise else us1.use_want_learn end as use_want_learn ";
+        sql = sql + " case when cou.use_id = us1.use_id then coalesce(cou.cor_name,'') else coalesce(us1.use_want_learn,'') end as use_want_learn ";
         sql = sql + " from message mes ";
         sql = sql + " inner join message_conversation mec on mes.mes_id = mec.mes_id ";
         sql = sql + " inner join user us1 on mec.use_id = us1.use_id ";
@@ -203,6 +207,8 @@ var UtilBusiness = (function() {
         sql = sql + " left join class cl on mes.cla_id = cl.cla_id ";
         sql = sql + " left join class_time ct on cl.cla_id = ct.cla_id and ct.clt_firstClass = 'Y' ";
         sql = sql + " inner join user us2 on cou.use_id = us2.use_id ";
+        sql = sql + " left join city cit on cl.cit_id = cit.cit_id ";
+        sql = sql + " left join province prov on cit.pro_id = prov.pro_id ";
         sql = sql + " where mec.mec_id = " + mec_id + "; ";
 
         connection.query(sql,function(err,email_data){
@@ -264,13 +270,15 @@ var UtilBusiness = (function() {
         sql = sql + " cou.cor_name, cou.cor_image, ";
         sql = sql + " DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " TIME_FORMAT(ADDTIME(ct.clt_start_time, SEC_TO_TIME(cla.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " cla.cla_location_name, cla.cla_address ";
+        sql = sql + " cla.cla_location_name, CONCAT(cla.cla_address,', ',cit.cit_description,', ',prov.pro_code) cla_address ";
         sql = sql + " from class cla ";
         sql = sql + " inner join course cou on cla.cor_id = cou.cor_id ";
         sql = sql + " inner join class_time ct on cla.cla_id = ct.cla_id and ct.clt_firstClass = 'Y' ";
         sql = sql + " inner join class_register cr on cla.cla_id = cr.cla_id ";
         sql = sql + " inner join user us1 on cou.use_id = us1.use_id ";
         sql = sql + " inner join user us2 on cr.use_id = us2.use_id ";
+        sql = sql + " inner join city cit on cla.cit_id = cit.cit_id ";
+        sql = sql + " inner join province prov on cit.pro_id = prov.pro_id ";
         sql = sql + " where cla.cla_id = " + cla_id + " and cr.clr_status = 'A'; ";
 
         connection.query(sql,function(err,email_data){
@@ -303,14 +311,16 @@ var UtilBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_date,'%Y-%m-%d') as clt_date2,us.use_email, ";
         sql = sql + " DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " TIME_FORMAT(ADDTIME(ct.clt_start_time, SEC_TO_TIME(cla.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " cla.cla_location_name, cla.cla_address,cla.cla_cost, ";
+        sql = sql + " cla.cla_location_name, CONCAT(cla.cla_address,', ',cit.cit_description,', ',prov.pro_code) cla_address,cla.cla_cost, ";
         sql = sql + " (select count(*) from class_register where cla_id = cla.cla_id and clr_status = 'A') as registrations, ";
         sql = sql + " (select coalesce(sum(clr_instructor_value),0) from class_register where cla_id = cla.cla_id and clr_status = 'A') as net ";
         sql = sql + " from class cla ";
         sql = sql + " inner join course cou on cla.cor_id = cou.cor_id ";
         sql = sql + " inner join class_time ct on cla.cla_id = ct.cla_id and ct.clt_firstClass = 'Y' ";
         sql = sql + " inner join user us on cou.use_id = us.use_id ";
-        sql = sql + " where cla.cla_status = 'A' and cla.cla_deadline >= curdate() ";
+        sql = sql + " inner join city cit on cla.cit_id = cit.cit_id ";
+        sql = sql + " inner join province prov on cit.pro_id = prov.pro_id ";
+        sql = sql + " where cla.cla_status = 'A' and cla.cla_deadline = curdate() ";
         sql = sql + " ) as class_detail; ";
 
 
