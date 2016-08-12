@@ -34,12 +34,12 @@
       <file leaf-file-name="courseBusiness.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.448276">
-              <caret line="264" column="89" selection-start-line="264" selection-start-column="89" selection-end-line="264" selection-end-column="89" />
+            <state vertical-scroll-proportion="-6.448276">
+              <caret line="48" column="71" selection-start-line="48" selection-start-column="71" selection-end-line="48" selection-end-column="71" />
               <folding>
-                <element signature="e#19454#39702#0" expanded="false" />
-                <element signature="e#39773#45911#0" expanded="false" />
-                <element signature="e#78495#79646#0" expanded="false" />
+                <element signature="e#19373#39621#0" expanded="false" />
+                <element signature="e#39692#45830#0" expanded="false" />
+                <element signature="e#78360#79511#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -48,8 +48,8 @@
       <file leaf-file-name="registerBusiness.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/business/registerBusiness.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3842239">
-              <caret line="164" column="32" selection-start-line="164" selection-start-column="32" selection-end-line="164" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.783715">
+              <caret line="173" column="22" selection-start-line="173" selection-start-column="22" selection-end-line="173" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -125,9 +125,9 @@
         <option value="$PROJECT_DIR$/server/business/messageBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/utilBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/emailBusiness.js" />
-        <option value="$PROJECT_DIR$/server/business/courseBusiness.js" />
         <option value="$PROJECT_DIR$/server/factory/dbfactory.js" />
         <option value="$PROJECT_DIR$/server/business/registerBusiness.js" />
+        <option value="$PROJECT_DIR$/server/business/courseBusiness.js" />
       </list>
     </option>
   </component>
@@ -918,18 +918,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.448276">
-          <caret line="264" column="89" selection-start-line="264" selection-start-column="89" selection-end-line="264" selection-end-column="89" />
-          <folding>
-            <element signature="e#19454#39702#0" expanded="false" />
-            <element signature="e#39773#45911#0" expanded="false" />
-            <element signature="e#78495#79646#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -938,10 +926,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.448276">
+          <caret line="48" column="71" selection-start-line="48" selection-start-column="71" selection-end-line="48" selection-end-column="71" />
+          <folding>
+            <element signature="e#19373#39621#0" expanded="false" />
+            <element signature="e#39692#45830#0" expanded="false" />
+            <element signature="e#78360#79511#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/business/registerBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3842239">
-          <caret line="164" column="32" selection-start-line="164" selection-start-column="32" selection-end-line="164" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.783715">
+          <caret line="173" column="22" selection-start-line="173" selection-start-column="22" selection-end-line="173" selection-end-column="22" />
           <folding />
         </state>
       </provider>
