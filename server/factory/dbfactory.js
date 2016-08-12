@@ -8,10 +8,10 @@ var DbFactory = (function() {
 
         return mysql.createPool({
             connectionLimit : 100, //important
-            host     : 'localhost',
-            user     : 'root',
-            password : '123',
-            database : 'cotuto_db',
+            host     : 'us-cdbr-iron-east-03.cleardb.net',
+            user     : 'bcb66f67dd09b7',
+            password : '481935e4',
+            database : 'heroku_461cbb34ac72c8b',
             debug    :  false
         });
     }
@@ -19,10 +19,10 @@ var DbFactory = (function() {
     DbFactory.prototype.getConnection = function(){
 
         return mysql.createConnection({
-            host     : 'localhost',
-            user     : 'root',
-            password : '123',
-            database : 'cotuto_db',
+            host     : 'us-cdbr-iron-east-03.cleardb.net',
+            user     : 'bcb66f67dd09b7',
+            password : '481935e4',
+            database : 'heroku_461cbb34ac72c8b',
             multipleStatements: true
         });
     }
