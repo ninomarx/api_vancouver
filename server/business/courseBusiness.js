@@ -48,7 +48,7 @@ var CourseBusiness = (function() {
         if(courseModel.use_id != "")
             sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status ";
         sql = sql + "  ,(SELECT min(clt_date) FROM class cla inner join class_time clat on cla.cla_id = clat.cla_id ";
-        sql = sql + "   WHERE cor_id = COU.cor_id and clt_date > curdate() and cla_status = 'A' AND clt_firstClass = 'Y' ) as date_first_class ";
+        sql = sql + "   WHERE cor_id = COU.cor_id and clt_date > DATE_ADD(Curdate(), INTERVAL -1 DAY) and cla_status = 'A' AND clt_firstClass = 'Y' ) as date_first_class ";
         sql = sql + " FROM   course COU ";
         sql = sql + " INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
         sql = sql + " INNER JOIN class_time CT ON CL.cla_id = CT.cla_id AND CT.clt_firstclass = 'Y' ";
@@ -152,7 +152,7 @@ var CourseBusiness = (function() {
         if(courseModel.use_id != "")
             sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status";
         sql = sql + "  ,(SELECT min(clt_date) FROM class cla inner join class_time clat on cla.cla_id = clat.cla_id ";
-        sql = sql + "   WHERE cor_id = COU.cor_id and clt_date > curdate() and cla_status = 'A' AND clt_firstClass = 'Y' ) as date_first_class ";
+        sql = sql + "   WHERE cor_id = COU.cor_id and clt_date > DATE_ADD(Curdate(), INTERVAL -1 DAY) and cla_status = 'A' AND clt_firstClass = 'Y' ) as date_first_class ";
         sql = sql + " FROM   course COU ";
         sql = sql + " INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
         sql = sql + " INNER JOIN class_time CT ON CL.cla_id = CT.cla_id AND CT.clt_firstclass = 'Y' ";
@@ -263,7 +263,7 @@ var CourseBusiness = (function() {
         if(courseModel.use_id != "")
             sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status";
         sql = sql + "  ,(SELECT min(clt_date) FROM class cla inner join class_time clat on cla.cla_id = clat.cla_id ";
-        sql = sql + "   WHERE cor_id = COU.cor_id and clt_date > curdate() and cla_status = 'A' AND clt_firstClass = 'Y' ) as date_first_class ";
+        sql = sql + "   WHERE cor_id = COU.cor_id and clt_date > DATE_ADD(Curdate(), INTERVAL -1 DAY) and cla_status = 'A' AND clt_firstClass = 'Y' ) as date_first_class ";
         sql = sql + " FROM   course COU ";
         sql = sql + " INNER JOIN class CL ON COU.cor_id = CL.cor_id ";
         sql = sql + " INNER JOIN class_time CT ON CL.cla_id = CT.cla_id AND CT.clt_firstclass = 'Y' ";
@@ -870,7 +870,7 @@ var CourseBusiness = (function() {
         if(courseModel.filter.begin_date != "" && courseModel.filter.end_date != "" ){
             sql = sql + " AND (clt_date BETWEEN STR_TO_DATE('" + courseModel.filter.begin_date + "','%m/%d/%Y') AND STR_TO_DATE('" + courseModel.filter.end_date + "','%m/%d/%Y'))";
         }else{
-            sql = sql + " AND clt_date > curdate() ";
+            sql = sql + " AND clt_date > DATE_ADD(Curdate(), INTERVAL -1 DAY) ";
         }
 
         var aux = courseModel.filter.times.length;
@@ -1274,7 +1274,7 @@ var CourseBusiness = (function() {
         if(courseModel.filter.begin_date != "" && courseModel.filter.end_date != "" ){
             sql = sql + " AND (clt_date BETWEEN STR_TO_DATE('" + courseModel.filter.begin_date + "','%m/%d/%Y') AND STR_TO_DATE('" + courseModel.filter.end_date + "','%m/%d/%Y'))";
         }else{
-            sql = sql + " AND clt_date > curdate() ";
+            sql = sql + " AND clt_date > DATE_ADD(Curdate(), INTERVAL -1 DAY) ";
         }
 
         var aux = courseModel.filter.times.length;
