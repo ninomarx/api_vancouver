@@ -8,6 +8,8 @@ var RegisterBusiness = (function() {
 
     };
 
+    var time_zone_date = " DATE_FORMAT(CONVERT_TZ(now(),'-00:00', cit_time_zone),'%Y-%m-%d') ";
+
     RegisterBusiness.prototype.save = function(registerModel, callback) {
 
         var clr_instructor_value = 0;
@@ -116,17 +118,18 @@ var RegisterBusiness = (function() {
 
         var sql = "";
         sql = sql + " select case ";
-        sql = sql + " when cla_allow_lateWithdraw = 'N' and now() <= cla_deadline then 'Y' ";
-        sql = sql + " when cla_allow_lateWithdraw = 'N' and now() > cla_deadline then 'N' ";
-        sql = sql + " when cla_allow_lateWithdraw = 'Y' and now() <= cla_lateWithdraw_date then 'Y' ";
-        sql = sql + " when cla_allow_lateWithdraw = 'Y' and now() > cla_lateWithdraw_date then 'N' ";
+        sql = sql + " when cla_allow_lateWithdraw = 'N' and "+time_zone_date+" <= cla_deadline then 'Y' ";
+        sql = sql + " when cla_allow_lateWithdraw = 'N' and "+time_zone_date+" > cla_deadline then 'N' ";
+        sql = sql + " when cla_allow_lateWithdraw = 'Y' and "+time_zone_date+" <= cla_lateWithdraw_date then 'Y' ";
+        sql = sql + " when cla_allow_lateWithdraw = 'Y' and "+time_zone_date+" > cla_lateWithdraw_date then 'N' ";
         sql = sql + " else 'N' ";
         sql = sql + " end as cancel_allow, co.cor_name, date_format(clt_date,\"%Y-%m-%d\") date_class, c.cla_id, ";
-        sql = sql + " (select clr_stripe_code from class_register where cla_id = " + registerModel.cla_id + " and use_id = " + registerModel.use_id + " and clr_status = 'A') as clr_stripe_code,";
-        sql = sql + " (select clr_id from class_register where cla_id = " + registerModel.cla_id + " and use_id = " + registerModel.use_id + " and clr_status = 'A') as clr_id";
+        sql = sql + " (select clr_stripe_code from class_register where cla_id = " + registerModel.cla_id + " and use_id = " + registerModel.use_id + " and clr_status = 'A' limit 1) as clr_stripe_code,";
+        sql = sql + " (select clr_id from class_register where cla_id = " + registerModel.cla_id + " and use_id = " + registerModel.use_id + " and clr_status = 'A' limit 1) as clr_id";
         sql = sql + " from class c ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id and ct.clt_firstClass = 'Y' ";
         sql = sql + " inner join course co on c.cor_id = co.cor_id ";
+        sql = sql + " inner join city ci on c.cit_id = ci.cit_id ";
         sql = sql + " where c.cla_id = " + registerModel.cla_id  + "; ";
 
 
@@ -160,10 +163,10 @@ var RegisterBusiness = (function() {
         sql = sql + " from ( ";
         sql = sql + " select cou.use_id,cla_max_size, ";
         sql = sql + " case ";
-        sql = sql + "    when cla_allow_lateRegistration = 'N' and DATE_FORMAT(CONVERT_TZ(now(),'-00:00', ci.cit_time_zone),'%Y-%m-%d') > cla_deadline then 'N' ";
-        sql = sql + "    when cla_allow_lateRegistration = 'N' and DATE_FORMAT(CONVERT_TZ(now(),'-00:00', ci.cit_time_zone),'%Y-%m-%d') <=cla_deadline then 'Y' ";
-        sql = sql + "    when cla_allow_lateRegistration = 'S' and DATE_FORMAT(CONVERT_TZ(now(),'-00:00', ci.cit_time_zone),'%Y-%m-%d') > ct.clt_date then'N' ";
-        sql = sql + "    when cla_allow_lateRegistration = 'S' and DATE_FORMAT(CONVERT_TZ(now(),'-00:00', ci.cit_time_zone),'%Y-%m-%d') <= ct.clt_date then'Y' ";
+        sql = sql + "    when cla_allow_lateRegistration = 'N' and "+time_zone_date+" > cla_deadline then 'N' ";
+        sql = sql + "    when cla_allow_lateRegistration = 'N' and "+time_zone_date+" <=cla_deadline then 'Y' ";
+        sql = sql + "    when cla_allow_lateRegistration = 'S' and "+time_zone_date+" > ct.clt_date then'N' ";
+        sql = sql + "    when cla_allow_lateRegistration = 'S' and "+time_zone_date+" <= ct.clt_date then'Y' ";
         sql = sql + " end as validDate, ";
         sql = sql + " (select costumerIdStripe from user where use_id = " + registerModel.use_id  + ") as codStripe, ";
         sql = sql + " (select clr_id from class_register where cla_id = " + registerModel.cla_id  + " and use_id = " + registerModel.use_id  + " and clr_status = 'A'  limit 1) as clr_id, ";

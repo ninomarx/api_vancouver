@@ -6,6 +6,8 @@ var DiscountBusiness = (function() {
 
     };
 
+    var time_zone_date = " DATE_FORMAT(CONVERT_TZ(now(),'-00:00', cit_time_zone),'%Y-%m-%d') ";
+
     DiscountBusiness.prototype.save = function(discountModel, callback) {
 
         var connection = factory.getConnection();
@@ -106,8 +108,8 @@ var DiscountBusiness = (function() {
 
         var sql = "";
         sql = sql + " SELECT ";
-        sql = sql + " case when DATE_FORMAT(now(),'%Y-%m-%d') <= cld_early_deadline and cld_early = 'Y' then 'E' ";
-        sql = sql + " when  (DATE_FORMAT(now(),'%Y-%m-%d') between DATE_ADD(cla_deadline,INTERVAL -1 DAY) and cla_deadline) and cld_last = 'Y' then 'L' else 'N' ";
+        sql = sql + " case when "+time_zone_date+" <= cld_early_deadline and cld_early = 'Y' then 'E' ";
+        sql = sql + " when  ("+time_zone_date+" between DATE_ADD(cla_deadline,INTERVAL -1 DAY) and cla_deadline) and cld_last = 'Y' then 'L' else 'N' ";
         sql = sql + " end as type, date_format(cld_early_deadline,'%M %d') as cld_early_deadline,";
         sql = sql + " (cld_early_discount) as early_value, ";
         sql = sql + " (cld_last_discount) as last_value, ";
@@ -117,6 +119,7 @@ var DiscountBusiness = (function() {
         sql = sql + " from class_register where cla_id = " + discountModel.cla_id + " and clr_cost = (cld_early_discount) and clr_status = 'A') as reach_limit_early  ";
         sql = sql + " FROM class c ";
         sql = sql + " INNER JOIN class_discount cd on c.cla_id = cd.cla_id ";
+        sql = sql + " INNER JOIN city cit on c.cit_id = cit.cit_id ";
         sql = sql + " WHERE c.cla_id = " + discountModel.cla_id + "; ";
 
         connection.query(sql,function(err,discount){
@@ -141,8 +144,8 @@ var DiscountBusiness = (function() {
 
         var sql = "";
         sql = sql + " SELECT c.cla_id,";
-        sql = sql + " case when DATE_FORMAT(now(),'%Y-%m-%d') <= cld_early_deadline and cld_early = 'Y' then 'E' ";
-        sql = sql + " when  (DATE_FORMAT(now(),'%Y-%m-%d') between DATE_ADD(cla_deadline,INTERVAL -1 DAY) and cla_deadline) and cld_last = 'Y' then 'L' else 'N' ";
+        sql = sql + " case when "+time_zone_date+" <= cld_early_deadline and cld_early = 'Y' then 'E' ";
+        sql = sql + " when  ("+time_zone_date+" between DATE_ADD(cla_deadline,INTERVAL -1 DAY) and cla_deadline) and cld_last = 'Y' then 'L' else 'N' ";
         sql = sql + " end as type, ";
         sql = sql + " round(cast((((cla_cost - cld_early_discount) * 100)/cla_cost) as decimal(18,2))) as early_perc_value, ";
         sql = sql + " round(cast((((cla_cost - cld_last_discount) * 100)/cla_cost) as decimal(18,2))) as last_perc_value, ";
@@ -153,6 +156,7 @@ var DiscountBusiness = (function() {
         sql = sql + "        and clr_cost = cld_early_discount ";
         sql = sql + "        and clr_status = 'A' ) as reach_limit ";
         sql = sql + " FROM class c ";
+        sql = sql + " INNER JOIN city cit on c.cit_id = cit.cit_id ";
         sql = sql + " LEFT JOIN class_discount cd on c.cla_id = cd.cla_id ";
         sql = sql + " WHERE c.cla_id IN (" + discountModel.classes + "); ";
 

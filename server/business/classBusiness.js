@@ -7,6 +7,8 @@ var ClassBusiness = (function() {
 
     };
 
+    var time_zone_date = " DATE_FORMAT(CONVERT_TZ(now(),'-00:00', cit_time_zone),'%Y-%m-%d') ";
+
     ClassBusiness.prototype.getClassMultiple = function(classModel, callback) {
 
         var connection = factory.getConnection();
@@ -219,8 +221,8 @@ var ClassBusiness = (function() {
         sql = sql + "   end as dateShowC , ";
         sql = sql + "   cit_description, pro_code, age_description,col_description, ";
         sql = sql + "   DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(CT.clt_date) AS dayName, ";
-        sql = sql + "   TIMESTAMPDIFF(day,CURDATE(),Date_format(CL.cla_deadline, \"%y-%m-%d\")) as cla_deadline2, ";
-        sql = sql + "  CASE WHEN Date_format(CL.cla_deadline,\"%Y-%m-%d\") = CURDATE() THEN 'Today' else Date_format(CL.cla_deadline, \"%b %d, %Y\") end AS cla_deadline, ";
+        sql = sql + "   TIMESTAMPDIFF(day,"+time_zone_date+",Date_format(CL.cla_deadline, \"%y-%m-%d\")) as cla_deadline2, ";
+        sql = sql + "  CASE WHEN Date_format(CL.cla_deadline,\"%Y-%m-%d\") = "+time_zone_date+" THEN 'Today' else Date_format(CL.cla_deadline, \"%b %d, %Y\") end AS cla_deadline, ";
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
         sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = cl.cor_id) star_general, ";
         sql = sql + " (select coalesce(count(clr_id),0) from class_register where cla_id = cl.cla_id and clr_status = 'A') as students, ";
@@ -345,7 +347,8 @@ var ClassBusiness = (function() {
         sql = sql + " (SELECT COUNT(*) FROM class_time WHERE cla_id = CT.cla_id) AS sessions ";
         sql = sql + " FROM class CT ";
         sql = sql + " INNER JOIN class_time C ON CT.cla_id = C.cla_id ";
-        sql = sql + " where CT.cor_id = " + classModel.cor_id + "  and clt_firstClass = 'Y' AND CT.cla_status = 'A' and C.clt_date > now() and CT.cla_id <> " +  classModel.cla_id + " ";
+        sql = sql + " INNER JOIN city cit ON CT.cit_id = cit.cit_id ";
+        sql = sql + " where CT.cor_id = " + classModel.cor_id + "  and clt_firstClass = 'Y' AND CT.cla_status = 'A' and C.clt_date > "+time_zone_date+" and CT.cla_id <> " +  classModel.cla_id + " ";
         sql = sql + " ORDER BY clt_date "
 
         connection.query(sql, function (err, classObj) {
@@ -376,7 +379,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(clr_added_date, \"%Y-%m-%d\") purchase_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p') AS final_time, ";
-        sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
+        sql = sql + " case when TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address,CAST(coalesce(clr_discount,0) as DECIMAL(18,2)) as clr_discount, ";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
         sql = sql + " from class c ";
@@ -390,7 +393,7 @@ var ClassBusiness = (function() {
         sql = sql + " where cr.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and clr_status = 'A' and clr_transaction_status <> 'C' ";
-        sql = sql + " and ct.clt_date >= CURDATE()  ) as aux; ";
+        sql = sql + " and ct.clt_date >= "+time_zone_date+"  ) as aux; ";
 
         connection.query(sql, function (err, classObj) {
             connection.end();
@@ -418,7 +421,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%b %d\") clt_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
         sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
+        sql = sql + " case when TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address, cre.cre_id,";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
         sql = sql + " from class c ";
@@ -434,7 +437,7 @@ var ClassBusiness = (function() {
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and clr_status = 'A' and clr_transaction_status <> 'C' ";
         //sql = sql + " AND cre_id is null ";
-        sql = sql + " and ct.clt_date < CURDATE()  ) as aux; ";
+        sql = sql + " and ct.clt_date < "+time_zone_date+"  ) as aux; ";
 
         connection.query(sql, function (err, classObj) {
             connection.end();
@@ -464,7 +467,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(clr_added_date, \"%Y-%m-%d\") purchase_date, ";
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
+        sql = sql + " case when TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address, coalesce(cre.cre_id,0) as cre_id,CAST(coalesce(clr_discount,0) as DECIMAL(18,2)) as clr_discount,";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
         sql = sql + " from class c ";
@@ -473,11 +476,12 @@ var ClassBusiness = (function() {
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
         sql = sql + " inner join class_register cr on c.cla_id = cr.cla_id ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id ";
+        sql = sql + " inner join city city on c.cit_id = city.cit_id ";
         sql = sql + " LEFT JOIN class_review cre ON c.cla_id = cre.cla_id AND cre.use_id = " + classModel.use_id + " "
         sql = sql + " where cr.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and clr_status = 'A' and clr_transaction_status <> 'C' ";
-        sql = sql + " and ct.clt_date < CURDATE()  ) as aux; ";
+        sql = sql + " and ct.clt_date < "+time_zone_date+"  ) as aux; ";
 
         connection.query(sql, function (err, classObj) {
             connection.end();
@@ -508,7 +512,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " DATE_FORMAT(clr_cancel_date, \"%Y-%m-%d\") clr_cancel_date, ";
         sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
+        sql = sql + " case when TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date), ' days') else 'Starts today' end  as day_until, ";
         sql = sql + " c.cla_address, cre.cre_id,";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration ";
         sql = sql + " from class c ";
@@ -517,11 +521,12 @@ var ClassBusiness = (function() {
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
         sql = sql + " inner join class_register cr on c.cla_id = cr.cla_id ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id ";
+        sql = sql + " inner join city city on c.cit_id = city.cit_id ";
         sql = sql + " LEFT JOIN class_review cre ON c.cla_id = cre.cla_id AND cre.use_id = " + classModel.use_id + " "
         sql = sql + " where cr.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and clr_status = 'I' and clr_transaction_status = 'C' ";
-        sql = sql + " and ct.clt_date < CURDATE()  ) as aux; ";
+        sql = sql + " and ct.clt_date < "+time_zone_date+"  ) as aux; ";
 
         connection.query(sql, function (err, classObj) {
             connection.end();
@@ -555,7 +560,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
         sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end as day_until, ";
+        sql = sql + " case when TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date), ' days') else 'Starts today' end as day_until, ";
         sql = sql + " c.cla_address, ";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration, ";
         sql = sql + " (select count(*) from class_register where cla_id = c.cla_id) students, ";
@@ -568,10 +573,11 @@ var ClassBusiness = (function() {
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
       //  sql = sql + " left join class_register cr on c.cla_id = cr.cla_id ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id ";
+        sql = sql + " inner join city city on c.cit_id = city.cit_id ";
         sql = sql + " where co.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and c.cla_status = 'A' ";
-        sql = sql + " and ct.clt_date >= CURDATE() ";
+        sql = sql + " and ct.clt_date >= "+time_zone_date+" ";
         sql = sql + " ) as aux; ";
 
         connection.query(sql, function (err, classObj) {
@@ -605,7 +611,7 @@ var ClassBusiness = (function() {
         sql = sql + " DATE_FORMAT(ct.clt_date, \"%Y-%m-%d\") clt_date_account, ";
         sql = sql + " DATE_FORMAT(ct.clt_start_time,\"%l:%i %p\") start_time, ";
         sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " case when TIMESTAMPDIFF(day,CURDATE(),ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,CURDATE(),ct.clt_date), ' days') else 'Starts today' end as day_until, ";
+        sql = sql + " case when TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date) > 0 then CONCAT('Starts in ' ,TIMESTAMPDIFF(day,"+time_zone_date+",ct.clt_date), ' days') else 'Starts today' end as day_until, ";
         sql = sql + " c.cla_address, ";
         sql = sql + " (select count(*) from class_time where cla_id = c.cla_id) as sessions, c.cla_duration, ";
         sql = sql + " (select count(*) from class_register where cla_id = c.cla_id) students, ";
@@ -619,10 +625,11 @@ var ClassBusiness = (function() {
         sql = sql + " inner join user_instructor ui on u.use_id = ui.use_id ";
        // sql = sql + " left join class_register cr on c.cla_id = cr.cla_id ";
         sql = sql + " inner join class_time ct on c.cla_id = ct.cla_id ";
+        sql = sql + " inner join city city on c.cit_id = city.cit_id ";
         sql = sql + " where co.use_id = " + classModel.use_id + " ";
         sql = sql + " and ct.clt_firstClass = 'Y' ";
         sql = sql + " and c.cla_status = 'A' ";
-        sql = sql + " and ct.clt_date < CURDATE() ";
+        sql = sql + " and ct.clt_date < "+time_zone_date+" ";
         sql = sql + " ) as aux; ";
 
         connection.query(sql, function (err, classObj) {
