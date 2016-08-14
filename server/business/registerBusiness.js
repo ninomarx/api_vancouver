@@ -52,29 +52,38 @@ var RegisterBusiness = (function() {
                 if(!err) {
 
                     var collectionClassRegister = registerObj[0];
-                    paymentBusiness.chargeAll(collectionClassRegister.insertId, function (id){
-                        var sql = "";
-                        var ret = "";
-                        if(id != "") {
-                            sql = sql + " UPDATE class_register SET clr_stripe_code = '" + id + "'";
-                            sql = sql + " WHERE clr_id = " + collectionClassRegister.insertId + "; ";
-                            var ret = "OK";
-                        }else{
-                            sql = sql + " DELETE FROM class_register ";
-                            sql = sql + " WHERE clr_id = " + collectionClassRegister.insertId + "; ";
-                            var ret = "NOK";
-                        }
 
-                        connection.query(sql,function(err,retObj){
-                            connection.end();
-                            if(!err) {
-                                utilBusiness.InstructorRegistrationNotification(collectionClassRegister.insertId);
-                                var collectionRet = retObj;
-                                callback(ret);
+                    if(registerModel.cor_cost > 0) {
+
+                        paymentBusiness.chargeAll(collectionClassRegister.insertId, function (id) {
+                            var sql = "";
+                            var ret = "";
+                            if (id != "") {
+                                sql = sql + " UPDATE class_register SET clr_stripe_code = '" + id + "'";
+                                sql = sql + " WHERE clr_id = " + collectionClassRegister.insertId + "; ";
+                                var ret = "OK";
+                            } else {
+                                sql = sql + " DELETE FROM class_register ";
+                                sql = sql + " WHERE clr_id = " + collectionClassRegister.insertId + "; ";
+                                var ret = "NOK";
                             }
-                        });
 
-                    })
+                            connection.query(sql, function (err, retObj) {
+                                connection.end();
+                                if (!err) {
+                                    utilBusiness.InstructorRegistrationNotification(collectionClassRegister.insertId);
+                                    var collectionRet = retObj;
+                                    callback(ret);
+                                }
+                            });
+
+                        })
+                    }
+                    else
+                    {
+                        callback("OK");
+                    }
+
                 }
             });
 
@@ -96,7 +105,9 @@ var RegisterBusiness = (function() {
         sql = sql + " set clr_transaction_status = 'C', clr_status = 'I',clr_cancel_date = curdate() ";
         sql = sql + " where cla_id = " + registerModel.cla_id  + " and use_id = " + registerModel.use_id  + " ";
 
-        paymentBusiness.refund(registerModel.clr_stripe_code);
+        if(registerModel.cor_cost > 0) {
+            paymentBusiness.refund(registerModel.clr_stripe_code);
+        }
 
         connection.query(sql,function(err,registerObj){
             if(!err) {
