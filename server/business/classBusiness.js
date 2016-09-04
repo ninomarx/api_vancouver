@@ -206,7 +206,7 @@ var ClassBusiness = (function() {
         sql = sql + " FROM   ( ";
 
         sql = sql + " select CL.use_id as use_id_instructor, CL.cla_id,Cl.cor_id, cla_session_type, cla_duration, cla_cost, cla_min_size, cla_max_size, cla_address,nullif(cla_location_name,'') as cla_location_name, ";
-        sql = sql + "   coalesce(nullif(cor_waiver,''),'') as cor_waiver,cla_status, cla_allow_lateRegistration, cla_allow_lateWithdraw, cla_lateWithdraw_date, ";
+        sql = sql + "   coalesce(nullif(cor_waiver,''),'') as cor_waiver,cla_status, cla_allow_lateRegistration, cla_allow_lateWithdraw, DATE_FORMAT(cla_lateWithdraw_date, \"%b %d, %Y\") cla_lateWithdraw_date, ";
         sql = sql + "   cla_latitude, cla_longitude, clt_date, clt_start_time, clt_address, clt_firstClass, cor_name, cor_description, ";
         sql = sql + "   cor_accreditation, cor_accreditation_description, cor_learn, cor_bring, cor_aware_before,cor_about_me, ";
         sql = sql + "   cor_structure, cor_image, cor_added_date, cor_who_isfor, cor_expertise, cor_why_love, ";
@@ -318,11 +318,11 @@ var ClassBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " SELECT DATE_FORMAT(clt_date, \"%b %d\") as dateShow,DATE_FORMAT(clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(clt_date) AS dayName, ";
+        sql = sql + " SELECT DATE_FORMAT(clt_date, \"%b %d\") as dateShow,DATE_FORMAT(clt_start_time,\"%l:%i %p\") AS timeShow, DATE_FORMAT(clt_date, \"%a.\")  AS dayName, ";
         sql = sql + " TIME_FORMAT(ADDTIME(Ct.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time ";
         sql = sql + " FROM class_time ct ";
         sql = sql + " inner join class c on ct.cla_id = c.cla_id ";
-        sql = sql + " where c.cla_id = " + classModel.cla_id + " ; ";
+        sql = sql + " where c.cla_id = " + classModel.cla_id + " order by clt_date; ";
 
         connection.query(sql, function (err, classObj) {
             connection.end();

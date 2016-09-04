@@ -782,6 +782,8 @@ var CourseBusiness = (function() {
                             sql = sql + " INSERT INTO course_tags VALUES (" + course[0].insertId + ",'" + item + "' ); ";
                         }
                     )
+
+                    courseModel.cor_id = course[0].insertId;
                 }
                 else
                 {
@@ -805,14 +807,14 @@ var CourseBusiness = (function() {
                 if(sql == "")
                 {
                     connection.end();
-                    return_var = "OK";
+                    return_var = courseModel.cor_id.toString();
                     callback(return_var);
                 }
                 else {
                     connection.query(sql, function (err, result) {
                         if (!err) {
                             connection.end();
-                            return_var = "OK";
+                            return_var = courseModel.cor_id.toString();
                             callback(return_var);
                         }
                     });
@@ -1417,10 +1419,12 @@ var CourseBusiness = (function() {
             var res = str.split(" ");
             var search_text = "";
             res.forEach(function(item){
-                if(search_text != "")
-                    search_text = search_text +  '|' + item;
-                else
-                    search_text = item;
+                if(item != '') {
+                    if (search_text != "")
+                        search_text = search_text + '|' + item;
+                    else
+                        search_text = item;
+                }
             })
 
             sql = sql + " AND (CONCAT(COU.cor_name, COU.cor_description, US.use_first_name,US.use_last_name) REGEXP '" + search_text + "' ";
@@ -1725,10 +1729,12 @@ var CourseBusiness = (function() {
             var res = str.split(" ");
             var search_text = "";
             res.forEach(function(item){
-                if(search_text != "")
-                    search_text = search_text +  '|' + item;
-                else
-                    search_text = item;
+                if(item != '') {
+                    if (search_text != "")
+                        search_text = search_text + '|' + item;
+                    else
+                        search_text = item;
+                }
             })
 
             sql = sql + " AND (CONCAT(COU.cor_name, COU.cor_description, US.use_first_name,US.use_last_name) REGEXP '" + search_text + "' ";
