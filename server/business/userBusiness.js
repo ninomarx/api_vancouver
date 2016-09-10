@@ -1,5 +1,6 @@
 var factory = require("./../factory/dbfactory");
 var utilBusiness = require("./../business/utilBusiness");
+var paymentBusiness = require("./../business/paymentBusiness");
 
 var UserBusiness = (function() {
 
@@ -336,6 +337,8 @@ var UserBusiness = (function() {
         sql = sql + " use_email = '" + userModel.use_email + "'";
         sql = sql + " WHERE ";
         sql = sql + " use_id = " + userModel.use_id + "";
+
+        paymentBusiness.createAccount(userModel);
 
 
         connection.query(sql,function(err,user){

@@ -1713,7 +1713,7 @@ var CourseBusiness = (function() {
         sql = sql + " AND US.use_type = 2 ";
         sql = sql + " AND ct.clt_date < Date_add("+time_zone_date+", INTERVAL -1 day) ";
         sql = sql + " AND CI.cit_id IN (SELECT cit_id FROM city WHERE reg_id IN (SELECT reg_id FROM city WHERE  cit_id = " + courseModel.cit_id + ")) ";
-        sql = sql + " AND COU.cor_id not in (select cor_id from class a inner join class_time b on a.cla_id = b.cla_id where clt_date >= Date_add("+time_zone_date+", INTERVAL -1 day) AND CT.clt_firstclass = 'Y') ";
+        sql = sql + " AND COU.cor_id not in (select cor_id from class a inner join class_time b on a.cla_id = b.cla_id where clt_date >= Date_add("+time_zone_date+", INTERVAL -1 day) AND CT.clt_firstclass = 'Y'  AND a.cla_status = 'A' ) ";
         if(courseModel.cat_id != "")
             sql = sql + " AND CSU.cat_id = " + courseModel.cat_id + " ";
 
