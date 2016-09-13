@@ -34,16 +34,16 @@
       <file leaf-file-name="courseBusiness.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42929292">
-              <caret line="1599" column="42" selection-start-line="1599" selection-start-column="42" selection-end-line="1599" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.3167702">
+              <caret line="1599" column="41" selection-start-line="1599" selection-start-column="41" selection-end-line="1599" selection-end-column="41" />
               <folding>
                 <element signature="e#358#7024#0" expanded="false" />
                 <element signature="e#7103#13326#0" expanded="false" />
                 <element signature="e#13407#19684#0" expanded="false" />
                 <element signature="e#19771#40027#0" expanded="false" />
                 <element signature="e#40098#46348#0" expanded="false" />
-                <element signature="e#80671#81822#0" expanded="false" />
-                <element signature="e#81909#86411#0" expanded="false" />
+                <element signature="e#80670#81821#0" expanded="false" />
+                <element signature="e#81908#86410#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -410,7 +410,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18167202" sideWeight="0.49701047" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3118971" sideWeight="0.48654708" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17845659" sideWeight="0.48654708" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15625" sideWeight="0.51521295" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4517685" sideWeight="0.5769806" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -933,16 +933,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42929292">
-          <caret line="1599" column="42" selection-start-line="1599" selection-start-column="42" selection-end-line="1599" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.3167702">
+          <caret line="1599" column="41" selection-start-line="1599" selection-start-column="41" selection-end-line="1599" selection-end-column="41" />
           <folding>
             <element signature="e#358#7024#0" expanded="false" />
             <element signature="e#7103#13326#0" expanded="false" />
             <element signature="e#13407#19684#0" expanded="false" />
             <element signature="e#19771#40027#0" expanded="false" />
             <element signature="e#40098#46348#0" expanded="false" />
-            <element signature="e#80671#81822#0" expanded="false" />
-            <element signature="e#81909#86411#0" expanded="false" />
+            <element signature="e#80670#81821#0" expanded="false" />
+            <element signature="e#81908#86410#0" expanded="false" />
           </folding>
         </state>
       </provider>
