@@ -92,8 +92,8 @@ var CourseBusiness = (function() {
                     });
                 })
 
-                collectionCourse = collectionCourse.sort(utilBusiness.sort_by('priority', {
-                                                                                name: 'cla_deadline',
+                collectionCourse = collectionCourse.sort(utilBusiness.sort_by('cla_deadline', {
+                                                                                name: 'priority',
                                                                                 primer: parseInt,
                                                                                 reverse: false
                                                                             },{
@@ -202,12 +202,12 @@ var CourseBusiness = (function() {
 
                 })
 
-                collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('priority', {
+                collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('cla_deadline', {
                     name: 'distance',
                     primer: parseInt,
                     reverse: false
                 },{
-                    name: 'cla_deadline',
+                    name: 'priority',
                     primer: false,
                     reverse: true
                 }));
@@ -310,12 +310,12 @@ var CourseBusiness = (function() {
                     });
                 })
 
-                collectionCourse = collectionCourse.sort(utilBusiness.sort_by('priority', {
-                    name: 'distance',
+                collectionCourse = collectionCourse.sort(utilBusiness.sort_by('cla_deadline', {
+                    name: 'priority',
                     primer: parseInt,
                     reverse: false
                 },{
-                    name: 'cla_deadline',
+                    name: 'distance',
                     primer: false,
                     reverse: true
                 }));
@@ -1585,6 +1585,28 @@ var CourseBusiness = (function() {
                             collectionCourseRet.push(item);
                         }
                     })
+
+                    if(courseModel.filter.sort == "R") {
+                        collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('priority', {
+                            name: 'distance',
+                            primer: false,
+                            reverse: false
+                        }));
+                    }
+                    else if(courseModel.filter.sort == "S") {
+                        collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('cla_deadline', {
+                            name: 'priority',
+                            primer: false,
+                            reverse: false
+                        }));
+                    }
+                    else if(courseModel.filter.sort == "P") {
+                        collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('cla_cost', {
+                            name: 'priority',
+                            primer: false,
+                            reverse: false
+                        }));
+                    }
                 }
                 else if(courseModel.filter.distance == "" && courseModel.filter.sort == "D") {
 
