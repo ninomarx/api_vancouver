@@ -1595,7 +1595,7 @@ var CourseBusiness = (function() {
                     }
                     else if(courseModel.filter.sort == "S") {
                         collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('cla_deadline', {
-                            name: 'priority',
+                            name: 'cla_deadline',
                             primer: false,
                             reverse: false
                         }));
