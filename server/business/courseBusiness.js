@@ -1594,10 +1594,10 @@ var CourseBusiness = (function() {
                         }));
                     }
                     else if(courseModel.filter.sort == "S") {
-                        collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('cla_deadline', {
-                            name: 'cla_deadline',
+                        collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('cla_deadlineFilter', {
+                            name: 'cla_deadlineFilter',
                             primer: false,
-                            reverse: true
+                            reverse: false
                         }));
                     }
                     else if(courseModel.filter.sort == "P") {
