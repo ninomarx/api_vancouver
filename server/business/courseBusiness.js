@@ -1549,17 +1549,17 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE aux.cla_id = date_first_class ";
 
         if(courseModel.filter.sort == "R") {
-            sql = sql + " ORDER BY priority, cla_deadline,spot_left DESC, distance, cor_name; ";
+            sql = sql + " ORDER BY priority, cla_deadlineFilter,spot_left DESC, distance, cor_name; ";
         }
         else if(courseModel.filter.sort == "S") {
-            sql = sql + " ORDER BY cla_deadline,priority,spot_left DESC, distance, cor_name; ";
+            sql = sql + " ORDER BY cla_deadlineFilter,priority,spot_left DESC, distance, cor_name; ";
         }
         else if(courseModel.filter.sort == "P") {
-            sql = sql + " ORDER BY cla_cost, priority, cla_deadline,spot_left DESC, distance, cor_name; ";
+            sql = sql + " ORDER BY cla_cost, priority, cla_deadlineFilter,spot_left DESC, distance, cor_name; ";
         }
         else
         {
-            sql = sql + " ORDER BY priority, cla_deadline,spot_left DESC, distance, cor_name; ";
+            sql = sql + " ORDER BY priority, cla_deadlineFilter,spot_left DESC, distance, cor_name; ";
         }
 
 
@@ -1589,13 +1589,6 @@ var CourseBusiness = (function() {
                     if(courseModel.filter.sort == "R") {
                         collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('priority', {
                             name: 'distance',
-                            primer: false,
-                            reverse: false
-                        }));
-                    }
-                    else if(courseModel.filter.sort == "S") {
-                        collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('cla_deadlineFilter', {
-                            name: 'cla_deadlineFilter',
                             primer: false,
                             reverse: false
                         }));

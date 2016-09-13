@@ -34,16 +34,13 @@
       <file leaf-file-name="courseBusiness.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.41189426">
-              <caret line="1599" column="42" selection-start-line="1599" selection-start-column="42" selection-end-line="1599" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.32599118">
+              <caret line="1594" column="21" selection-start-line="1594" selection-start-column="21" selection-end-line="1594" selection-end-column="21" />
               <folding>
-                <element signature="e#358#7024#0" expanded="false" />
-                <element signature="e#7103#13326#0" expanded="false" />
-                <element signature="e#13407#19684#0" expanded="false" />
                 <element signature="e#19771#40027#0" expanded="false" />
                 <element signature="e#40098#46348#0" expanded="false" />
-                <element signature="e#80683#81834#0" expanded="false" />
-                <element signature="e#81921#86423#0" expanded="false" />
+                <element signature="e#80336#81487#0" expanded="false" />
+                <element signature="e#81574#86076#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -484,21 +481,6 @@
           <url>file://$PROJECT_DIR$/server/business/utilBusiness.js</url>
           <line>105</line>
           <option name="timeStamp" value="761" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/business/courseBusiness.js</url>
-          <line>1596</line>
-          <option name="timeStamp" value="812" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/business/courseBusiness.js</url>
-          <line>1598</line>
-          <option name="timeStamp" value="813" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server/business/courseBusiness.js</url>
-          <line>1597</line>
-          <option name="timeStamp" value="814" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -948,16 +930,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41189426">
-          <caret line="1599" column="42" selection-start-line="1599" selection-start-column="42" selection-end-line="1599" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.32599118">
+          <caret line="1594" column="21" selection-start-line="1594" selection-start-column="21" selection-end-line="1594" selection-end-column="21" />
           <folding>
-            <element signature="e#358#7024#0" expanded="false" />
-            <element signature="e#7103#13326#0" expanded="false" />
-            <element signature="e#13407#19684#0" expanded="false" />
             <element signature="e#19771#40027#0" expanded="false" />
             <element signature="e#40098#46348#0" expanded="false" />
-            <element signature="e#80683#81834#0" expanded="false" />
-            <element signature="e#81921#86423#0" expanded="false" />
+            <element signature="e#80336#81487#0" expanded="false" />
+            <element signature="e#81574#86076#0" expanded="false" />
           </folding>
         </state>
       </provider>
