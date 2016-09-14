@@ -92,7 +92,7 @@ var CourseBusiness = (function() {
                     });
                 })
 
-                collectionCourse = collectionCourse.sort(utilBusiness.sort_by('cla_deadline', {
+                collectionCourse = collectionCourse.sort(utilBusiness.sort_by('cla_deadlineFilter', {
                                                                                 name: 'priority',
                                                                                 primer: parseInt,
                                                                                 reverse: false
@@ -179,7 +179,7 @@ var CourseBusiness = (function() {
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
         sql = sql + " WHERE aux.cla_id = date_first_class ";
-        sql = sql + " ORDER  BY cla_deadline,spot_left DESC,priority,distance,cor_name ";
+        sql = sql + " ORDER  BY cla_deadlineFilter,spot_left DESC,priority,distance,cor_name ";
         sql = sql + " LIMIT 24 ";
 
 
@@ -202,7 +202,7 @@ var CourseBusiness = (function() {
 
                 })
 
-                collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('cla_deadline', {
+                collectionCourseRet = collectionCourseRet.sort(utilBusiness.sort_by('cla_deadlineFilter', {
                     name: 'distance',
                     primer: parseInt,
                     reverse: false
@@ -293,7 +293,7 @@ var CourseBusiness = (function() {
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
         sql = sql + " WHERE aux.cla_id = date_first_class ";
-        sql = sql + " ORDER  BY cla_deadline,spot_left DESC,priority,distance,cor_name ";
+        sql = sql + " ORDER  BY cla_deadlineFilter,spot_left DESC,priority,distance,cor_name ";
         sql = sql + " LIMIT 24 ";
 
 
@@ -310,7 +310,7 @@ var CourseBusiness = (function() {
                     });
                 })
 
-                collectionCourse = collectionCourse.sort(utilBusiness.sort_by('cla_deadline', {
+                collectionCourse = collectionCourse.sort(utilBusiness.sort_by('cla_deadlineFilter', {
                     name: 'priority',
                     primer: parseInt,
                     reverse: false
