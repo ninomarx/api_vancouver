@@ -258,7 +258,9 @@ var MessageBusiness = (function() {
 
         var sql = "";
         sql = sql + " select mec_id, mec_message, u.use_first_name, DATE_FORMAT(mec_date,\"%M %d %Y at %l:%i %p\") as mec_date, mec_date as mec_date_order, ";
-        sql = sql + " case when u.use_id = " + messageModel.use_id + " then 'S' else 'I' end as type, ";
+        sql = sql + " (select case when mc.use_id = c.use_id then 'I' else 'S' end ";
+        sql = sql + " from message m inner join course c on m.cor_id = c.cor_id ";
+        sql = sql + " where mes_id = mc.mes_id) as type, ";
         sql = sql + " case when u.use_id = " + messageModel.use_id + " then u.use_image else  u.use_image end as image ";
         sql = sql + " from message_conversation mc ";
         sql = sql + " inner join user u on mc.use_id = u.use_id ";
