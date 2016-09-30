@@ -21,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="server.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="224" column="18" selection-start-line="224" selection-start-column="18" selection-end-line="224" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.17598344">
+              <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
         <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="48" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
+              <caret line="9" column="46" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -45,38 +45,90 @@
         <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
+              <caret line="327" column="36" selection-start-line="327" selection-start-column="30" selection-end-line="327" selection-end-column="36" />
               <folding>
                 <element signature="e#349#915#0" expanded="false" />
                 <element signature="e#1003#1433#0" expanded="false" />
                 <element signature="e#1530#2181#0" expanded="false" />
                 <element signature="e#2256#2331#0" expanded="false" />
                 <element signature="e#2407#3035#0" expanded="false" />
-                <element signature="e#3133#3669#0" expanded="false" />
                 <element signature="e#4102#4903#0" expanded="false" />
-                <element signature="e#4987#5704#0" expanded="false" />
-                <element signature="e#5775#7261#0" expanded="false" />
-                <element signature="e#7328#8742#0" expanded="false" />
                 <element signature="e#8820#9233#0" expanded="false" />
                 <element signature="e#9300#9845#0" expanded="false" />
-                <element signature="e#9911#10506#0" expanded="false" />
-                <element signature="e#10571#10760#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="courseBusiness.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="classBusiness.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/business/classBusiness.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="653" column="34" selection-start-line="653" selection-start-column="28" selection-end-line="653" selection-end-column="34" />
+              <folding>
+                <element signature="e#8198#8794#0" expanded="false" />
+                <element signature="e#8867#13671#0" expanded="false" />
+                <element signature="e#13743#14368#0" expanded="false" />
+                <element signature="e#14449#15303#0" expanded="false" />
+                <element signature="e#17665#20232#0" expanded="false" />
+                <element signature="e#31437#34454#0" expanded="false" />
+                <element signature="e#35200#36487#0" expanded="false" />
+                <element signature="e#36559#37292#0" expanded="false" />
+                <element signature="e#37366#38930#0" expanded="false" />
+                <element signature="e#38975#39232#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="courseBusiness.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.76119405">
-              <caret line="77" column="50" selection-start-line="77" selection-start-column="50" selection-end-line="77" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="713" column="68" selection-start-line="713" selection-start-column="68" selection-end-line="713" selection-end-column="68" />
               <folding>
+                <element signature="e#358#7025#0" expanded="false" />
+                <element signature="e#7104#13339#0" expanded="false" />
+                <element signature="e#13420#19709#0" expanded="false" />
                 <element signature="e#19796#40052#0" expanded="false" />
                 <element signature="e#40123#46373#0" expanded="false" />
+                <element signature="e#46454#62715#0" expanded="false" />
+                <element signature="e#62796#80288#0" expanded="false" />
                 <element signature="e#80361#81512#0" expanded="false" />
                 <element signature="e#81599#86101#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utilBusiness.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/business/utilBusiness.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="229" column="69" selection-start-line="229" selection-start-column="69" selection-end-line="229" selection-end-column="69" />
+              <folding>
+                <element signature="e#277#2093#0" expanded="false" />
+                <element signature="e#2176#3200#0" expanded="false" />
+                <element signature="e#3272#4779#0" expanded="false" />
+                <element signature="e#4863#6880#0" expanded="false" />
+                <element signature="e#6946#7925#0" expanded="false" />
+                <element signature="e#7999#10375#0" expanded="false" />
+                <element signature="e#10447#11741#0" expanded="false" />
+                <element signature="e#11818#13698#0" expanded="false" />
+                <element signature="e#13768#15962#0" expanded="false" />
+                <element signature="e#16037#20292#0" expanded="false" />
+                <element signature="e#20390#20872#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="registerBusiness.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/business/registerBusiness.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="108" column="34" selection-start-line="108" selection-start-column="28" selection-end-line="108" selection-end-column="34" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,9 +193,9 @@
         <option value="$PROJECT_DIR$/server/business/messageBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/wishlistBusiness.js" />
         <option value="$PROJECT_DIR$/server/business/classBusiness.js" />
-        <option value="$PROJECT_DIR$/server/business/paymentBusiness.js" />
-        <option value="$PROJECT_DIR$/server/factory/dbfactory.js" />
         <option value="$PROJECT_DIR$/server/business/courseBusiness.js" />
+        <option value="$PROJECT_DIR$/server/factory/dbfactory.js" />
+        <option value="$PROJECT_DIR$/server/business/paymentBusiness.js" />
       </list>
     </option>
   </component>
@@ -183,6 +235,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -254,7 +307,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -264,7 +316,7 @@
     <property name="restartRequiresConfirmation" value="false" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Cotuto_Web" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -397,17 +449,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17782739" sideWeight="0.48478702" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279743" sideWeight="0.4968652" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3118971" sideWeight="0.5134529" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17845659" sideWeight="0.49701047" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17845659" sideWeight="0.49701047" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30868167" sideWeight="0.48654708" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30868167" sideWeight="0.48654708" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15625" sideWeight="0.51521295" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4517685" sideWeight="0.5769806" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -502,11 +554,16 @@
           <line>105</line>
           <option name="timeStamp" value="761" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/business/paymentBusiness.js</url>
+          <line>115</line>
+          <option name="timeStamp" value="819" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="819" />
+      <option name="time" value="820" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="NodeJSConfigurationType">
@@ -798,37 +855,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/registerBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48440748">
-          <caret line="133" column="92" selection-start-line="133" selection-start-column="92" selection-end-line="133" selection-end-column="92" />
-          <folding>
-            <element signature="e#439#4439#0" expanded="false" />
-            <element signature="e#4516#5388#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/utilBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06029106">
-          <caret line="11" column="64" selection-start-line="11" selection-start-column="64" selection-end-line="11" selection-end-column="64" />
-          <folding>
-            <element signature="e#277#2093#0" expanded="false" />
-            <element signature="e#2176#3200#0" expanded="false" />
-            <element signature="e#3272#4779#0" expanded="false" />
-            <element signature="e#4863#6880#0" expanded="false" />
-            <element signature="e#6946#7925#0" expanded="false" />
-            <element signature="e#7999#10375#0" expanded="false" />
-            <element signature="e#10447#11741#0" expanded="false" />
-            <element signature="e#11818#13698#0" expanded="false" />
-            <element signature="e#13768#15962#0" expanded="false" />
-            <element signature="e#16037#20292#0" expanded="false" />
-            <element signature="e#20390#20872#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/business/emailBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.07268722">
@@ -869,7 +895,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="262" column="56" selection-start-line="262" selection-start-column="56" selection-end-line="262" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -877,14 +902,76 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-12.24138">
           <caret line="73" column="72" selection-start-line="73" selection-start-column="72" selection-end-line="73" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="46" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="713" column="68" selection-start-line="713" selection-start-column="68" selection-end-line="713" selection-end-column="68" />
+          <folding>
+            <element signature="e#358#7025#0" expanded="false" />
+            <element signature="e#7104#13339#0" expanded="false" />
+            <element signature="e#13420#19709#0" expanded="false" />
+            <element signature="e#19796#40052#0" expanded="false" />
+            <element signature="e#40123#46373#0" expanded="false" />
+            <element signature="e#46454#62715#0" expanded="false" />
+            <element signature="e#62796#80288#0" expanded="false" />
+            <element signature="e#80361#81512#0" expanded="false" />
+            <element signature="e#81599#86101#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/utilBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="229" column="69" selection-start-line="229" selection-start-column="69" selection-end-line="229" selection-end-column="69" />
+          <folding>
+            <element signature="e#277#2093#0" expanded="false" />
+            <element signature="e#2176#3200#0" expanded="false" />
+            <element signature="e#3272#4779#0" expanded="false" />
+            <element signature="e#4863#6880#0" expanded="false" />
+            <element signature="e#6946#7925#0" expanded="false" />
+            <element signature="e#7999#10375#0" expanded="false" />
+            <element signature="e#10447#11741#0" expanded="false" />
+            <element signature="e#11818#13698#0" expanded="false" />
+            <element signature="e#13768#15962#0" expanded="false" />
+            <element signature="e#16037#20292#0" expanded="false" />
+            <element signature="e#20390#20872#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="327" column="36" selection-start-line="327" selection-start-column="30" selection-end-line="327" selection-end-column="36" />
+          <folding>
+            <element signature="e#349#915#0" expanded="false" />
+            <element signature="e#1003#1433#0" expanded="false" />
+            <element signature="e#1530#2181#0" expanded="false" />
+            <element signature="e#2256#2331#0" expanded="false" />
+            <element signature="e#2407#3035#0" expanded="false" />
+            <element signature="e#4102#4903#0" expanded="false" />
+            <element signature="e#8820#9233#0" expanded="false" />
+            <element signature="e#9300#9845#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/business/classBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33480176">
-          <caret line="326" column="133" selection-start-line="326" selection-start-column="122" selection-end-line="326" selection-end-column="133" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="653" column="34" selection-start-line="653" selection-start-column="28" selection-end-line="653" selection-end-column="34" />
           <folding>
             <element signature="e#8198#8794#0" expanded="false" />
             <element signature="e#8867#13671#0" expanded="false" />
@@ -892,7 +979,6 @@
             <element signature="e#14449#15303#0" expanded="false" />
             <element signature="e#17665#20232#0" expanded="false" />
             <element signature="e#31437#34454#0" expanded="false" />
-            <element signature="e#34530#35126#0" expanded="false" />
             <element signature="e#35200#36487#0" expanded="false" />
             <element signature="e#36559#37292#0" expanded="false" />
             <element signature="e#37366#38930#0" expanded="false" />
@@ -901,55 +987,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/factory/dbfactory.js">
+    <entry file="file://$PROJECT_DIR$/server/business/registerBusiness.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="48" selection-start-line="13" selection-start-column="48" selection-end-line="13" selection-end-column="48" />
+          <caret line="108" column="34" selection-start-line="108" selection-start-column="28" selection-end-line="108" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="224" column="18" selection-start-line="224" selection-start-column="18" selection-end-line="224" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.17598344">
+          <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/paymentBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
-          <folding>
-            <element signature="e#349#915#0" expanded="false" />
-            <element signature="e#1003#1433#0" expanded="false" />
-            <element signature="e#1530#2181#0" expanded="false" />
-            <element signature="e#2256#2331#0" expanded="false" />
-            <element signature="e#2407#3035#0" expanded="false" />
-            <element signature="e#3133#3669#0" expanded="false" />
-            <element signature="e#4102#4903#0" expanded="false" />
-            <element signature="e#4987#5704#0" expanded="false" />
-            <element signature="e#5775#7261#0" expanded="false" />
-            <element signature="e#7328#8742#0" expanded="false" />
-            <element signature="e#8820#9233#0" expanded="false" />
-            <element signature="e#9300#9845#0" expanded="false" />
-            <element signature="e#9911#10506#0" expanded="false" />
-            <element signature="e#10571#10760#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/business/courseBusiness.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.76119405">
-          <caret line="77" column="50" selection-start-line="77" selection-start-column="50" selection-end-line="77" selection-end-column="50" />
-          <folding>
-            <element signature="e#19796#40052#0" expanded="false" />
-            <element signature="e#40123#46373#0" expanded="false" />
-            <element signature="e#80361#81512#0" expanded="false" />
-            <element signature="e#81599#86101#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
