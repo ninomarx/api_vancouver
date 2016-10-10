@@ -23,6 +23,12 @@ var RegisterBusiness = (function() {
             var connection = factory.getConnection();
             connection.connect();
 
+            var status1 = 'A', status2 = 'W';
+            if(registerModel.cor_cost == 0){
+                status1 = 'A';
+                status2 = 'P';
+            }
+
             var sql = "";
 
             sql = sql + " INSERT INTO class_register (clr_cost, clr_added_date, clr_status, clr_transaction_status,cla_id, use_id, cor_id, clr_cancel_date, " ;
@@ -30,8 +36,8 @@ var RegisterBusiness = (function() {
             sql = sql + " VALUES( ";
             sql = sql + "  " + registerModel.cor_cost + " , ";
             sql = sql + "  '" + registerModel.clr_added_date + "', ";
-            sql = sql + " 'A', "; // A:active, I: Inactive
-            sql = sql + " 'W', "; // W:waiting, P:paid, C:cancelled
+            sql = sql + " '"+status1+"', "; // A:active, I: Inactive
+            sql = sql + " '"+status2+"', "; // W:waiting, P:paid, C:cancelled
             sql = sql + " " + registerModel.cla_id + ",  ";
             sql = sql + " " + registerModel.use_id + ",  ";
             sql = sql + " " + registerModel.cor_id + ",   ";
@@ -58,7 +64,7 @@ var RegisterBusiness = (function() {
                         paymentBusiness.chargeAll(collectionClassRegister.insertId, function (id) {
                             var sql = "";
                             var ret = "";
-                            if (id != "") {
+                            if (id != "" && id != undefined) {
                                 sql = sql + " UPDATE class_register SET clr_stripe_code = '" + id + "'";
                                 sql = sql + " WHERE clr_id = " + collectionClassRegister.insertId + "; ";
                                 var ret = "OK";
@@ -134,7 +140,7 @@ var RegisterBusiness = (function() {
         sql = sql + " when cla_allow_lateWithdraw = 'Y' and "+time_zone_date+" <= cla_lateWithdraw_date then 'Y' ";
         sql = sql + " when cla_allow_lateWithdraw = 'Y' and "+time_zone_date+" > cla_lateWithdraw_date then 'N' ";
         sql = sql + " else 'N' ";
-        sql = sql + " end as cancel_allow, co.cor_name, date_format(clt_date,\"%Y-%m-%d\") date_class, c.cla_id, ";
+        sql = sql + " end as cancel_allow, c.cla_cost, co.cor_name, date_format(clt_date,\"%Y-%m-%d\") date_class, c.cla_id, ";
         sql = sql + " (select clr_stripe_code from class_register where cla_id = " + registerModel.cla_id + " and use_id = " + registerModel.use_id + " and clr_status = 'A' limit 1) as clr_stripe_code,";
         sql = sql + " (select clr_id from class_register where cla_id = " + registerModel.cla_id + " and use_id = " + registerModel.use_id + " and clr_status = 'A' limit 1) as clr_id";
         sql = sql + " from class c ";

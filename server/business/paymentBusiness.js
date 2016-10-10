@@ -1,6 +1,6 @@
 var factory = require("./../factory/dbfactory");
-var stripe = require("stripe")("sk_test_460XHEvqOdYJFTRiy4zP88ha");
-//var stripe = require("stripe")("sk_live_KsGnJ5V6z1BJKdCuhdq47Zhz");
+//var stripe = require("stripe")("sk_test_460XHEvqOdYJFTRiy4zP88ha");
+var stripe = require("stripe")("sk_live_KsGnJ5V6z1BJKdCuhdq47Zhz");
 
 var PaymentBusiness = (function() {
 
@@ -111,10 +111,16 @@ var PaymentBusiness = (function() {
 
         }, function(err, charge) {
             if (err) {
+                callback();
             }
             else{
-                PaymentBusiness.prototype.updatePayment(paymentModel.clr_id);
-                callback(charge.id)
+                if(charge.captured) {
+                    PaymentBusiness.prototype.updatePayment(paymentModel.clr_id);
+                    callback(charge.id);
+                }
+                else{
+                    callback();
+                }
             }
         })
     };
