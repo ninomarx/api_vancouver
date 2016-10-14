@@ -355,6 +355,11 @@ server.post('/api/class/otherClassTime', function (req, res, next) {
     return next();
 });
 
+server.post('/api/class/allClassTime', function (req, res, next) {
+    classResource.allClassTime(req,res);
+    return next();
+});
+
 server.post('/api/class/getClassesAttending', function (req, res, next) {
     classResource.getClassesAttending(req,res);
     return next();

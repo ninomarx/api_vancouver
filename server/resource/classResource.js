@@ -103,6 +103,19 @@ var ClassResource = (function() {
         });
     }
 
+    ClassResource.prototype.allClassTime = function(req,res){
+
+        var classModel = new Object();
+
+        if (req){
+            classModel = req.body;
+        }
+
+        classBusiness.allClassTime(classModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     ClassResource.prototype.getClassesAttending = function(req,res){
 
         var classModel = new Object();
