@@ -111,10 +111,16 @@ var PaymentBusiness = (function() {
 
         }, function(err, charge) {
             if (err) {
+                callback();
             }
             else{
-                PaymentBusiness.prototype.updatePayment(paymentModel.clr_id);
-                callback(charge.id)
+                if(charge.captured) {
+                    PaymentBusiness.prototype.updatePayment(paymentModel.clr_id);
+                    callback(charge.id);
+                }
+                else{
+                    callback();
+                }
             }
         })
     };
