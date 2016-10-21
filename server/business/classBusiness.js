@@ -376,12 +376,18 @@ var ClassBusiness = (function() {
         sql = sql + " SELECT distinct CT.cla_id, DATE_FORMAT(clt_date, \"%b %d\") as dateShow,DATE_FORMAT(clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(clt_date) AS dayName, ";
         sql = sql + " CT.cla_cost, TIME_FORMAT(C.clt_start_time, '%l:%i %p') AS clt_start_time, ";
         sql = sql + " TIME_FORMAT(ADDTIME(C.clt_start_time, SEC_TO_TIME(cT.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " (SELECT COUNT(*) FROM class_time WHERE cla_id = CT.cla_id) AS sessions ";
+        sql = sql + " (SELECT COUNT(*) FROM class_time WHERE cla_id = CT.cla_id) AS sessions, ";
+        sql = sql + " coalesce(nullif(CD.cld_early,''),'N') as cld_early, coalesce(nullif(CD.cld_last,''),'N') as cld_last, ";
+        sql = sql + " case when DATE_FORMAT(CONVERT_TZ(now(),'-00:00', cit_time_zone),'%Y-%m-%d') <= cld_early_deadline then 'Y' else 'N' end as date_early, ";
+        sql = sql + " case when TIMESTAMPDIFF(day,DATE_FORMAT(CONVERT_TZ(now(),'-00:00', cit_time_zone),'%Y-%m-%d'),C.clt_date) between 0 and 1 then 'Y' else 'N' end as date_last, ";
+        sql = sql + " (select cld_early_discount from class_discount where cla_id = ct.cla_id) as early_value, ";
+        sql = sql + " (select COALESCE(cld_last_discount,0) from class_discount where cla_id = ct.cla_id ) as last_value";
         sql = sql + " FROM class CT ";
         sql = sql + " INNER JOIN class_time C ON CT.cla_id = C.cla_id ";
         sql = sql + " INNER JOIN city cit ON CT.cit_id = cit.cit_id ";
+        sql = sql + " INNER JOIN class_discount CD ON CT.cla_id = CD.cla_id ";
         sql = sql + " where CT.cor_id = " + classModel.cor_id + "  and clt_firstClass = 'Y' AND CT.cla_status = 'A' and C.clt_date >= "+time_zone_date+" ";
-        sql = sql + " ORDER BY clt_date "
+        sql = sql + " ORDER BY clt_date ";
 
         connection.query(sql, function (err, classObj) {
             connection.end();
