@@ -385,9 +385,9 @@ var MessageBusiness = (function() {
 
         var messageModel2 = [];
 
-        messageModel.use_id_receiver.forEach(function(item){
+        messageModel.use_id_receiver.forEach(function(item, index){
 
-            messageModel2 = messageModel;
+            messageModel2.message = messageModel.message.replace(/\[First Name\]/g, messageModel2.use_name_receiver[index]);
             messageModel2.use_id_receiver = item;
 
             MessageBusiness.prototype.postMessageStudent(messageModel2,function(ret){});
