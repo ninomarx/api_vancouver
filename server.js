@@ -628,6 +628,26 @@ server.get('/api/util/InstructorWeekCoursePerformance', function (req, res, next
     return next();
 });
 
+server.get('/api/util/InstructorApplicationReminder', function (req, res, next) {
+    utilResource.InstructorApplicationReminder(req,res);
+    return next();
+});
+
+server.get('/api/util/InstructorClassCheckIn', function (req, res, next) {
+    utilResource.InstructorClassCheckIn(req,res);
+    return next();
+});
+
+server.get('/api/util/StudentClassReminder', function (req, res, next) {
+    utilResource.StudentClassReminder(req,res);
+    return next();
+});
+
+server.get('/api/util/StudentClassReminderDayBefore', function (req, res, next) {
+    utilResource.StudentClassReminderDayBefore(req,res);
+    return next();
+});
+
 /**
  * REPORT
  */

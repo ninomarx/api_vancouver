@@ -94,7 +94,7 @@ var ClassBusiness = (function() {
             sql = sql + " '" + classModel.col_id + "','"  + classModel.cit_id + "',";
             sql = sql + " '" + classModel.cor_id + "','"  + classModel.use_id + "',";
             sql = sql + " '" + classModel.nei_id + "','" + classModel.latitude + "','" +  classModel.longitude + "','',";
-            sql = sql + " '" + classModel.cla_location_name + "'";
+            sql = sql + " '" + classModel.cla_location_name.replace(/'/g, "\\'") + "'";
             sql = sql + " );";
         }
 

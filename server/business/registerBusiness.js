@@ -118,6 +118,7 @@ var RegisterBusiness = (function() {
         connection.query(sql,function(err,registerObj){
             if(!err) {
                 utilBusiness.UserCancellationRecord(registerModel.clr_id);
+                RegisterBusiness.prototype.refundCredit(registerModel.clr_id);
                 callback(registerObj);
             }
         });
@@ -248,6 +249,31 @@ var RegisterBusiness = (function() {
             callback({"code" : 100, "status" : "database error"});
         });
     };
+
+    RegisterBusiness.prototype.refundCredit = function(clr_id,callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+
+        sql = sql + " update user u ";
+        sql = sql + " inner join class_register cr on u.use_id = cr.use_id ";
+        sql = sql + " set use_credit = use_credit + cr.clr_cotuto_credit ";
+        sql = sql + " where cr.clr_id = " + clr_id + "; ";
+
+        connection.query(sql,function(err,registerObj){
+            if(!err) {
+                callback(registerObj);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "database error"});
+        });
+
+    }
 
     return new RegisterBusiness();
 })();

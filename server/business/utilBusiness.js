@@ -408,6 +408,238 @@ var UtilBusiness = (function() {
         });
     };
 
+    UtilBusiness.prototype.InstructorApplicationAcknowledged = function(cor_id) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + "select cou.cor_name, cou.cor_image, us.use_image, us.use_email ";
+        sql = sql + "from course cou ";
+        sql = sql + "inner join user us on cou.use_id = us.use_id ";
+        sql = sql + "where cor_id = " + cor_id + "; ";
+
+        connection.query(sql,function(err,email_data){
+            connection.end();
+            if(!err) {
+
+                var collectionEmail = email_data;
+
+                collectionEmail.forEach(function(item){
+                    emailBusiness.InstructorApplicationAcknowledged(item);
+                })
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
+    };
+
+    UtilBusiness.prototype.InstructorApplicationReminder = function() {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select us.use_first_name,us.use_email ";
+        sql = sql + " from course cou ";
+        sql = sql + " inner join user us on cou.use_id = us.use_id ";
+        sql = sql + " where Timestampdiff(day, cor_added_date,now()) = 5 and cou.cor_status = 'I'; ";
+
+        connection.query(sql,function(err,email_data){
+            connection.end();
+            if(!err) {
+
+                var collectionEmail = email_data;
+
+                collectionEmail.forEach(function(item){
+                    emailBusiness.InstructorApplicationReminder(item);
+                })
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
+    };
+
+    UtilBusiness.prototype.InstructorClassCheckIn = function() {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select us.use_first_name, cou.cor_name,cou.cor_image,us.use_email ";
+        sql = sql + " from course cou ";
+        sql = sql + " inner join user us on cou.use_id = us.use_id ";
+        sql = sql + " where cou.cor_status = 'A' and us.use_type = 2 ";
+        sql = sql + " and (select count(*) from class where cor_id = cou.cor_id and cla_status = 'P') >= 0 ";
+        sql = sql + " and (select count(*) from class where cor_id = cou.cor_id and cla_status = 'A') = 0; ";
+
+        connection.query(sql,function(err,email_data){
+            connection.end();
+            if(!err) {
+
+                var collectionEmail = email_data;
+
+                collectionEmail.forEach(function(item){
+                    emailBusiness.InstructorClassCheckIn(item);
+                })
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
+    };
+
+    UtilBusiness.prototype.InstructorRegCancelNotification = function(clr_id) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select cr.clr_id,us.use_first_name, cou.cor_name,DATE_FORMAT(ct.clt_date,'%Y-%m-%d') as clt_date, ";
+        sql = sql + " cr.clr_cost, DATE_FORMAT(cla.cla_deadline,'%Y-%m-%d') as cla_deadline, ";
+        sql = sql + " DATE_FORMAT(cr.clr_cancel_date,'%Y-%m-%d') as clr_cancel_date, us2.use_first_name, us.use_email ";
+        sql = sql + " from class_register cr ";
+        sql = sql + " inner join user us on cr.use_id = us.use_id ";
+        sql = sql + " inner join course cou on cr.cor_id = cou.cor_id ";
+        sql = sql + " inner join class cla on cr.cla_id = cla.cla_id ";
+        sql = sql + " left join class_time ct on cla.cla_id = ct.cla_id and ct.clt_firstClass = 'Y' ";
+        sql = sql + " inner join user us2 on cou.use_id = us2.use_id ";
+        sql = sql + " where cr.clr_id = " + clr_id + "; ";
+
+
+        connection.query(sql,function(err,email_data){
+            connection.end();
+            if(!err) {
+
+                var collectionEmail = email_data;
+
+                collectionEmail.forEach(function(item){
+                    emailBusiness.InstructorRegCancelNotification(item);
+                })
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
+    };
+
+    UtilBusiness.prototype.InstructorWishlistedClass = function(cor_id) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select us.use_first_name, cou.cor_name,cou.cor_image,us.use_email ";
+        sql = sql + " from course cou ";
+        sql = sql + " inner join user us on cou.use_id = us.use_id ";
+        sql = sql + " where cor_id = " + cor_id + "; ";
+
+
+        connection.query(sql,function(err,email_data){
+            connection.end();
+            if(!err) {
+
+                var collectionEmail = email_data;
+
+                collectionEmail.forEach(function(item){
+                    emailBusiness.InstructorWishlistedClass(item);
+                })
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
+    };
+
+    UtilBusiness.prototype.StudentClassReminder = function() {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select us.use_first_name, cou.cor_name, us2.use_first_name as use_first_name_inst, us2.use_last_name, ";
+        sql = sql + "  Date_format(ct.clt_date, '%M %D') date1, Date_format(ct.clt_date, '%b %d, %Y') date2, cou.cor_image, us2.use_image, ";
+        sql = sql + "     Date_format(ct.clt_start_time, \"%l:%i %p\") AS clt_start_time, ";
+        sql = sql + " TIME_FORMAT(ADDTIME(ct.clt_start_time, SEC_TO_TIME(cla.cla_duration*60)), '%l:%i %p')  AS final_time ";
+        sql = sql + " from class_register cr ";
+        sql = sql + " inner join class cla on cr.cla_id = cla.cla_id ";
+        sql = sql + " inner join class_time ct on cla.cla_id = ct.cla_id and ct.clt_firstClass = 'Y' ";
+        sql = sql + " inner join course cou on cla.cor_id = cou.cor_id ";
+        sql = sql + " inner join city cit on cla.cit_id = cit.cit_id ";
+        sql = sql + " inner join user us on cr.use_id = us.use_id ";
+        sql = sql + " inner join user us2 on cou.use_id = us2.use_id ";
+        sql = sql + " where Timestampdiff(day, DATE_FORMAT(CONVERT_TZ(now(),'-00:00', cit_time_zone),'%Y-%m-%d'), Date_format(cla.cla_deadline, \"%y-%m-%d\")) = 3; ";
+
+
+        connection.query(sql,function(err,email_data){
+            connection.end();
+            if(!err) {
+
+                var collectionEmail = email_data;
+
+                collectionEmail.forEach(function(item){
+                    emailBusiness.StudentClassReminder(item);
+                })
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
+    };
+
+    UtilBusiness.prototype.StudentClassReminderDayBefore = function() {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select us.use_first_name, cou.cor_name, us2.use_first_name as use_first_name_inst, us2.use_last_name, ";
+        sql = sql + "  Date_format(ct.clt_date, '%M %D') date1, Date_format(ct.clt_date, '%b %d, %Y') date2, cou.cor_image, us2.use_image, ";
+        sql = sql + " Date_format(ct.clt_start_time, \"%l:%i %p\") AS clt_start_time, cou.cor_bring, ";
+        sql = sql + " TIME_FORMAT(ADDTIME(ct.clt_start_time, SEC_TO_TIME(cla.cla_duration*60)), '%l:%i %p')  AS final_time ";
+        sql = sql + " from class_register cr ";
+        sql = sql + " inner join class cla on cr.cla_id = cla.cla_id ";
+        sql = sql + " inner join class_time ct on cla.cla_id = ct.cla_id and ct.clt_firstClass = 'Y' ";
+        sql = sql + " inner join course cou on cla.cor_id = cou.cor_id ";
+        sql = sql + " inner join city cit on cla.cit_id = cit.cit_id ";
+        sql = sql + " inner join user us on cr.use_id = us.use_id ";
+        sql = sql + " inner join user us2 on cou.use_id = us2.use_id ";
+        sql = sql + " where Timestampdiff(day, DATE_FORMAT(CONVERT_TZ(now(),'-00:00', cit_time_zone),'%Y-%m-%d'), Date_format(ct.clt_date, \"%y-%m-%d\")) = 1; ";
+
+        connection.query(sql,function(err,email_data){
+            connection.end();
+            if(!err) {
+
+                var collectionEmail = email_data;
+
+                collectionEmail.forEach(function(item){
+                    emailBusiness.StudentClassReminderDayBefore(item);
+                })
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
+    };
+
+    // END - EMAILS - COTUTO
+
     UtilBusiness.prototype.getDistanceFromLatLonInKm = function(lat1,lon1,lat2,lon2, callback) {
         var R = 6371; // Radius of the earth in km
         var dLat = deg2rad(lat2-lat1);  // deg2rad below

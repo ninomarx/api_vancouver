@@ -1,4 +1,5 @@
 var factory = require("./../factory/dbfactory");
+var utilBusiness = require("./../business/utilBusiness");
 
 var WishlistBusiness = (function() {
 
@@ -25,6 +26,8 @@ var WishlistBusiness = (function() {
         connection.query(sql,function(err,wishlist){
             connection.end();
             if(!err) {
+
+                utilBusiness.InstructorWishlistedClass(wishlistModel.cor_id);
 
                 var collectionWishlist = wishlist;
 

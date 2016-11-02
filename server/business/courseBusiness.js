@@ -372,7 +372,7 @@ var CourseBusiness = (function() {
 
             /*  Class Posted Data */
             sql = "";
-            sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
+            sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,concat(Date_format(ct.clt_date, '%m%d%Y'),Date_format(ct.clt_start_time, '%l%i')) as id_icon,";
             sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time,CI.cit_description, PR.pro_code,  ";
             sql = sql + "C.cla_cost, COALESCE(C.cla_address,'') AS cla_address,COALESCE(C.cla_location_name,'') AS cla_location_name,C.cla_location_name, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
             sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, C.cla_status as cla_status_prev, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
@@ -807,6 +807,9 @@ var CourseBusiness = (function() {
                 if(sql == "")
                 {
                     connection.end();
+                    if(courseModel.use_type != '2' && courseModel.cor_status == 'A'){
+                        utilBusiness.InstructorApplicationAcknowledged(courseModel.cor_id);
+                    }
                     return_var = courseModel.cor_id.toString();
                     callback(return_var);
                 }
@@ -814,6 +817,9 @@ var CourseBusiness = (function() {
                     connection.query(sql, function (err, result) {
                         if (!err) {
                             connection.end();
+                            if(courseModel.use_type != '2' && courseModel.cor_status == 'A'){
+                                utilBusiness.InstructorApplicationAcknowledged(courseModel.cor_id);
+                            }
                             return_var = courseModel.cor_id.toString();
                             callback(return_var);
                         }

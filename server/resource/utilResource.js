@@ -51,6 +51,34 @@ var UtilResource = (function() {
         });
     }
 
+    UtilResource.prototype.InstructorApplicationReminder = function(req,res){
+
+        utilBusiness.InstructorApplicationReminder(function(obj){
+            res.json(obj);
+        });
+    }
+
+    UtilResource.prototype.InstructorClassCheckIn = function(req,res){
+
+        utilBusiness.InstructorClassCheckIn(function(obj){
+            res.json(obj);
+        });
+    }
+
+    UtilResource.prototype.StudentClassReminder = function(req,res){
+
+        utilBusiness.StudentClassReminder(function(obj){
+            res.json(obj);
+        });
+    }
+
+    UtilResource.prototype.StudentClassReminderDayBefore = function(req,res){
+
+        utilBusiness.StudentClassReminderDayBefore(function(obj){
+            res.json(obj);
+        });
+    }
+
     return new UtilResource();
 })();
 

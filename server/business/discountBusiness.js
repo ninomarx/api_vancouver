@@ -206,9 +206,9 @@ var DiscountBusiness = (function() {
         var sql = "";
         sql = sql + " SELECT * ";
         sql = sql + " FROM class_promo_codes ";
-        sql = sql + " WHERE cpc_code_name = '" + discountModel.cpc_code_name + "' and cla_id = " + discountModel.cla_id + " "
+        sql = sql + " WHERE cpc_code_name = '" + discountModel.cpc_code_name + "' and (cla_id = " + discountModel.cla_id + " OR cla_id is null) "
         sql = sql + " and (select count(*) from class_register ";
-        sql = sql + "      where cla_id = " + discountModel.cla_id + "  ";
+        sql = sql + "      where (cla_id = " + discountModel.cla_id + " OR cla_id is null)  ";
         sql = sql + "            and clr_status = 'A' ";
         sql = sql + "            and clr_transaction_status <> 'C' ";
         sql = sql + "            and clr_discount_code = '" + discountModel.cpc_code_name + "') < cpc_limit; ";
