@@ -384,16 +384,85 @@ var MessageBusiness = (function() {
     MessageBusiness.prototype.postMessageMultiple = function(messageModel, callback) {
 
         var messageModel2 = [];
+        var aux = messageModel.message;
 
         messageModel.use_id_receiver.forEach(function(item, index){
 
-            messageModel2.message = messageModel.message.replace(/\[First Name\]/g, messageModel2.use_name_receiver[index]);
+            var messageOriginal =  aux;
+            messageModel2 = messageModel;
+            messageModel2.message = messageOriginal.replace('[First Name]', messageModel.use_name_receiver[index]);
             messageModel2.use_id_receiver = item;
 
-            MessageBusiness.prototype.postMessageStudent(messageModel2,function(ret){});
+            MessageBusiness.prototype.postMessageStudentMult(messageModel2,messageModel2.message,messageModel2.use_id_receiver, function(ret){});
         })
 
         callback("OK");
+    };
+
+    MessageBusiness.prototype.postMessageStudentMult = function(messageModel,text,id, callback) {
+
+        /*   utilBusiness.processData(messageModel, function(obj){
+         messageModel = obj;
+         });*/
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+
+        sql = sql + " insert into message (mes_text, mes_date, mes_group, mes_status, use_id_transmitter, use_id_receiver, mes_star, ";
+        sql = sql + "                     mes_read, mes_transmitter_type, cla_id, cor_id) ";
+        sql = sql + "  values ( ";
+        sql = sql + " '" + messageModel.mes_text.replace(/'/g, "\\'") + "',  ";
+        sql = sql + " '" + messageModel.date  + "',  ";
+        sql = sql + " 'N',  ";
+        sql = sql + " 'A',  ";
+        sql = sql + " " + messageModel.use_id_transmitter + ",  ";
+        sql = sql + " " + id + ",  ";
+        sql = sql + " 'N',  ";
+        sql = sql + " 'N',  ";
+        sql = sql + " 1,  ";
+        sql = sql + " " + messageModel.cla_id + ",  ";
+        sql = sql + " " + messageModel.cor_id + "  ";
+        sql = sql + "  );";
+
+
+        connection.query(sql,function(err,message){
+            if(!err) {
+
+                var collectionMessage = message;
+
+                var sql = "";
+
+                sql = sql + " insert into message_conversation (mec_message, mec_date, use_id, mes_id) ";
+                sql = sql + " values (  ";
+                sql = sql + " '" + text.replace(/'/g, "\\'") + "',  ";
+                sql = sql + " now(),  ";
+                sql = sql + " " + messageModel.use_id_transmitter + ",  ";
+                sql = sql + " " + message.insertId + "  ";
+                sql = sql + " ); ";
+
+
+                connection.query(sql,function(err,message1){
+                    connection.end();
+                    if(!err) {
+
+                        utilBusiness.MessageNotificationClass(message1.insertId);
+
+                        var collectionMessageReturn = message1;
+                        callback(collectionMessageReturn);
+                    }
+                });
+
+
+                callback(collectionMessage);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Error to connect database"});
+        });
     };
 
     MessageBusiness.prototype.getClassCourse = function(messageModel, callback) {

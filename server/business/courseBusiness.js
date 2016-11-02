@@ -808,7 +808,7 @@ var CourseBusiness = (function() {
                 {
                     connection.end();
                     if(courseModel.use_type != '2' && courseModel.cor_status == 'A'){
-                        utilBusiness.InstructorApplicationAcknowledged(courseModel.cor_id);
+                        //utilBusiness.InstructorApplicationAcknowledged(courseModel.cor_id);
                     }
                     return_var = courseModel.cor_id.toString();
                     callback(return_var);
@@ -818,7 +818,7 @@ var CourseBusiness = (function() {
                         if (!err) {
                             connection.end();
                             if(courseModel.use_type != '2' && courseModel.cor_status == 'A'){
-                                utilBusiness.InstructorApplicationAcknowledged(courseModel.cor_id);
+                                //utilBusiness.InstructorApplicationAcknowledged(courseModel.cor_id);
                             }
                             return_var = courseModel.cor_id.toString();
                             callback(return_var);
@@ -1665,7 +1665,8 @@ var CourseBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " SELECT count (*) as count FROM class WHERE cor_id = " + courseModel.cor_id + " AND cla_status = 'A';";
+        //sql = sql + " SELECT count(*) as count FROM class WHERE cor_id = " + courseModel.cor_id + " AND cla_status = 'A';";
+        sql = sql + " SELECT count(*) as count FROM class c inner join class_time ct on c.cla_id = ct.cla_id WHERE cor_id = " + courseModel.cor_id + " AND cla_status = 'A' and ct.clt_date >= now();";
 
         connection.query(sql,function(err,courses){
             if(!err) {

@@ -27,7 +27,7 @@ var WishlistBusiness = (function() {
             connection.end();
             if(!err) {
 
-                utilBusiness.InstructorWishlistedClass(wishlistModel.cor_id);
+                //utilBusiness.InstructorWishlistedClass(wishlistModel.cor_id);
 
                 var collectionWishlist = wishlist;
 
