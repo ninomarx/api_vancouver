@@ -450,6 +450,30 @@ var EmailBusiness = (function() {
         });
     };
 
+    EmailBusiness.prototype.sendInstructorApplicationEmail = function(user, callback) {
+
+        email_to = "info@cotuto.com";
+        console.log("User: ", user);
+
+        var mailOptions = {
+            from: '"Cotuto Info" <info@cotuto.com>', // sender address
+            to: email_to, // list of receivers
+            subject: 'New Instructor Application', // Subject line
+            text: 'A user has applied to teach!', // plaintext body
+            html: 'Hello,<br><br>We just received a new instructor application.<br><br>User info:<br>User name: ' + user.use_first_name + user.use_last_name + '<br>User email: ' + user.use_email + '<br><br>Regards.'
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+                return console.log(error);
+            }
+            console.log('Message sent: ' + info.response);
+            callback();
+        });
+
+    };
+
+
     return new EmailBusiness();
 })();
 

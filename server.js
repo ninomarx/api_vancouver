@@ -281,6 +281,11 @@ server.post('/api/user/saveEmailStripe', function (req, res, next) {
     return next();
 });
 
+server.post('/api/user/sendInstructorApplicationEmail', function (req, res, next) {
+    userResource.sendInstructorApplicationEmail(req,res);
+    return next();
+});
+
 
 /**
  * Upload
