@@ -23,6 +23,20 @@ var LoginResource = (function() {
 
     }
 
+    LoginResource.prototype.validateAdmin = function(req,res){
+
+        var loginModel = new Object();
+
+        if (req){
+            loginModel = req.body;
+        }
+
+        loginBusiness.validateAdmin(loginModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
 
     return new LoginResource();
 })();

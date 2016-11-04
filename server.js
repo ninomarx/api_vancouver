@@ -281,6 +281,11 @@ server.post('/api/user/saveEmailStripe', function (req, res, next) {
     return next();
 });
 
+server.post('/api/user/sendInstructorApplicationEmail', function (req, res, next) {
+    userResource.sendInstructorApplicationEmail(req,res);
+    return next();
+});
+
 
 /**
  * Upload
@@ -675,6 +680,14 @@ server.post('/api/admin/instructor/allowInstructor', function (req, res, next) {
  */
 server.post('/api/admin/login/signin', function (req, res, next) {
     adminLoginResource.signin(req,res);
+    return next();
+});
+
+/**
+ * ADMIN - VALIDATE ADMIN
+ */
+server.post('/api/admin/login/validateAdmin', function (req, res, next) {
+    adminLoginResource.validateAdmin(req,res);
     return next();
 });
 

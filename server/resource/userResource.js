@@ -1,4 +1,5 @@
 var userBusiness = require("./../business/userBusiness");
+var emailBusiness = require("./../business/emailBusiness");
 
 var UserResource = (function() {
 
@@ -138,6 +139,19 @@ var UserResource = (function() {
 
         userBusiness.saveEmailStripe(userModel, function(obj){
             res.json(obj);
+        });
+    }
+
+    UserResource.prototype.sendInstructorApplicationEmail = function(req,res){
+
+        var userModel = new Object();
+
+        if (req){
+            userModel = req.body;
+        }
+
+        emailBusiness.sendInstructorApplicationEmail(userModel, function(){
+            res.json();
         });
     }
 
