@@ -684,6 +684,14 @@ server.post('/api/admin/login/signin', function (req, res, next) {
 });
 
 /**
+ * ADMIN - VALIDATE ADMIN
+ */
+server.post('/api/admin/login/validateAdmin', function (req, res, next) {
+    adminLoginResource.validateAdmin(req,res);
+    return next();
+});
+
+/**
  * ADMIN - USER
  */
 server.get('/api/admin/user/select', function (req, res, next) {
