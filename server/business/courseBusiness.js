@@ -358,7 +358,7 @@ var CourseBusiness = (function() {
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = COU.cor_id) AS number_reviews, ";
         sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = COU.cor_id) star_general ";
         sql = sql + " FROM course COU ";
-        sql = sql + " WHERE COU.use_id =  " + courseModel.use_id + " AND COU.cor_status <> 'C' ";
+        sql = sql + " WHERE COU.use_id =  " + courseModel.use_id + " AND COU.cor_status <> 'C' AND COU.cor_id = " + courseModel.cor_id;
         sql = sql + " ORDER BY  COU.cor_id ; ";
 
         connection.query(sql,function(err,courses){if(!err) {
@@ -372,21 +372,21 @@ var CourseBusiness = (function() {
 
             /*  Class Posted Data */
             sql = "";
-            sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,concat(Date_format(ct.clt_date, '%m%d%Y'),Date_format(ct.clt_start_time, '%l%i')) as id_icon,";
-            sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time,CI.cit_description, PR.pro_code,  ";
-            sql = sql + "C.cla_cost, COALESCE(C.cla_address,'') AS cla_address,COALESCE(C.cla_location_name,'') AS cla_location_name,C.cla_location_name, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
-            sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, C.cla_status as cla_status_prev, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
-            sql = sql + "C.cla_allow_lateWithdraw, DATE_FORMAT(C.cla_lateWithdraw_date,\"%m/%d/%Y\") as cla_lateWithdraw_date ,C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link , ";
-            sql = sql + "(SELECT COUNT(*) FROM class_register CR2 WHERE CR2.cla_id = C.cla_id and CR2.clr_status = 'A' AND CR2.use_id = 9999  ) AS qtde_students_aux, ";
-            sql = sql + "(SELECT concat(' - ', Date_format(CTF.clt_date, \"%b %d, %Y\")) FROM   class_time CTF WHERE  CTF.cla_id = C.cla_id AND  clt_firstclass <> 'Y' ORDER  BY clt_date DESC LIMIT 1) AS clt_final_date  ";
-            sql = sql + "FROM Class C ";
-            sql = sql + "INNER JOIN class_time CT ON C.cla_id = CT.cla_id ";
-            sql = sql + "LEFT JOIN city CI ON C.cit_id = CI.cit_id ";
-            sql = sql + "LEFT JOIN province PR ON CI.pro_id = PR.pro_id ";
-            sql = sql + "LEFT JOIN class_register CR ON C.cla_id = CR.cla_id and CR.clr_status = 'A' ";
-            sql = sql + "WHERE C.use_id = " + courseModel.use_id + " and cla_status = 'A' AND clt_firstClass = 'Y' AND CT.clt_date >= "+time_zone_date+" ";
-            sql = sql + "GROUP BY C.cla_id ";
-            sql = sql + "ORDER BY C.cor_id,CT.clt_date; ";
+            sql = sql + " SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,concat(Date_format(ct.clt_date, '%m%d%Y'),Date_format(ct.clt_start_time, '%l%i')) as id_icon,";
+            sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p')  AS final_time,CI.cit_description, PR.pro_code,  ";
+            sql = sql + " C.cla_cost, COALESCE(C.cla_address,'') AS cla_address,COALESCE(C.cla_location_name,'') AS cla_location_name,C.cla_location_name, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
+            sql = sql + " C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, C.cla_status as cla_status_prev, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
+            sql = sql + " C.cla_allow_lateWithdraw, DATE_FORMAT(C.cla_lateWithdraw_date,\"%m/%d/%Y\") as cla_lateWithdraw_date ,C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link , ";
+            sql = sql + " (SELECT COUNT(*) FROM class_register CR2 WHERE CR2.cla_id = C.cla_id and CR2.clr_status = 'A' AND CR2.use_id = 9999  ) AS qtde_students_aux, ";
+            sql = sql + " (SELECT concat(' - ', Date_format(CTF.clt_date, \"%b %d, %Y\")) FROM   class_time CTF WHERE  CTF.cla_id = C.cla_id AND  clt_firstclass <> 'Y' ORDER  BY clt_date DESC LIMIT 1) AS clt_final_date  ";
+            sql = sql + " FROM Class C ";
+            sql = sql + " INNER JOIN class_time CT ON C.cla_id = CT.cla_id ";
+            sql = sql + " LEFT JOIN city CI ON C.cit_id = CI.cit_id ";
+            sql = sql + " LEFT JOIN province PR ON CI.pro_id = PR.pro_id ";
+            sql = sql + " LEFT JOIN class_register CR ON C.cla_id = CR.cla_id and CR.clr_status = 'A' ";
+            sql = sql + " WHERE C.use_id = " + courseModel.use_id + " and cla_status = 'A' AND clt_firstClass = 'Y' AND CT.clt_date >= "+time_zone_date+" AND C.cor_id = " + courseModel.cor_id;
+            sql = sql + " GROUP BY C.cla_id ";
+            sql = sql + " ORDER BY C.cor_id,CT.clt_date; ";
 
             connection.query(sql,function(err,classesA){if(!err) {
                 collectionClassA = classesA;
@@ -434,20 +434,20 @@ var CourseBusiness = (function() {
 
                 /* Class Planned Data */
                 sql = "";
-                sql = sql + "SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
-                sql = sql + "TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p') AS final_time,CI.cit_description, PR.pro_code, ";
-                sql = sql + "C.cla_cost,COALESCE(C.cla_address,'') AS cla_address,COALESCE(C.cla_location_name,'') AS cla_location_name,C.cla_location_name, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
-                sql = sql + "C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, C.cla_status as cla_status_prev, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
-                sql = sql + "C.cla_allow_lateWithdraw,  DATE_FORMAT(C.cla_lateWithdraw_date,\"%m/%d/%Y\") as cla_lateWithdraw_date, C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link,  ";
-                sql = sql + "(SELECT concat(' - ', Date_format(CTF.clt_date, \"%b %d, %Y\")) FROM   class_time CTF WHERE  CTF.cla_id = C.cla_id AND  clt_firstclass <> 'Y' ORDER  BY clt_date DESC LIMIT 1) AS clt_final_date  ";
-                sql = sql + "FROM Class C ";
-                sql = sql + "INNER JOIN class_time CT ON C.cla_id = CT.cla_id ";
-                sql = sql + "LEFT JOIN city CI ON C.cit_id = CI.cit_id ";
-                sql = sql + "LEFT JOIN province PR ON CI.pro_id = PR.pro_id ";
-                sql = sql + "LEFT JOIN class_register CR ON C.cla_id = CR.cla_id ";
-                sql = sql + "WHERE C.use_id = " + courseModel.use_id + " and cla_status = 'P' AND clt_firstClass = 'Y' ";
-                sql = sql + "GROUP BY C.cla_id ";
-                sql = sql + "ORDER BY C.cor_id,CT.clt_date; ";
+                sql = sql + " SELECT C.cor_id,C.cla_id, DATE_FORMAT(CT.clt_date,\"%b %d, %Y\") AS clt_date, DATE_FORMAT(CT.clt_start_time,\"%l:%i %p\") AS clt_start_time,";
+                sql = sql + " TIME_FORMAT(ADDTIME(CT.clt_start_time, SEC_TO_TIME(c.cla_duration*60)), '%l:%i %p') AS final_time,CI.cit_description, PR.pro_code, ";
+                sql = sql + " C.cla_cost,COALESCE(C.cla_address,'') AS cla_address,COALESCE(C.cla_location_name,'') AS cla_location_name,C.cla_location_name, C.cla_max_size, COUNT(CR.clr_id) qtde_students,DATE_FORMAT(CT.clt_date,\"%m/%d/%Y\") AS clt_date_edit, ";
+                sql = sql + " C.cla_session_type, C.cla_duration,C.cla_min_size,C.cla_added_date, C.cla_status, C.cla_status as cla_status_prev, DATE_FORMAT(C.cla_deadline,\"%m/%d/%Y\") AS cla_deadline, C.cla_allow_lateRegistration, ";
+                sql = sql + " C.cla_allow_lateWithdraw,  DATE_FORMAT(C.cla_lateWithdraw_date,\"%m/%d/%Y\") as cla_lateWithdraw_date, C.age_id,C.col_id,CI.pro_id,C.cit_id,C.cor_id,C.nei_id,C.cla_latitude,C.cla_longitude,C.cla_link,  ";
+                sql = sql + " (SELECT concat(' - ', Date_format(CTF.clt_date, \"%b %d, %Y\")) FROM   class_time CTF WHERE  CTF.cla_id = C.cla_id AND  clt_firstclass <> 'Y' ORDER  BY clt_date DESC LIMIT 1) AS clt_final_date  ";
+                sql = sql + " FROM Class C ";
+                sql = sql + " INNER JOIN class_time CT ON C.cla_id = CT.cla_id ";
+                sql = sql + " LEFT JOIN city CI ON C.cit_id = CI.cit_id ";
+                sql = sql + " LEFT JOIN province PR ON CI.pro_id = PR.pro_id ";
+                sql = sql + " LEFT JOIN class_register CR ON C.cla_id = CR.cla_id ";
+                sql = sql + " WHERE C.use_id = " + courseModel.use_id + " and cla_status = 'P' AND clt_firstClass = 'Y' AND C.cor_id = " + courseModel.cor_id;
+                sql = sql + " GROUP BY C.cla_id ";
+                sql = sql + " ORDER BY C.cor_id,CT.clt_date; ";
 
                 connection.query(sql,function(err,classesP){if(!err) {
                     collectionClassP = classesP;
@@ -1782,6 +1782,33 @@ var CourseBusiness = (function() {
 
 
     };
+
+    CourseBusiness.prototype.selectCourseTeachingList = function(courseModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        /* Course Data */
+        var sql = "";
+        sql = sql + " SELECT  COU.cor_id, COU.cor_name ";
+        sql = sql + " FROM course COU ";
+        sql = sql + " WHERE COU.use_id =  " + courseModel.use_id + " AND COU.cor_status <> 'C' ";
+        sql = sql + " ORDER BY  COU.cor_id ; ";
+
+        connection.query(sql,function(err,courses){if(!err) {
+            var collectionCourse = courses;
+            callback(collectionCourse);
+
+        }});
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
+
+
+    };
+
 
     return new CourseBusiness();
 })();

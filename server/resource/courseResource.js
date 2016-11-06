@@ -132,6 +132,19 @@ var CourseResource = (function() {
         });
     }
 
+    CourseResource.prototype.selectCourseTeachingList = function(req,res){
+
+        var courseModel = new Object();
+
+        if (req){
+            courseModel = req.body;
+        }
+
+        courseBusiness.selectCourseTeachingList(courseModel, function(obj){
+            res.json(obj);
+        });
+    }
+
     return new CourseResource();
 })();
 

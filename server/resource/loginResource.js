@@ -64,6 +64,20 @@ var LoginResource = (function() {
 
     }
 
+    LoginResource.prototype.updateImageFacebook = function(req,res){
+
+        var loginModel = new Object();
+
+        if (req){
+            loginModel = req.body;
+        }
+
+        loginBusiness.updateImageFacebook(loginModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
     return new LoginResource();
 })();
 

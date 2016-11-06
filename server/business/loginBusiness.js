@@ -302,6 +302,34 @@ var LoginBusiness = (function() {
         callback(mensx);
     }
 
+    LoginBusiness.prototype.updateImageFacebook = function(loginModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " UPDATE user ";
+        sql = sql + " SET use_image = '" + loginModel.use_image + "'" ;
+        sql = sql + " WHERE use_login = '" + loginModel.use_login + "';";
+
+        connection.query(sql,function(err,login){
+            connection.end();
+            if(!err) {
+
+                var collectionLogin = login;
+
+                callback(collectionLogin);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Erro ao conectar com banco de dados"});
+        });
+
+
+    };
+
     return new LoginBusiness();
 })();
 

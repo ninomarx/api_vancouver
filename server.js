@@ -143,8 +143,6 @@ server.post('/api/course/selectInterest', function (req, res, next) {
     return next();
 });
 
-
-
 server.post('/api/course/selectCourseTeaching', function (req, res, next) {
     courseResource.selectCourseTeaching(req,res);
     return next();
@@ -173,6 +171,11 @@ server.post('/api/course/delete', function (req, res, next) {
 
 server.post('/api/course/selectInactiveCourse', function (req, res, next) {
     courseResource.selectInactiveCourse(req,res);
+    return next();
+});
+
+server.post('/api/course/selectCourseTeachingList', function (req, res, next) {
+    courseResource.selectCourseTeachingList(req,res);
     return next();
 });
 
@@ -225,7 +228,10 @@ server.post('/api/login/signupAdmin', function (req, res, next) {
     return next();
 });
 
-
+server.post('/api/login/updateImageFacebook', function (req, res, next) {
+    loginResource.updateImageFacebook(req,res);
+    return next();
+});
 
 /**
  * User
