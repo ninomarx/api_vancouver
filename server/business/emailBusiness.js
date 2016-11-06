@@ -305,8 +305,8 @@ var EmailBusiness = (function() {
 
     EmailBusiness.prototype.UserClassChangeNotification = function(collectionEmail) {
 
-        email_to = "ninomarques.info@gmail.com";
-        //email_to = collectionEmail.use_email;
+        //email_to = "ninomarques.info@gmail.com";
+        email_to = collectionEmail.use_email;
 
         var mailOptions = {
             from: '"Cotuto Info" <info@cotuto.com>', // sender address
