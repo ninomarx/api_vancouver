@@ -79,6 +79,34 @@ var CategoryResource = (function() {
 
     }
 
+    CategoryResource.prototype.selectId = function(req,res){
+
+        var categoryModel = new Object();
+
+        if (req){
+            categoryModel = req.body;
+        }
+
+        categoryBusiness.selectId(categoryModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
+    CategoryResource.prototype.selectSubCategoryId = function(req,res){
+
+        var categoryModel = new Object();
+
+        if (req){
+            categoryModel = req.body;
+        }
+
+        categoryBusiness.selectSubCategoryId(categoryModel, function(obj){
+            res.json(obj);
+        });
+
+    }
+
     return new CategoryResource();
 })();
 

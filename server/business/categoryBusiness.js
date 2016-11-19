@@ -153,6 +153,63 @@ var CategoryBusiness = (function() {
 
     };
 
+    CategoryBusiness.prototype.selectId = function(categoryModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select cat_id ";
+        sql = sql + " from Category ";
+        sql = sql + " where cat_resume_desc = '" + categoryModel.cat_desc + "';";
+
+        connection.query(sql,function(err,categories){
+            connection.end();
+            if(!err) {
+
+                var collectionCategory = categories;
+
+                callback(collectionCategory);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Database Error"});
+        });
+
+
+    };
+
+    CategoryBusiness.prototype.selectSubCategoryId = function(categoryModel, callback) {
+
+        var connection = factory.getConnection();
+        connection.connect();
+
+        var sql = "";
+        sql = sql + " select sca_id ";
+        sql = sql + " from subcategory ";
+        sql = sql + " where  sca_description = '" + categoryModel.subcat_desc + "';";
+
+
+        connection.query(sql,function(err,categories){
+            connection.end();
+            if(!err) {
+
+                var collectionCategory = categories;
+
+                callback(collectionCategory);
+            }
+        });
+
+        connection.on('error', function(err) {
+            connection.end();
+            callback({"code" : 100, "status" : "Database Error"});
+        });
+
+
+    };
+
     return new CategoryBusiness();
 })();
 

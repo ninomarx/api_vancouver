@@ -34,7 +34,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE CLA.cor_id = corId and clt_date > "+time_zone_date+" and cla_status = 'A' AND clt_firstClass = 'Y' AND cla.cla_id <> date_first_class) as other_dates ";
         sql = sql + " FROM   ( ";
         sql = sql + " SELECT COU.cor_id AS corId, COU.cor_image,COU.cor_name,COU.cor_description, CL.cla_id, ";
-        sql = sql + " CL.cla_cost, USI.usi_image, Date_format(CT.clt_date, \"%b %d\") AS clt_date, ";
+        sql = sql + " CL.cla_cost, USI.usi_image, Date_format(CT.clt_date, \"%b %d\") AS clt_date, Date_format(CT.clt_date, \"%Y-%m-%d\") as clt_date_url,  ";
         sql = sql + " CT.clt_date AS clt_dateFilter, Date_format(CT.clt_start_time, \"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " Dayname(CT.clt_date) AS week_day, CI.cit_description, PR.pro_code, AG.age_description, ";
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size,CL.cla_address, NULLIF(CL.cla_location_name,'') as cla_location_name,";
@@ -46,7 +46,15 @@ var CourseBusiness = (function() {
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
         sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = cl.cor_id) star_general, ";
         sql = sql + " (select coalesce(count(clr_id),0) from class_register where cla_id = cl.cla_id and clr_status = 'A') as students, ";
-        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session ";
+        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session, ";
+        sql = sql + " (select cat_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as category_url, ";
+        sql = sql + " (select sca_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as subcategory_url ";
         if(courseModel.use_id != "")
             sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status ";
         sql = sql + "  ,(SELECT cla.cla_id FROM class cla inner join class_time clat on cla.cla_id = clat.cla_id ";
@@ -138,7 +146,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE CLA.cor_id = corId and clt_date > "+time_zone_date+" and cla_status = 'A' AND clt_firstClass = 'Y' AND cla.cla_id <> date_first_class) as other_dates ";
         sql = sql + " FROM   ( ";
         sql = sql + " SELECT COU.cor_id AS corId,COU.cor_image,COU.cor_name,COU.cor_description, CL.cla_id, ";
-        sql = sql + " CL.cla_cost, USI.usi_image, Date_format(CT.clt_date, \"%b %d\") AS clt_date, ";
+        sql = sql + " CL.cla_cost, USI.usi_image, Date_format(CT.clt_date, \"%b %d\") AS clt_date, Date_format(CT.clt_date, \"%Y-%m-%d\") as clt_date_url, ";
         sql = sql + " CT.clt_date AS clt_dateFilter, Date_format(CT.clt_start_time, \"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " Dayname(CT.clt_date) AS week_day, CI.cit_description, PR.pro_code, AG.age_description, ";
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size,CL.cla_address, NULLIF(CL.cla_location_name,'') as cla_location_name, ";
@@ -150,7 +158,15 @@ var CourseBusiness = (function() {
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
         sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = cl.cor_id) star_general, ";
         sql = sql + " (select coalesce(count(clr_id),0) from class_register where cla_id = cl.cla_id and clr_status = 'A') as students, ";
-        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session ";
+        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session, ";
+        sql = sql + " (select cat_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as category_url, ";
+        sql = sql + " (select sca_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as subcategory_url ";
         if(courseModel.use_id != "")
             sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status";
         sql = sql + "  ,(SELECT cla.cla_id FROM class cla inner join class_time clat on cla.cla_id = clat.cla_id ";
@@ -249,7 +265,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE CLA.cor_id = corId and clt_date > "+time_zone_date+" and cla_status = 'A' AND clt_firstClass = 'Y' AND cla.cla_id <> date_first_class) as other_dates ";
         sql = sql + " FROM   ( ";
         sql = sql + " SELECT COU.cor_id AS corId,COU.cor_image,COU.cor_name,COU.cor_description, CL.cla_id, ";
-        sql = sql + " CL.cla_cost, USI.usi_image, Date_format(CT.clt_date, \"%b %d\") AS clt_date, ";
+        sql = sql + " CL.cla_cost, USI.usi_image, Date_format(CT.clt_date, \"%b %d\") AS clt_date, Date_format(CT.clt_date, \"%Y-%m-%d\") as clt_date_url, ";
         sql = sql + " CT.clt_date AS clt_dateFilter, Date_format(CT.clt_start_time, \"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " Dayname(CT.clt_date) AS week_day, CI.cit_description, PR.pro_code, AG.age_description, ";
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size,CL.cla_address, NULLIF(CL.cla_location_name,'') as cla_location_name, ";
@@ -261,7 +277,15 @@ var CourseBusiness = (function() {
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
         sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = cl.cor_id) star_general, ";
         sql = sql + " (select coalesce(count(clr_id),0) from class_register where cla_id = cl.cla_id and clr_status = 'A') as students, ";
-        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session ";
+        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session, ";
+        sql = sql + " (select cat_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as category_url, ";
+        sql = sql + " (select sca_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as subcategory_url ";
         if(courseModel.use_id != "")
             sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status";
         sql = sql + "  ,(SELECT cla.cla_id FROM class cla inner join class_time clat on cla.cla_id = clat.cla_id ";
@@ -859,7 +883,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE CLA.cor_id = corId and clt_date > "+time_zone_date+" and cla_status = 'A' AND clt_firstClass = 'Y' AND cla.cla_id <> date_first_class) as other_dates ";
         sql = sql + " FROM   ( ";
         sql = sql + " SELECT COU.cor_id AS corId,COU.cor_image,COU.cor_name,COU.cor_description, CL.cla_id, ";
-        sql = sql + " CL.cla_cost, USI.usi_image, Date_format(CT.clt_date, \"%b %d\") AS clt_date, ";
+        sql = sql + " CL.cla_cost, USI.usi_image, Date_format(CT.clt_date, \"%b %d\") AS clt_date,  Date_format(CT.clt_date, \"%Y-%m-%d\") as clt_date_url,";
         sql = sql + " CT.clt_date AS clt_dateFilter, Date_format(CT.clt_start_time, \"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " Dayname(CT.clt_date) AS week_day, CI.cit_description, PR.pro_code, AG.age_description, ";
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size,CL.cla_address, NULLIF(CL.cla_location_name,'') as cla_location_name, ";
@@ -871,7 +895,15 @@ var CourseBusiness = (function() {
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
         sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = cl.cor_id) star_general, ";
         sql = sql + " (select coalesce(count(clr_id),0) from class_register where cla_id = cl.cla_id and clr_status = 'A') as students, ";
-        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session ";
+        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session, ";
+        sql = sql + " (select cat_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as category_url, ";
+        sql = sql + " (select sca_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as subcategory_url ";
         if(courseModel.use_id != "")
             sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status";
         sql = sql + "  ,(SELECT cla.cla_id FROM class cla inner join class_time clat on cla.cla_id = clat.cla_id ";
@@ -1263,7 +1295,7 @@ var CourseBusiness = (function() {
         sql = sql + " WHERE CLA.cor_id = corId and clt_date > "+time_zone_date+" and cla_status = 'A' AND clt_firstClass = 'Y' AND cla.cla_id <> date_first_class) as other_dates ";
         sql = sql + " FROM   ( ";
         sql = sql + " SELECT COU.cor_id AS corId,COU.cor_image,COU.cor_name,COU.cor_description, CL.cla_id, ";
-        sql = sql + " CL.cla_cost, USI.usi_image, Date_format(CT.clt_date, \"%b %d\") AS clt_date, ";
+        sql = sql + " CL.cla_cost, USI.usi_image, Date_format(CT.clt_date, \"%b %d\") AS clt_date, Date_format(CT.clt_date, \"%Y-%m-%d\") as clt_date_url, ";
         sql = sql + " CT.clt_date AS clt_dateFilter, Date_format(CT.clt_start_time, \"%l:%i %p\") AS clt_start_time, ";
         sql = sql + " Dayname(CT.clt_date) AS week_day, CI.cit_description, PR.pro_code, AG.age_description, ";
         sql = sql + " COL.col_description, CL.cla_min_size, CL.cla_max_size,CL.cla_address, NULLIF(CL.cla_location_name,'') as cla_location_name, ";
@@ -1275,7 +1307,15 @@ var CourseBusiness = (function() {
         sql = sql + " (select coalesce(count(*),0) from class_review where cor_id = cl.cor_id) AS number_reviews, ";
         sql = sql + " (select coalesce(Sum(cre_stars) / Count(cre_id),0) from class_review  where cor_id = cl.cor_id) star_general, ";
         sql = sql + " (select coalesce(count(clr_id),0) from class_register where cla_id = cl.cla_id and clr_status = 'A') as students, ";
-        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session ";
+        sql = sql + " (select count(*) from class_time where cla_id = cl.cla_id) AS number_session, ";
+        sql = sql + " (select cat_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as category_url, ";
+        sql = sql + " (select sca_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as subcategory_url ";
         if(courseModel.use_id != "")
             sql = sql + " ,COALESCE(WS.wis_status,'N') AS wis_status";
         sql = sql + "  ,(SELECT cla.cla_id FROM class cla inner join class_time clat on cla.cla_id = clat.cla_id ";
@@ -1717,7 +1757,15 @@ var CourseBusiness = (function() {
         sql = sql + " (SELECT  cla_cost FROM class WHERE cor_id = COU.cor_id order by cla_id  desc limit 1) cla_cost, ";
         sql = sql + " (SELECT Coalesce(Count(*), 0) FROM class_review WHERE  cor_id = cl.cor_id) AS number_reviews, ";
         sql = sql + " (SELECT Coalesce(Sum(cre_stars) / Count(cre_id), 0) FROM class_review WHERE  cor_id = cl.cor_id) star_general, ";
-        sql = sql + " (SELECT COUNT(*) FROM class_time WHERE cla_id in ((SELECT  max(cla_id) FROM class WHERE cor_id = COU.cor_id))) number_session ";
+        sql = sql + " (SELECT COUNT(*) FROM class_time WHERE cla_id in ((SELECT  max(cla_id) FROM class WHERE cor_id = COU.cor_id))) number_session, ";
+        sql = sql + " (select cat_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as category_url, ";
+        sql = sql + " (select sca_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = cl.cor_id limit 1) as subcategory_url ";
         if(courseModel.use_id != "")
             sql = sql + " ,Coalesce(nullif(WS.wis_status,''), 'N') AS wis_status ";
         sql = sql + " FROM course COU ";

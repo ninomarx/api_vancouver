@@ -122,7 +122,15 @@ server.post('/api/category/selectSubcategoryFilter', function (req, res, next) {
     return next();
 });
 
+server.post('/api/category/selectId', function (req, res, next) {
+    categoryResource.selectId(req,res);
+    return next();
+});
 
+server.post('/api/category/selectSubCategoryId', function (req, res, next) {
+    categoryResource.selectSubCategoryId(req,res);
+    return next();
+});
 
 /**
  * Courses

@@ -218,7 +218,7 @@ var ClassBusiness = (function() {
         sql = sql + "   cor_style, cor_why_take, CONCAT(coalesce(US.use_first_name,''),' ',coalesce(US.use_last_name,'') ) AS use_name, ";
         sql = sql + "   use_description, use_email, usi_about, usi_expertise, usi_credential, use_image, ";
         sql = sql + "   usi_coached_before, usi_coached_experience, usi_speaking_groups, usi_speaking_experience, ";
-        sql = sql + "   DATE_FORMAT(CT.clt_date, \"%b %d\") as dateShow, ";
+        sql = sql + "   DATE_FORMAT(CT.clt_date, \"%b %d\") as dateShow, DATE_FORMAT(CT.clt_date, \"%Y-%m-%d\") as clt_date_url, ";
         sql = sql + "   case  ";
         sql = sql + "       when cla_session_type = 'S' then DATE_FORMAT(cla_deadline, \"%b %d, %Y\")  ";
         sql = sql + "       when cla_session_type = 'M' and cla_allow_lateWithdraw = 'Y' then  DATE_FORMAT(cla_lateWithdraw_date, \"%b %d, %Y\")  ";
@@ -346,12 +346,21 @@ var ClassBusiness = (function() {
         connection.connect();
 
         var sql = "";
-        sql = sql + " SELECT distinct CT.cla_id, DATE_FORMAT(clt_date, \"%b %d\") as dateShow,DATE_FORMAT(clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(clt_date) AS dayName, ";
-        sql = sql + " CT.cla_cost, TIME_FORMAT(C.clt_start_time, '%l:%i %p') AS clt_start_time, ";
+        sql = sql + " SELECT distinct CT.cla_id, DATE_FORMAT(clt_date, \"%b %d\") as dateShow, Date_format(clt_date, \"%Y-%m-%d\") as clt_date_url, DATE_FORMAT(clt_start_time,\"%l:%i %p\") AS timeShow, DAYNAME(clt_date) AS dayName, ";
+        sql = sql + " CT.cla_cost, TIME_FORMAT(C.clt_start_time, '%l:%i %p') AS clt_start_time, COU.cor_name, ";
         sql = sql + " TIME_FORMAT(ADDTIME(C.clt_start_time, SEC_TO_TIME(cT.cla_duration*60)), '%l:%i %p')  AS final_time, ";
-        sql = sql + " (SELECT COUNT(*) FROM class_time WHERE cla_id = CT.cla_id) AS sessions ";
+        sql = sql + " (SELECT COUNT(*) FROM class_time WHERE cla_id = CT.cla_id) AS sessions, ";
+        sql = sql + " (select cat_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = CT.cor_id limit 1) as category_url, ";
+        sql = sql + " (select sca_description from course_subcategory cs ";
+        sql = sql + " inner join category cat on cs.cat_id = cat.cat_id ";
+        sql = sql + " inner join subcategory subcat on cat.cat_id = subcat.cat_id and cs.sca_id = subcat.sca_id ";
+        sql = sql + " where cor_id = CT.cor_id limit 1) as subcategory_url ";
         sql = sql + " FROM class CT ";
         sql = sql + " INNER JOIN class_time C ON CT.cla_id = C.cla_id ";
+        sql = sql + " INNER JOIN course COU ON CT.cor_id = COU.cor_id ";
         sql = sql + " INNER JOIN city cit ON CT.cit_id = cit.cit_id ";
         sql = sql + " where CT.cor_id = " + classModel.cor_id + "  and clt_firstClass = 'Y' AND CT.cla_status = 'A' and C.clt_date > "+time_zone_date+" and CT.cla_id <> " +  classModel.cla_id + " ";
         sql = sql + " ORDER BY clt_date "
