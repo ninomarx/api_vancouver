@@ -82,7 +82,7 @@ var CourseBusiness = (function() {
          sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
-        sql = sql + " WHERE aux.cla_id = date_first_class ";
+        sql = sql + " WHERE aux.cla_id = date_first_class AND (AUX.cla_deadline2 >= 0 OR AUX.cla_allow_lateregistration = 'Y')";
         sql = sql + " ORDER  BY cla_deadlineFilter,spot_left DESC,priority,distance,cor_name ";
         sql = sql + " LIMIT 24 ";
 
@@ -194,7 +194,7 @@ var CourseBusiness = (function() {
          sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
-        sql = sql + " WHERE aux.cla_id = date_first_class ";
+        sql = sql + " WHERE aux.cla_id = date_first_class AND (AUX.cla_deadline2 >= 0 OR AUX.cla_allow_lateregistration = 'Y') ";
         sql = sql + " ORDER  BY cla_deadlineFilter,spot_left DESC,priority,distance,cor_name ";
         sql = sql + " LIMIT 24 ";
 
@@ -316,7 +316,7 @@ var CourseBusiness = (function() {
          sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
-        sql = sql + " WHERE aux.cla_id = date_first_class ";
+        sql = sql + " WHERE aux.cla_id = date_first_class AND (AUX.cla_deadline2 >= 0 OR AUX.cla_allow_lateregistration = 'Y') ";
         sql = sql + " ORDER  BY cla_deadlineFilter,spot_left DESC,priority,distance,cor_name ";
         sql = sql + " LIMIT 24 ";
 
@@ -1168,7 +1168,7 @@ var CourseBusiness = (function() {
         sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
         sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
         sql = sql + " ) ";*/
-        sql = sql + " WHERE aux.cla_id = date_first_class ";
+        sql = sql + " WHERE aux.cla_id = date_first_class AND (AUX.cla_deadline2 >= 0 OR AUX.cla_allow_lateregistration = 'Y')";
 
         if(courseModel.filter.sort == "R") {
             sql = sql + " ORDER BY priority, cla_deadlineFilter,spot_left DESC, distance, cor_name; ";
@@ -1592,7 +1592,7 @@ var CourseBusiness = (function() {
          sql = sql + "   (cla_allow_lateRegistration = 'S' AND now() <= clt_dateFilter AND cla_min_size <= students  ) OR ";
          sql = sql + "   (cla_allow_lateRegistration = 'N' AND cla_deadline BETWEEN 0 AND 7) ";
          sql = sql + " ) ";*/
-        sql = sql + " WHERE aux.cla_id = date_first_class ";
+        sql = sql + " WHERE aux.cla_id = date_first_class AND (AUX.cla_deadline2 >= 0 OR AUX.cla_allow_lateregistration = 'Y')";
 
         if(courseModel.filter.sort == "R") {
             sql = sql + " ORDER BY priority, cla_deadlineFilter,spot_left DESC, distance, cor_name; ";
@@ -1841,7 +1841,7 @@ var CourseBusiness = (function() {
         sql = sql + " SELECT  COU.cor_id, COU.cor_name ";
         sql = sql + " FROM course COU ";
         sql = sql + " WHERE COU.use_id =  " + courseModel.use_id + " AND COU.cor_status <> 'C' ";
-        sql = sql + " ORDER BY  COU.cor_id ; ";
+        sql = sql + " ORDER BY  COU.cor_name ; ";
 
         connection.query(sql,function(err,courses){if(!err) {
             var collectionCourse = courses;

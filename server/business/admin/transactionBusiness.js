@@ -25,6 +25,7 @@ var TransactionBusiness = (function() {
         sql = sql + " INNER JOIN course COU ON CR.cor_id = COU.cor_id ";
         sql = sql + " INNER JOIN user US1 ON CR.use_id = US1.use_id ";
         sql = sql + " INNER JOIN user US2 ON COU.use_id = US2.use_id ";
+        sql = sql + " WHERE CR.use_id <> 9999 ";
         sql = sql + " ORDER BY clr_id DESC; ";
 
         connection.query(sql,function(err,transaction){
