@@ -116,7 +116,7 @@ server.post('/api/category/selectSubcategory', function (req, res, next) {
     categoryResource.selectSubcategory(req,res);
     return next();
 });
-heroku git:remote -a cotuto-api-live
+
 server.post('/api/category/selectSubcategoryFilter', function (req, res, next) {
     categoryResource.selectSubcategoryFilter(req,res);
     return next();
