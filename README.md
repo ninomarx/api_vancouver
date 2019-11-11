@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fninomarx%2Fapi_vancouver.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fninomarx%2Fapi_vancouver?ref=badge_shield)
+
 EasyRTC Server Example
 ======================
 
@@ -30,3 +32,6 @@ Viewing the examples:
 
  - In your WebRTC enabled browser, visit your server address including the port. By default port 8080 is used.
  - http://localhost:8080/
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fninomarx%2Fapi_vancouver.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fninomarx%2Fapi_vancouver?ref=badge_large)
